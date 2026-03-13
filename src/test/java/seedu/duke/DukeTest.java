@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class DukeTest {
     private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -33,5 +34,14 @@ class DukeTest {
         String expectedOutput = Duke.LOGO + System.lineSeparator();
         assertEquals(expectedOutput, outputStream.toString());
     }
+
+    @Test
+    public void main_containsWelcomeMessage() {
+        Duke.main(new String[]{});
+        String output = outputStream.toString();
+        String expectedOutput="Welcome to ClausControl, Santa!";
+        assertTrue(output.contains(expectedOutput));
+    }
+
 }
 //@@author
