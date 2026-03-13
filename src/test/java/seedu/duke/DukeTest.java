@@ -12,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class DukeTest {
     private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -40,5 +41,14 @@ class DukeTest {
     public void logo_isNotEmpty() {
         assertFalse(Duke.LOGO.isEmpty());
     }
+
+    @Test
+    public void main_containsWelcomeMessage() {
+        Duke.main(new String[]{});
+        String output = outputStream.toString();
+        String expectedOutput="Welcome to ClausControl, Santa!";
+        assertTrue(output.contains(expectedOutput));
+    }
+
 }
 //@@author
