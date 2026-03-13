@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test;
 //@@author shrabasti-c-reused
 //Reused from https://www.geeksforgeeks.org/advance-java/unit-testing-of-system-out-println-with-junit/
 // with minor modifications
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import java.io.ByteArrayOutputStream;
