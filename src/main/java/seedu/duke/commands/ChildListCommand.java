@@ -2,8 +2,6 @@ package seedu.duke.commands;
 
 public class ChildListCommand extends Command {
     
-    public static final String COMMAND_WORD = "childlist";
-    
     @Override
     public String execute() {
 
@@ -16,4 +14,5 @@ public class ChildListCommand extends Command {
         }
         return sb.toString();
     }
+    
 }

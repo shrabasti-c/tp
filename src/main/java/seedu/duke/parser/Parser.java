@@ -5,6 +5,7 @@ package seedu.duke.parser;
 import seedu.duke.commands.ChildCommand;
 import seedu.duke.commands.ChildListCommand;
 import seedu.duke.commands.Command;
+import seedu.duke.commands.ElfListCommand;
 import seedu.duke.data.exception.IllegalValueException;
 
 public class Parser {
@@ -21,6 +22,9 @@ public class Parser {
         
         case "childlist":
             return new ChildListCommand();
+        
+        case "elflist":
+            return new ElfListCommand();
         
         default:
             throw new IllegalValueException("Unknown command. Did you mean 'child' or 'childlist'?");
