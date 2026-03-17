@@ -11,6 +11,9 @@ import seedu.duke.commands.ElfListCommand;
 import seedu.duke.commands.FindCommand;
 import seedu.duke.commands.GiftCommand;
 import seedu.duke.commands.GiftListCommand;
+import seedu.duke.commands.NiceCommand;
+import seedu.duke.commands.DeGiftCommand;
+
 import seedu.duke.data.exception.IllegalValueException;
 
 import java.util.ArrayList;
