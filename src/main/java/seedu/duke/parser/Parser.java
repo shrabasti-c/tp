@@ -14,6 +14,7 @@ import seedu.duke.commands.GiftListCommand;
 import seedu.duke.commands.NiceCommand;
 import seedu.duke.commands.DeGiftCommand;
 import seedu.duke.commands.ViewCommand;
+import seedu.duke.commands.EditCommand;
 
 import seedu.duke.data.exception.IllegalValueException;
 
@@ -32,6 +33,9 @@ public class Parser {
 
         case "view":
             return prepareView(arguments);
+
+        case "edit":
+            return prepareEdit(arguments);
 
         case "childlist":
             return new ChildListCommand();
@@ -92,6 +96,24 @@ public class Parser {
             return new ViewCommand(childIndex);
         } catch (NumberFormatException e) {
             throw new IllegalValueException("Please use valid command format : view [childindex]");
+        }
+    }
+
+    private Command prepareEdit(String args) throws IllegalValueException {
+        try {
+            int nIndex = args.indexOf("n/");
+
+            if (nIndex == -1) {
+                throw new IllegalValueException("Format: edit CHILD_INDEX n/NAME");
+            }
+
+            int index = Integer.parseInt(args.trim().split(" ")[0]) - 1;
+            String newName = args.substring(nIndex + 2).trim();
+            return new EditCommand(index, newName);
+        } catch (IllegalValueException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new IllegalValueException("Format: edit CHILD_INDEX n/NAME");
         }
     }
 

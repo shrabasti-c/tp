@@ -1,6 +1,7 @@
 package seedu.duke.data.child;
 import java.util.ArrayList;
 
+import seedu.duke.data.exception.IllegalValueException;
 import seedu.duke.data.gift.Gift;
 
 //Solution below inspired by https://github.com/se-edu/addressbook-level2/blob/master/src/seedu/addressbook/data
@@ -37,8 +38,8 @@ public class Child implements ReadOnlyChild{
     }
 
     // ChatGPT was used to ideate and generate this mutator method
-    public void editName(Name newName) {
-        this.name = newName;
+    public void setName(String newName) throws IllegalValueException {
+        this.name = new Name(newName);
     }
 
     @Override
