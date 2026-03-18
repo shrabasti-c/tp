@@ -1,3 +1,4 @@
+//@@author GShubhan
 package seedu.duke.commands;
 
 import seedu.duke.data.child.Child;
@@ -26,7 +27,10 @@ public class ActionCommand extends Command {
             return INVALID_INDEX;
         }
         Child child = childList.get(childIndex - 1);
+        assert child != null : "Child should not be null";
         child.addAction(action, severity);
         return String.format(SUCCESS, child.getName(), action, severity);
     }
 }
+
+//@@author

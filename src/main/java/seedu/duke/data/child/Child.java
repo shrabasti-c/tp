@@ -50,6 +50,8 @@ public class Child implements ReadOnlyChild{
 
     //@@author GShubhan
     public void addAction(String action, int severity) {
+        assert severity >= -5 && severity <= 5 : "Severity out of range";
+        assert action != null && !action.isEmpty() : "Action cannot be empty";
         actions.add(action);
         severities.add(severity);
     }
