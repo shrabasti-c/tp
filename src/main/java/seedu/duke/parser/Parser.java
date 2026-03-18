@@ -13,6 +13,7 @@ import seedu.duke.commands.GiftCommand;
 import seedu.duke.commands.GiftListCommand;
 import seedu.duke.commands.NiceCommand;
 import seedu.duke.commands.DeGiftCommand;
+import seedu.duke.commands.ViewCommand;
 
 import seedu.duke.data.exception.IllegalValueException;
 
@@ -28,6 +29,9 @@ public class Parser {
         switch (commandWord) {
         case "child":
             return prepareAdd(arguments);
+
+        case "view":
+            return prepareView(arguments);
 
         case "childlist":
             return new ChildListCommand();
@@ -80,6 +84,15 @@ public class Parser {
         }
 
         return new ChildCommand(name);
+    }
+
+    private Command prepareView(String args) throws IllegalValueException {
+        try {
+            int childIndex= Integer.parseInt(args.trim()) - 1;
+            return new ViewCommand(childIndex);
+        } catch (NumberFormatException e) {
+            throw new IllegalValueException("Please use valid command format : view [childindex]");
+        }
     }
 
     private Command prepareAction(String args) throws IllegalValueException {
