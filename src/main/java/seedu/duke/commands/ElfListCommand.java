@@ -1,3 +1,4 @@
+//@@author Kiri
 package seedu.duke.commands;
 
 public class ElfListCommand extends Command {
@@ -16,3 +17,4 @@ public class ElfListCommand extends Command {
     }
     
 }
+//@@author

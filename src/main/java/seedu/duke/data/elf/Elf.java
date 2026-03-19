@@ -1,3 +1,4 @@
+//@@author Kiri
 package seedu.duke.data.elf;
 import seedu.duke.data.child.Name;
 // reuse child
@@ -32,3 +33,4 @@ public class Elf implements ReadOnlyElf {
     }
     
 }
+//@@author

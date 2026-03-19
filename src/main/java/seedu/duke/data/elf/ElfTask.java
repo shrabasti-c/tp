@@ -1,3 +1,4 @@
+//@@author Kiri
 package seedu.duke.data.elf;
 // similar to child class,
 
@@ -17,3 +18,4 @@ public class ElfTask {
     }
     
 }
+//@@author

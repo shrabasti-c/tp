@@ -41,7 +41,8 @@ public class Parser {
 
         case "delete":
             return prepareDelete(arguments);
-
+        
+        //@@author Kiri
         case "childlist":
             return new ChildListCommand();
 
@@ -50,7 +51,8 @@ public class Parser {
 
         case "find":
             return new FindCommand(arguments);
-
+        //@@author
+        
         case "action":
             return prepareAction(arguments);
         //@@author

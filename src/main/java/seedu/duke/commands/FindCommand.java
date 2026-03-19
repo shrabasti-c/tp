@@ -1,3 +1,4 @@
+//@@author Kiri
 package seedu.duke.commands;
 
 import seedu.duke.data.child.Child;
@@ -28,3 +29,4 @@ public class FindCommand extends Command{
         return (count == 0) ? "No match found." : "Found " + count + " matches:\n" + sb.toString().trim();
     }
 }
+//@@author
