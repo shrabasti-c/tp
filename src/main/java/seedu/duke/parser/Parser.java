@@ -56,7 +56,7 @@ public class Parser {
             return new FindCommand(arguments);
         
         case "elf":
-            return new ElfCommand(arguments);
+            return PrepareElf(arguments);
         //@@author
         
         case "action":
@@ -230,6 +230,24 @@ public class Parser {
         }
 
 
+    }
+    
+    private Command PrepareElf(String args) throws IllegalValueException {
+        String name = null;
+        
+        String[] tokens = args.split(" ");
+        
+        for (String token : tokens) {
+            if (token.startsWith("n/")) {
+                name = token.substring(2);
+            }
+        }
+        
+        if (name == null || name.isEmpty()) {
+            throw new IllegalValueException("Format: elf n/NAME");
+        }
+        
+        return new ElfCommand(name);
     }
 }
 
