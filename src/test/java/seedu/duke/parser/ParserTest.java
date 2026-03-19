@@ -33,7 +33,7 @@ public class ParserTest {
     //@@author Kiri
     @Test
     public void parse_elfCommand_parsedCorrectly() throws Exception {
-        String input = "elf Dobby";
+        String input = "elf n/Dobby";
         Command command = parser.parseCommand(input);
         // Assert that the command matches the expected ElfCommand
         assert command instanceof ElfCommand : "Should be an instance of ElfCommand";
@@ -41,7 +41,7 @@ public class ParserTest {
     
     @Test
     public void parse_findCommand_parsedCorrectly() throws Exception {
-        String input = "find Alice";
+        String input = "find n/Alice";
         Command command = parser.parseCommand(input);
         assert command instanceof FindCommand : "Should be an instance of FindCommand";
     }

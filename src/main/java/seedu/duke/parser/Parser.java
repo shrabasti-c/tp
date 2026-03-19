@@ -50,9 +50,9 @@ public class Parser {
 
         case "elflist":
             return new ElfListCommand();
-
+        
         case "find":
-            return new FindCommand(arguments);
+            return prepareFind(arguments);
         
         case "elf":
             return prepareElf(arguments);
@@ -235,6 +235,24 @@ public class Parser {
     }
     
     // @@author Kiri
+    private Command prepareFind(String args) throws IllegalValueException {
+        String name = null;
+        String[] tokens = args.split(" ");
+        
+        for (String token : tokens) {
+            if (token.startsWith("n/")) {
+                name = token.substring(2).trim();
+                break;
+            }
+        }
+        
+        if (name == null || name.isEmpty()) {
+            throw new IllegalValueException("Format: find n/NAME");
+        }
+        
+        return new FindCommand(name);
+    }
+    
     private Command prepareElf(String args) throws IllegalValueException {
         String name = null;
         
