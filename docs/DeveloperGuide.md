@@ -12,7 +12,7 @@
 ## Product scope
 ### Target user profile
 
-{Describe the target user profile}
+Santa Claus [single user]
 
 ### Value proposition
 
@@ -21,9 +21,12 @@
 ## User Stories
 
 |Version| As a ... | I want to ... | So that I can ...|
-|--------|----------|---------------|------------------|
-|v1.0|new user|see usage instructions|refer to them when I forget how to use the application|
-|v2.0|user|find a to-do item by name|locate a to-do without having to go through the entire list|
+|--------|------|--------------|------------------|
+|v1.0| Santa|Assign gifts to all children|I can spread christmas cheer|
+|v1.0| Santa|Edit gifts - add/remove|I can correct my list if i make mistakes|
+|v1.0| Santa|Mark/unmark gifts as delivered/not delivered|I can keep track of my delivery list|
+|v1.0| Santa|See list of gifts|I can allocate the budget appropriately|
+|v2.0| user |find a to-do item by name|locate a to-do without having to go through the entire list|
 
 ## Non-Functional Requirements
 
