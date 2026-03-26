@@ -16,6 +16,11 @@ public class GiftCommand extends Command{
 
     @Override
     public String execute(){
+        //@@author GShubhan
+        if (!isFinalized) {
+            return "Please finalise the lists before allocating gifts!";
+        }
+        //@@author
         if(childIndex<0 || childIndex>childList.size()){
             return "Please enter valid child index";
         }

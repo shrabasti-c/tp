@@ -21,6 +21,8 @@ import seedu.duke.commands.ReassignCommand;
 import seedu.duke.commands.TaskCommand;
 import seedu.duke.commands.ViewCommand;
 import seedu.duke.data.exception.IllegalValueException;
+import seedu.duke.commands.FinalizeCommand;
+
 
 import java.util.ArrayList;
 
@@ -69,6 +71,10 @@ public class Parser {
         //@@author GShubhan
         case "nice":
             return new NiceCommand();
+        case "finalize":
+            // fall through
+        case "finalise":
+            return new FinalizeCommand();
         //@@author
         //@@author GShubhan
         case "naughty":
