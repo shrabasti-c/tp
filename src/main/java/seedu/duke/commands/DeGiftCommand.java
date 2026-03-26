@@ -1,6 +1,7 @@
 //@@author prerana-r11
 package seedu.duke.commands;
 import seedu.duke.data.child.Child;
+import seedu.duke.data.gift.Gift;
 
 public class DeGiftCommand extends Command{
     private int childIndex;
@@ -21,9 +22,14 @@ public class DeGiftCommand extends Command{
         if(giftIndex<1 || giftIndex>child.getGifts().size()){
             return "Please enter valid gift index";
         }
-        child.deGift(giftIndex-1);
+        Gift gift=child.getGifts().get(giftIndex-1);
+        try{
+            gift.markNotPrepared();
+        } catch (IllegalStateException e){
+            return e.getMessage();
+        }
 
-        return "Removed gift " + giftIndex + " from child " + child.getName();
+        return " gift set as not prepared " + giftIndex + " for child " + child.getName();
 
     }
 }
