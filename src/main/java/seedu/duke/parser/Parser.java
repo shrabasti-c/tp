@@ -227,18 +227,8 @@ public class Parser {
             String[] parts=args.trim().split(" ");
             int childIndex= Integer.parseInt(parts[0]);
             int giftIndex= Integer.parseInt(parts[1]);
-            String status=parts[2].toLowerCase();
 
-            boolean delivered;
-            if(status.equals("d/delivered")){
-                delivered=true;
-            } else if(status.equals("d/undelivered")){
-                delivered=false;
-            } else{
-                throw new IllegalValueException("Status must be 'delivered' or 'undelivered'");
-            }
-
-            return new DeliverGiftCommand(childIndex,giftIndex,delivered);
+            return new DeliverGiftCommand(childIndex,giftIndex);
 
         } catch (NumberFormatException e) {
             throw new IllegalValueException("Please use valid command format :" +

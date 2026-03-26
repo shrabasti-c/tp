@@ -27,12 +27,6 @@ public class Child implements ReadOnlyChild{
     public void addGift(Gift gift){
         gifts.add(gift);
     }
-    public void setGiftDelivered(int index, boolean delivered){
-        gifts.get(index).setDelivered(delivered);
-    }
-    public void deGift(int index){
-        gifts.remove(index);
-    }
     public ArrayList<Gift> getGifts(){
         return gifts;
     }

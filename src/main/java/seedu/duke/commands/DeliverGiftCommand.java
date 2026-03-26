@@ -1,16 +1,15 @@
 //@@author prerana-r11
 package seedu.duke.commands;
 import seedu.duke.data.child.Child;
+import seedu.duke.data.gift.Gift;
 
 public class DeliverGiftCommand extends Command{
     private int childIndex;
     private int giftIndex;
-    private boolean delivered;
 
-    public DeliverGiftCommand(int childIndex,int giftIndex,boolean delivered){
+    public DeliverGiftCommand(int childIndex,int giftIndex){
         this.childIndex=childIndex;
         this.giftIndex=giftIndex;
-        this.delivered=delivered;
     }
 
     @Override
@@ -23,9 +22,16 @@ public class DeliverGiftCommand extends Command{
         if(giftIndex<1 || giftIndex>child.getGifts().size()){
             return "Please enter valid index value";
         }
-        child.setGiftDelivered(giftIndex-1,delivered);
-        return "Gift " + giftIndex + " for child " +child.getName()
-                + " marked as " + (delivered ? "delivered" : "undelivered");
+
+        Gift gift=child.getGifts().get(giftIndex-1);
+
+        try{
+            gift.markDelivered();
+        } catch(Exception e){
+            return e.getMessage();
+        }
+        return "Gift is delivered yayyy!" + gift;
+
     }
 }
 //@@author
