@@ -8,6 +8,19 @@
 
 {Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
 
+### Finalize Feature (Shubhan Gabra)
+
+#### Overview
+The "finalize" command freezes the nice and naughty lists, preventing further addition of actions and reassignments.
+After the finalize command, gift assignment is enabled.
+
+#### Implementation
+The finalize feature uses a boolean flag "isFinalized" stored in Duke.java.
+This flag is passed to every command via setData() in Command.java.
+When the user types "finalize", FinalizeCommand.execute() returns a success message.
+Duke then detects it via instanceof FinalizeCommand and sets the flag to true.
+
+
 
 ## Product scope
 ### Target user profile
