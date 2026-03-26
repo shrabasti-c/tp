@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
+//@@author shrabasti-c
 public class Duke {
 
     public static final String LOGO = "  .-\"\"-.\n" +
@@ -80,4 +80,5 @@ public class Duke {
         new Duke().run();
     }
 }
+//@@author
 

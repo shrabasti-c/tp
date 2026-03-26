@@ -38,6 +38,7 @@ class DukeTest {
         new Duke(simulatedInput).run();
         assertTrue(outputStream.toString().contains(Duke.LOGO));
     }
+    //@@author
 
     @Test
     public void logo_isNotEmpty() {

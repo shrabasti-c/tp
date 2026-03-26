@@ -1,5 +1,6 @@
 // ChatGPT was used to generate the parseCommand and prepareAdd functions with reference from https://github.com/
 // se-edu/addressbook-level2/blob/master/src/seedu/addressbook/parser/Parser.java and supervision from the author
+
 package seedu.duke.parser;
 
 import seedu.duke.commands.ActionCommand;
@@ -22,6 +23,7 @@ import seedu.duke.commands.TaskCommand;
 import seedu.duke.commands.ViewCommand;
 import seedu.duke.data.exception.IllegalValueException;
 
+//@@author shrabasti-c
 import java.util.ArrayList;
 
 public class Parser {
@@ -43,7 +45,8 @@ public class Parser {
 
         case "delete":
             return prepareDelete(arguments);
-        
+
+        //@@author
         //@@author Kiri
         case "childlist":
             return new ChildListCommand();
@@ -97,6 +100,7 @@ public class Parser {
 
     }
 
+    //@@author shrabasti-c
     private Command prepareAdd(String args) throws IllegalValueException {
         String name = null;
 
@@ -151,6 +155,7 @@ public class Parser {
         }
     }
 
+    //@@author
     private Command prepareAction(String args) throws IllegalValueException {
         try {
             int aIndex = args.indexOf("a/");

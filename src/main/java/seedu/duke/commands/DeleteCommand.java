@@ -1,3 +1,4 @@
+//@@author shrabasti-c
 package seedu.duke.commands;
 
 public class DeleteCommand extends Command {
@@ -16,3 +17,4 @@ public class DeleteCommand extends Command {
         return "Child removed .. :(";
     }
 }
+//@@author

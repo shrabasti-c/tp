@@ -6,9 +6,12 @@ import seedu.duke.data.gift.Gift;
 
 //Solution below inspired by https://github.com/se-edu/addressbook-level2/blob/master/src/seedu/addressbook/data
 // /person/Person.java
+//@@author shrabasti-c
 public class Child implements ReadOnlyChild{
     private Name name;
     private ArrayList<Gift> gifts;
+
+    //@@author
 
     //@@author GShubhan
     private String listAssignment = null;
@@ -16,6 +19,7 @@ public class Child implements ReadOnlyChild{
     private ArrayList<Integer> severities = new ArrayList<>();
     //@@author
 
+    //@@author shrabasti-c
     public Child(Name name) {
         this.name = name;
         this.gifts=new ArrayList<>();
@@ -47,6 +51,7 @@ public class Child implements ReadOnlyChild{
     public String toString() {
         return name.toString();
     }
+    //@@author
 
     //@@author GShubhan
     public void addAction(String action, int severity) {

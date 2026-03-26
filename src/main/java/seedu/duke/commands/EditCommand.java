@@ -1,3 +1,4 @@
+//@@author shrabasti-c
 package seedu.duke.commands;
 
 import seedu.duke.data.child.Child;
@@ -28,3 +29,5 @@ public class EditCommand extends Command {
         return "Name changed!";
     }
 }
+
+//@@author
