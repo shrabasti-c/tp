@@ -6,10 +6,12 @@ import seedu.duke.data.gift.Gift;
 public class DeliverGiftCommand extends Command{
     private int childIndex;
     private int giftIndex;
+    private boolean delivered;
 
-    public DeliverGiftCommand(int childIndex,int giftIndex){
+    public DeliverGiftCommand(int childIndex,int giftIndex,boolean delivered){
         this.childIndex=childIndex;
         this.giftIndex=giftIndex;
+        this.delivered=delivered;
     }
 
     @Override
@@ -26,11 +28,15 @@ public class DeliverGiftCommand extends Command{
         Gift gift=child.getGifts().get(giftIndex-1);
 
         try{
-            gift.markDelivered();
+            if(delivered){
+                gift.markDelivered();
+            } else {
+                gift.markUndelivered();
+            }
         } catch(Exception e){
             return e.getMessage();
         }
-        return "Gift is delivered yayyy!" + gift;
+        return "Gift status updated, check giftlist!" + gift;
 
     }
 }

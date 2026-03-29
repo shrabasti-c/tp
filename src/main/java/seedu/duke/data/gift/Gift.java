@@ -10,7 +10,7 @@ public class Gift {
     private State state;
 
     public enum State {
-        NOT_PREPARED,
+        PREPARED,
         IN_PROGRESS,
         DELIVERED
     }
@@ -24,7 +24,7 @@ public class Gift {
         }
 
         this.giftName = giftName;
-        this.state = State.NOT_PREPARED;
+        this.state = State.IN_PROGRESS;
         logger.info("Created gift: " + giftName);
     }
 
@@ -35,18 +35,15 @@ public class Gift {
         return state==State.DELIVERED;
     }
 
-    public void markInProgress() {
+    public void markPrepared() {
         if (state == State.DELIVERED) {
             throw new IllegalStateException("oops you can't modify a delivered gift :(");
         }
-        this.state = State.IN_PROGRESS;
+        this.state = State.PREPARED;
     }
 
-    public void markNotPrepared() {
-        if (state == State.DELIVERED) {
-            throw new IllegalStateException("oops you can't modify a delivered gift :(");
-        }
-        this.state = State.NOT_PREPARED;
+    public void markUndelivered() {
+        this.state = State.IN_PROGRESS;
     }
 
     public void markDelivered() {
@@ -57,12 +54,12 @@ public class Gift {
     @Override
     public String toString() {
         switch (state) {
-        case IN_PROGRESS:
-            return "[IN_PROGRESS]" + giftName;
+        case PREPARED:
+            return "[Prepared]" + giftName;
         case DELIVERED:
             return "[Delivered] " + giftName;
         default:
-            return "[Not Prepared] " + giftName;
+            return "[In progress] " + giftName;
 
         }
     }

@@ -24,12 +24,12 @@ public class DeGiftCommand extends Command{
         }
         Gift gift=child.getGifts().get(giftIndex-1);
         try{
-            gift.markNotPrepared();
+            child.getGifts().remove(giftIndex-1);
         } catch (IllegalStateException e){
             return e.getMessage();
         }
 
-        return " gift set as not prepared " + giftIndex + " for child " + child.getName();
+        return " gift removed " + giftIndex + " for child " + child.getName();
 
     }
 }
