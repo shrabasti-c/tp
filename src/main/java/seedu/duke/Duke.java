@@ -56,7 +56,6 @@ public class Duke {
         try {
             this.childList = new ArrayList<>(storage.load());
         } catch (IOException e) {
-            System.out.println("No previous data found! Starting now");
             this.childList = new ArrayList<>();
         }
         //@@author
@@ -81,7 +80,6 @@ public class Duke {
                 try {
                     storage.save(childList);
                 } catch (IOException e) {
-                    System.out.println("Error saving data!");
                 }
                 if (command instanceof FinalizeCommand) {
                     isFinalized = true;
@@ -91,6 +89,8 @@ public class Duke {
             } catch (IllegalValueException e) {
                 System.out.println(e.getMessage()); //TODO: ui formatting required
                 logger.log(Level.INFO, "processing error");
+            } catch(Exception e){
+                return;
             }
         } while (true);
     }
