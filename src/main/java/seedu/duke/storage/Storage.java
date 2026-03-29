@@ -6,13 +6,18 @@ import seedu.duke.data.gift.Gift;
 import seedu.duke.data.child.Name;
 import java.util.logging.Logger;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Storage {
-    private String filePath;
     private static final Logger logger = Logger.getLogger(Storage.class.getName());
+    private String filePath;
 
     public Storage(String filePath){
         this.filePath=filePath;
