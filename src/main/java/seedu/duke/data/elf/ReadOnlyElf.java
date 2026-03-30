@@ -4,5 +4,7 @@ import seedu.duke.data.child.Name;
 
 public interface ReadOnlyElf {
     Name getName();
+    
+    void setName(Name name);
 }
 //@@author

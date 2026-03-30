@@ -1,33 +1,60 @@
 //@@author Kiri
 package seedu.duke.commands;
 
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import seedu.duke.data.elf.Elf;
+import seedu.duke.data.elf.ElfTask;
 
 public class ElfListCommand extends Command {
     private static final Logger logger = Logger.getLogger(ElfListCommand.class.getName());
     
     @Override
     public String execute() {
+        assert elfList != null : "elfList should be initialized before executing ElfListCommand";
         
-        assert elfList != null : "The elfList must be initialized before execution!";
-        
-        logger.log(Level.INFO, "Executing ElfListCommand...");
+        logger.log(Level.INFO, "Executing ElfListCommand: displaying all elves and tasks.");
         
         if (elfList.isEmpty()) {
-            logger.log(Level.WARNING, "Elf list is empty. Returning empty message.");
+            logger.log(Level.INFO, "Elf list is empty, returning empty message.");
             return "The elf list is empty!";
         }
         
-        logger.log(Level.INFO, "Found " + elfList.size() + " elves in the list.");
+        StringBuilder sb = new StringBuilder("Here are all elves and their tasks:\n");
         
-        StringBuilder sb = new StringBuilder("Here are all elf:\n");
         for (int i = 0; i < elfList.size(); i++) {
-            assert elfList.get(i) != null : "Elf at index " + i + " should not be null";
-            sb.append((i + 1)).append(". ").append(elfList.get(i).toString()).append("\n");
+            Elf elf = elfList.get(i);
+            
+            assert elf != null : "Elf at index " + i + " should not be null";
+            assert elf.getName() != null : "Elf name at index " + i + " should not be null";
+            
+            sb.append((i + 1)).append(". ").append(elf.getName());
+            
+            ArrayList<ElfTask> tasks = elf.getTasks();
+            
+            assert tasks != null : "Task list for elf " + elf.getName() + " should not be null";
+            
+            if (tasks.isEmpty()) {
+                sb.append(" [No tasks assigned]");
+            } else {
+                sb.append("\n   Tasks:");
+                for (int j = 0; j < tasks.size(); j++) {
+                    ElfTask task = tasks.get(j);
+                    
+                    assert task != null : "Task at index " + j + " for elf " + elf.getName() + " is null";
+                    
+                    sb.append("\n     - ").append(j + 1).append(": ").append(task.toString());
+                }
+            }
+            sb.append("\n");
         }
         
-        return sb.toString().trim();
+        String result = sb.toString().trim();
+        logger.log(Level.FINE, "Successfully generated elf list string.");
+        
+        return result;
     }
 }
 //@@author

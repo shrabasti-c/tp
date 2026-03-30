@@ -3,12 +3,14 @@ package seedu.duke.parser;
 import seedu.duke.commands.Command;
 import seedu.duke.commands.DeGiftCommand;
 import seedu.duke.commands.DeliverGiftCommand;
+import seedu.duke.commands.DetaskCommand;
 import seedu.duke.commands.GiftCommand;
 import seedu.duke.commands.PrepareGiftCommand;
 import seedu.duke.commands.ActionCommand;
 import seedu.duke.commands.ChildCommand;
 import seedu.duke.commands.ChildListCommand;
 import seedu.duke.commands.EditCommand;
+import seedu.duke.commands.EditElfCommand;
 import seedu.duke.commands.ElfCommand;
 import seedu.duke.commands.ElfListCommand;
 import seedu.duke.commands.FinalizeCommand;
@@ -17,6 +19,8 @@ import seedu.duke.commands.GiftListCommand;
 import seedu.duke.commands.NaughtyCommand;
 import seedu.duke.commands.NiceCommand;
 import seedu.duke.commands.ReassignCommand;
+import seedu.duke.commands.ResetCommand;
+import seedu.duke.commands.RmElfCommand;
 import seedu.duke.commands.TaskCommand;
 import seedu.duke.commands.ViewCommand;
 import seedu.duke.commands.DeleteCommand;
@@ -27,13 +31,28 @@ import java.util.ArrayList;
 
 
 public class Parser {
+    private static Command pendingCommand = null;
+    
 
     //@@author shrabasti-c-reused
     // ChatGPT was used to generate the boilerplate of parseCommand function with reference from https://github.com/
     // se-edu/addressbook-level2/blob/master/src/seedu/addressbook/parser/Parser.java and supervision from the author
     public Command parseCommand(String userInput) throws IllegalValueException {
+        
+        //@@author Kiri
+        String trimmedInput = userInput.trim();
+        if (trimmedInput.equalsIgnoreCase("confirm")) {
+            if (pendingCommand == null) {
+                throw new IllegalValueException("There is no pending command to confirm.");
+            }
+            Command toExecute = pendingCommand;
+            pendingCommand = null;
+            return toExecute;
+        }
+        pendingCommand = null;
+        //@@author
+        
         String[] parts = userInput.trim().split(" ", 2);
-
         String commandWord = parts[0];
         String arguments = parts.length > 1 ? parts[1] : "";
 
@@ -48,7 +67,9 @@ public class Parser {
             return prepareEdit(arguments);
 
         case "delete":
-            return prepareDelete(arguments);
+            pendingCommand = prepareDelete(arguments);
+            throw new IllegalValueException("WARNING: You are about to delete a child. Type 'confirm' to proceed.");
+        
         //@@author
 
         //@@author Kiri
@@ -66,6 +87,22 @@ public class Parser {
         
         case "task":
             return prepareTaskAction(arguments);
+            
+        case "detask":
+            pendingCommand = prepareDetask(arguments);
+            throw new IllegalValueException("WARNING: You are about to remove a task. Type 'confirm' to proceed.");
+            
+        case "editelf":
+            return prepareEditElf(arguments);
+        
+        case "rmelf":
+            pendingCommand = prepareRmElf(arguments);
+            throw new IllegalValueException("WARNING: You are about to remove an Elf. Type 'confirm' to proceed.");
+        
+        case "reset":
+            pendingCommand = new ResetCommand();
+            throw new IllegalValueException("WARNING: This will wipe ALL data and reset to initial state. " +
+                    "Type 'confirm' to proceed.");
         //@@author
 
         case "action":
@@ -96,7 +133,8 @@ public class Parser {
         case "gift":
             return prepareGiftAction(arguments);
         case "degift":
-            return prepareDeGiftAction(arguments);
+            pendingCommand = prepareDeGiftAction(arguments);
+            throw new IllegalValueException("WARNING: You are about to remove a gift. Type 'confirm' to proceed.");
         case "deliver":
             return prepareDeliverAction(arguments);
         case "giftlist":
@@ -268,22 +306,39 @@ public class Parser {
     
     // @@author Kiri
     private Command prepareFind(String args) throws IllegalValueException {
-        String name = null;
-        String[] tokens = args.split(" ");
+        String trimmedArgs = args.trim();
+        if (trimmedArgs.isEmpty()) {
+            throw new IllegalValueException("Format: find n/NAME or find a/AGE or find l/LOCATION");
+        }
         
-        for (String token : tokens) {
-            if (token.startsWith("n/")) {
-                name = token.substring(2).trim();
-                break;
+        String query = null;
+        FindCommand.SearchType searchType = null;
+        
+        if (trimmedArgs.startsWith("n/")) {
+            query = trimmedArgs.substring(2).trim();
+            searchType = FindCommand.SearchType.NAME;
+        } else if (trimmedArgs.startsWith("a/")) {
+            query = trimmedArgs.substring(2).trim();
+            searchType = FindCommand.SearchType.AGE;
+            
+            try {
+                Integer.parseInt(query);
+            } catch (NumberFormatException e) {
+                throw new IllegalValueException("Age must be a valid integer!");
             }
+        } else if (trimmedArgs.startsWith("l/")) {
+            query = trimmedArgs.substring(2).trim();
+            searchType = FindCommand.SearchType.LOCATION;
         }
         
-        if (name == null || name.isEmpty()) {
-            throw new IllegalValueException("Format: find n/NAME");
+        if (searchType == null || query == null || query.isEmpty()) {
+            throw new IllegalValueException("Invalid find format! \n" +
+                    "Usage: find n/NAME or find a/AGE or find l/LOCATION");
         }
         
-        return new FindCommand(name);
+        return new FindCommand(query, searchType);
     }
+    
     
     private Command prepareElf(String args) throws IllegalValueException {
         String name = null;
@@ -334,6 +389,94 @@ public class Parser {
             throw new IllegalValueException("Format: task ELF_INDEX t/TASK_DESCRIPTION");
         }
     }
+    
+    private Command prepareDetask(String args) throws IllegalValueException {
+        try {
+            String trimmedArgs = args.trim();
+            
+            int ePos = trimmedArgs.indexOf("e/");
+            int tPos = trimmedArgs.indexOf("t/");
+            
+            if (ePos == -1 || tPos == -1) {
+                throw new IllegalValueException("Format: detask e/ELF_INDEX t/TASK_INDEX");
+            }
+            
+            String elfPart = (ePos < tPos)
+                    ? trimmedArgs.substring(ePos + 2, tPos).trim()
+                    : trimmedArgs.substring(ePos + 2).trim();
+            
+            String taskPart = (tPos < ePos)
+                    ? trimmedArgs.substring(tPos + 2, ePos).trim()
+                    : trimmedArgs.substring(tPos + 2).trim();
+            
+            int elfIndex = Integer.parseInt(elfPart);
+            int taskIndex = Integer.parseInt(taskPart);
+            
+            return new DetaskCommand(elfIndex, taskIndex);
+            
+        } catch (NumberFormatException e) {
+            throw new IllegalValueException("Indexes must be valid integers.");
+        } catch (Exception e) {
+            throw new IllegalValueException("Correct format: detask e/ELF_INDEX t/TASK_INDEX");
+        }
+    }
+    
+    private Command prepareEditElf(String args) throws IllegalValueException {
+        String trimmedArgs = args.trim();
+        int ePos = trimmedArgs.indexOf("e/");
+        int nPos = trimmedArgs.indexOf("n/");
+        
+        if (ePos == -1 || nPos == -1) {
+            throw new IllegalValueException("Invalid format! Expected: editelf e/ELF_INDEX n/NEW_NAME");
+        }
+        
+        try {
+            String elfPart;
+            String namePart;
+            
+            if (ePos < nPos) {
+                elfPart = trimmedArgs.substring(ePos + 2, nPos).trim();
+                namePart = trimmedArgs.substring(nPos + 2).trim();
+            } else {
+                namePart = trimmedArgs.substring(nPos + 2, ePos).trim();
+                elfPart = trimmedArgs.substring(ePos + 2).trim();
+            }
+            
+            if (elfPart.isEmpty()) {
+                throw new IllegalValueException("Elf index cannot be empty! Format: e/INDEX");
+            }
+            if (namePart.isEmpty()) {
+                throw new IllegalValueException("New name cannot be empty! Format: n/NAME");
+            }
+            
+            int elfIndex = Integer.parseInt(elfPart);
+            return new EditElfCommand(elfIndex, namePart);
+            
+        } catch (NumberFormatException e) {
+            throw new IllegalValueException("The Elf index must be a valid integer.");
+        }
+    }
+    
+    private Command prepareRmElf(String args) throws IllegalValueException {
+        String trimmedArgs = args.trim();
+        int ePos = trimmedArgs.indexOf("e/");
+        
+        if (ePos == -1) {
+            throw new IllegalValueException("Invalid format! Expected: rmelf e/ELF_INDEX");
+        }
+        
+        try {
+            String indexPart = trimmedArgs.substring(ePos + 2).trim();
+            if (indexPart.isEmpty()) {
+                throw new IllegalValueException("Please provide an Elf index after 'e/'.");
+            }
+            
+            int elfIndex = Integer.parseInt(indexPart);
+            return new RmElfCommand(elfIndex);
+            
+        } catch (NumberFormatException e) {
+            throw new IllegalValueException("The Elf index must be a valid integer.");
+        }
+    }
     // @@author
 }
-

@@ -10,7 +10,8 @@ import seedu.duke.data.gift.Gift;
 public class Child implements ReadOnlyChild{
     private Name name;
     private ArrayList<Gift> gifts;
-    //@@author
+    private int age = -1;         // 新增
+    private String location = null;
 
     //@@author GShubhan
     private String listAssignment = null;
@@ -23,8 +24,20 @@ public class Child implements ReadOnlyChild{
         this.name = name;
         this.gifts=new ArrayList<>();
     }
+    
+    //@@author Kiri
+    public Child(Name name, int age, String location) {
+        this(name);
+        this.age = age;
+        this.location = (location != null) ? location.trim() : null;
+    }
+    
+    public int getAge() { return age; }
+    public String getLocation() { return location; }
+    public boolean hasAge() { return age != -1; }
+    public boolean hasLocation() { return location != null && !location.isEmpty(); }
     //@@author
-
+    
     public void addGift(Gift gift){
         gifts.add(gift);
     }

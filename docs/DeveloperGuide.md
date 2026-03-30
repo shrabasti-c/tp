@@ -58,8 +58,23 @@ Santa Claus [single user]
 
 ## Glossary
 
-* *glossary item* - Definition
+* **Elf**: A system entity representing a staff member or volunteer.
+* **Child**: A system entity representing a recipient or target user.
+* **CLI**: Command Line Interface; an interface where users type commands to interact with the software.
+* **Index**: A unique numerical identifier assigned to an item in the current displayed list.
 
 ## Instructions for manual testing
 
-{Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
+#### Initial Launch
+1. Download the `.jar` file and place it in an empty folder.
+2. Run `java -jar duke.jar`. The GUI should load with a sample message.
+
+#### Testing Elf Commands
+1. **Adding:** Type `elf n/Buddy`. Verify "Buddy" appears in the `elflist`.
+2. **Editing:** Type `Editelf e/1 n/Dobby`. Verify the first Elf's name changes to "Dobby".
+3. **Deleting:** Type `rmelf e/1`. Verify the Elf is removed.
+
+#### Testing Find Functionality
+1. Ensure you have children data loaded (use `childlist` to check).
+2. Type `find l/Singapore`.
+3. **Expected Result:** Only children with the location "Singapore" are displayed in the list.
