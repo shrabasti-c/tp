@@ -19,7 +19,7 @@ test {
     enableAssertions = true
     testLogging {
         events "passed", "skipped", "failed"
-
+        enableAssertions = true
         showExceptions true
         exceptionFormat "full"
         showCauses true

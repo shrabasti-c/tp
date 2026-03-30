@@ -8,11 +8,35 @@
 
 {Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
 
+### Finalize Feature (Shubhan Gabra)
+
+#### Overview
+The "finalize" command freezes the nice and naughty lists, preventing further addition of actions and reassignments.
+After the finalize command, gift assignment is enabled.
+
+#### Implementation
+The finalize feature uses a boolean flag "isFinalized" stored in Duke.java.
+This flag is passed to every command via setData() in Command.java.
+When the user types "finalize", FinalizeCommand.execute() returns a success message.
+Duke then detects it via instanceof FinalizeCommand and sets the flag to true.
+
+### Add Child Feature (Chakraborty Shrabasti)
+
+#### Overview
+The "child" command creates a child entity/profile consisting of its name and location.
+
+#### Implementation
+The proposed child profile is facilitated by Child Class. 
+It implements ReadOnlyChild with a name fetching mechanism, stored internally with a Name class with a reference to a name String input by the user.
+Given below is an example usage scenario and how the add child mechanism behaves at each step.
+Step 1. The user launches the application for the first time.
+Step 2. The user executes child n/Bruce Wayne to add a child in the child list.
+
 
 ## Product scope
 ### Target user profile
 
-{Describe the target user profile}
+Santa Claus [single user]
 
 ### Value proposition
 
@@ -21,9 +45,12 @@
 ## User Stories
 
 |Version| As a ... | I want to ... | So that I can ...|
-|--------|----------|---------------|------------------|
-|v1.0|new user|see usage instructions|refer to them when I forget how to use the application|
-|v2.0|user|find a to-do item by name|locate a to-do without having to go through the entire list|
+|--------|------|--------------|------------------|
+|v1.0| Santa|Assign gifts to all children|I can spread christmas cheer|
+|v1.0| Santa|Edit gifts - add/remove|I can correct my list if i make mistakes|
+|v1.0| Santa|Mark/unmark gifts as delivered/not delivered|I can keep track of my delivery list|
+|v1.0| Santa|See list of gifts|I can allocate the budget appropriately|
+|v2.0| user |find a to-do item by name|locate a to-do without having to go through the entire list|
 
 ## Non-Functional Requirements
 

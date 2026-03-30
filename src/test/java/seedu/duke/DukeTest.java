@@ -38,11 +38,14 @@ class DukeTest {
         new Duke(simulatedInput).run();
         assertTrue(outputStream.toString().contains(Duke.LOGO));
     }
+    //@@author
 
+    //@@author GShubhan
     @Test
     public void logo_isNotEmpty() {
         assertFalse(Duke.LOGO.isEmpty());
     }
+    //@@author
 
     @Test
     public void main_containsWelcomeMessage() throws IllegalValueException {

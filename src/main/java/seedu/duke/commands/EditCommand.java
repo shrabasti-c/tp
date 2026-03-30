@@ -3,6 +3,7 @@ package seedu.duke.commands;
 import seedu.duke.data.child.Child;
 import seedu.duke.data.exception.IllegalValueException;
 
+//@@author shrabasti-c
 public class EditCommand extends Command {
     private final int childIndex;
     private final String newName;
@@ -28,3 +29,4 @@ public class EditCommand extends Command {
         return "Name changed!";
     }
 }
+//@@author

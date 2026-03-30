@@ -1,11 +1,10 @@
-//@@author shrabasti-c
 package seedu.duke.commands;
 
 import seedu.duke.data.child.Child;
 import seedu.duke.data.gift.Gift;
-
 import java.util.ArrayList;
 
+//@@author shrabasti-c
 public class ViewCommand extends Command{
     private final int childIndex;
 
@@ -20,7 +19,6 @@ public class ViewCommand extends Command{
         }
 
         Child child = childList.get(childIndex);
-
         StringBuilder sb= new StringBuilder("Name: " + child.getName()+" \n");
 
         ArrayList<Gift> gifts = child.getGifts();

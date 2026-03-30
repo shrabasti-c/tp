@@ -1,8 +1,8 @@
+package seedu.duke.data.exception;
+
 //@@author shrabasti-c-reused
 //Reused from https://github.com/se-edu/addressbook-level2/blob/master/src/seedu/addressbook/data/exception
 // /IllegalValueException.java
-package seedu.duke.data.exception;
-
 /**
  * Signals that some given data does not fulfill some constraints.
  */

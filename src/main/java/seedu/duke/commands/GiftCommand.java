@@ -16,12 +16,18 @@ public class GiftCommand extends Command{
 
     @Override
     public String execute(){
+        //@@author GShubhan
+        if (!isFinalized) {
+            return "Please finalise the lists before allocating gifts!";
+        }
+        //@@author
         if(childIndex<0 || childIndex>childList.size()){
             return "Please enter valid child index";
         }
         Child child= childList.get(childIndex);
         for(String name :giftNames){
             Gift gift=new Gift(name);
+            gift.markInProgress();
             child.addGift(gift);
         }
         return "Added gifts to child " + (childIndex+1) + ": " + giftNames;

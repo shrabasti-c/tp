@@ -21,8 +21,14 @@ public class ActionCommand extends Command {
         this.severity = severity;
     }
 
+
     @Override
     public String execute() {
+        //@@author GShubhan
+        if (isFinalized) {
+            return "Cannot add actions after the lists have been finalised!";
+        }
+        //@@author
         if (childIndex < 1 || childIndex > childList.size()) {
             return INVALID_INDEX;
         }

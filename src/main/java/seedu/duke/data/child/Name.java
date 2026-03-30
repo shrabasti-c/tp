@@ -1,9 +1,9 @@
-//@@author shrabasti-c-reused
-//Reused from https://github.com/se-edu/addressbook-level2/blob/master/src/seedu/addressbook/data/person/Name.java
-//with minor modifications
 package seedu.duke.data.child;
 import seedu.duke.data.exception.IllegalValueException;
 
+//@@author shrabasti-c-reused
+//Reused from https://github.com/se-edu/addressbook-level2/blob/master/src/seedu/addressbook/data/person/Name.java
+//with minor modifications
 public class Name {
     public static final String MESSAGE_NAME_CONSTRAINTS = "A child's name should contain spaces" +
             " or alphabetic characters only";

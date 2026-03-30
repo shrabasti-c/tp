@@ -16,6 +16,9 @@ public class ReassignCommand extends Command {
 
     @Override
     public String execute() {
+        if (isFinalized) {
+            return "Cannot reassign after the lists have been finalised!";
+        }
         if (childIndex < 1 || childIndex > childList.size()) {
             return "Enter a valid child index!";
         }

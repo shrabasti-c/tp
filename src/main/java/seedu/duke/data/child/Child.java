@@ -1,11 +1,12 @@
 package seedu.duke.data.child;
-import java.util.ArrayList;
 
+import java.util.ArrayList;
 import seedu.duke.data.exception.IllegalValueException;
 import seedu.duke.data.gift.Gift;
 
 //Solution below inspired by https://github.com/se-edu/addressbook-level2/blob/master/src/seedu/addressbook/data
 // /person/Person.java
+//@@author shrabasti-c
 public class Child implements ReadOnlyChild{
     private Name name;
     private ArrayList<Gift> gifts;
@@ -18,6 +19,7 @@ public class Child implements ReadOnlyChild{
     private ArrayList<Integer> severities = new ArrayList<>();
     //@@author
 
+    //@@author shrabasti-c
     public Child(Name name) {
         this.name = name;
         this.gifts=new ArrayList<>();
@@ -39,30 +41,30 @@ public class Child implements ReadOnlyChild{
     public void addGift(Gift gift){
         gifts.add(gift);
     }
-    public void setGiftDelivered(int index, boolean delivered){
-        gifts.get(index).setDelivered(delivered);
-    }
-    public void deGift(int index){
-        gifts.remove(index);
-    }
     public ArrayList<Gift> getGifts(){
         return gifts;
     }
 
+    //@@author shrabasti-c
     @Override
     public Name getName() {
         return name;
     }
+    //@@author
 
+    //@@author shrabasti-c-reused
     // ChatGPT was used to ideate and generate this mutator method
     public void setName(String newName) throws IllegalValueException {
         this.name = new Name(newName);
     }
+    //@@author
 
+    //@@author shrabasti-c
     @Override
     public String toString() {
         return name.toString();
     }
+    //@@author
 
     //@@author GShubhan
     public void addAction(String action, int severity) {
