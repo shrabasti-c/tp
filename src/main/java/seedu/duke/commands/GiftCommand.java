@@ -27,7 +27,6 @@ public class GiftCommand extends Command{
         Child child= childList.get(childIndex);
         for(String name :giftNames){
             Gift gift=new Gift(name);
-            gift.markInProgress();
             child.addGift(gift);
         }
         return "Added gifts to child " + (childIndex+1) + ": " + giftNames;

@@ -1,25 +1,28 @@
 package seedu.duke.parser;
 
+import seedu.duke.commands.Command;
+import seedu.duke.commands.DeGiftCommand;
+import seedu.duke.commands.DeliverGiftCommand;
+import seedu.duke.commands.GiftCommand;
+import seedu.duke.commands.PrepareGiftCommand;
 import seedu.duke.commands.ActionCommand;
 import seedu.duke.commands.ChildCommand;
 import seedu.duke.commands.ChildListCommand;
-import seedu.duke.commands.Command;
-import seedu.duke.commands.DeGiftCommand;
-import seedu.duke.commands.DeleteCommand;
-import seedu.duke.commands.DeliverGiftCommand;
 import seedu.duke.commands.EditCommand;
 import seedu.duke.commands.ElfCommand;
 import seedu.duke.commands.ElfListCommand;
+import seedu.duke.commands.FinalizeCommand;
 import seedu.duke.commands.FindCommand;
-import seedu.duke.commands.GiftCommand;
 import seedu.duke.commands.GiftListCommand;
 import seedu.duke.commands.NaughtyCommand;
 import seedu.duke.commands.NiceCommand;
 import seedu.duke.commands.ReassignCommand;
 import seedu.duke.commands.TaskCommand;
 import seedu.duke.commands.ViewCommand;
+import seedu.duke.commands.DeleteCommand;
+
 import seedu.duke.data.exception.IllegalValueException;
-import seedu.duke.commands.FinalizeCommand;
+
 import java.util.ArrayList;
 
 
@@ -98,6 +101,8 @@ public class Parser {
             return prepareDeliverAction(arguments);
         case "giftlist":
             return new GiftListCommand();
+        case "prepared":
+            return preparePreparedAction(arguments);
         //@@author
 
         default:
@@ -230,15 +235,33 @@ public class Parser {
             String[] parts=args.trim().split(" ");
             int childIndex= Integer.parseInt(parts[0]);
             int giftIndex= Integer.parseInt(parts[1]);
+            String status=parts[2];
+            boolean delivered;
 
-            return new DeliverGiftCommand(childIndex,giftIndex);
+            if(status.equals("d/delivered")){
+                delivered=true;
+            } else if(status.equals("d/undelivered")){
+                delivered=false;
+            } else{
+                throw new IllegalValueException("Use d/delivered or d/undelivered please");
+            }
+
+            return new DeliverGiftCommand(childIndex,giftIndex,delivered);
 
         } catch (NumberFormatException e) {
-            throw new IllegalValueException("Please use valid command format :" +
-                    " deliver [childindex] [giftindex] [d/[delivered/undelivered]]");
+            throw new IllegalValueException("input numbers for child index and gift index");
         }
+    }
+    private Command preparePreparedAction(String args) throws IllegalValueException{
+        try{
+            String[] parts=args.trim().split(" ");
+            int childIndex= Integer.parseInt(parts[0]);
+            int giftIndex= Integer.parseInt(parts[1]);
 
-
+            return new PrepareGiftCommand(childIndex,giftIndex);
+        } catch(Exception e){
+            throw new IllegalValueException("Format: prepared [childindex] [giftindex]");
+        }
     }
     //@@author
 
