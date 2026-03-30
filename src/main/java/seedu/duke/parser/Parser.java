@@ -8,9 +8,24 @@ import seedu.duke.data.exception.IllegalValueException;
 import java.util.ArrayList;
 
 public class Parser {
+    private static Command pendingCommand = null;
+    
     public Command parseCommand(String userInput) throws IllegalValueException {
+        
+        //@@author Kiri
+        String trimmedInput = userInput.trim();
+        if (trimmedInput.equalsIgnoreCase("confirm")) {
+            if (pendingCommand == null) {
+                throw new IllegalValueException("There is no pending command to confirm.");
+            }
+            Command toExecute = pendingCommand;
+            pendingCommand = null;
+            return toExecute;
+        }
+        pendingCommand = null;
+        //@@author
+        
         String[] parts = userInput.trim().split(" ", 2);
-
         String commandWord = parts[0];
         String arguments = parts.length > 1 ? parts[1] : "";
 
@@ -25,7 +40,8 @@ public class Parser {
             return prepareEdit(arguments);
 
         case "delete":
-            return prepareDelete(arguments);
+            pendingCommand = prepareDelete(arguments);
+            throw new IllegalValueException("WARNING: You are about to delete a child. Type 'confirm' to proceed.");
         
         //@@author Kiri
         case "childlist":
@@ -44,13 +60,20 @@ public class Parser {
             return prepareTaskAction(arguments);
             
         case "detask":
-            return prepareDetask(arguments);
+            pendingCommand = prepareDetask(arguments);
+            throw new IllegalValueException("WARNING: You are about to remove a task. Type 'confirm' to proceed.");
             
         case "editelf":
             return prepareEditElf(arguments);
         
         case "rmelf":
-            return prepareRmElf(arguments);
+            pendingCommand = prepareRmElf(arguments);
+            throw new IllegalValueException("WARNING: You are about to remove an Elf. Type 'confirm' to proceed.");
+        
+        case "reset":
+            pendingCommand = new ResetCommand();
+            throw new IllegalValueException("WARNING: This will wipe ALL data and reset to initial state. " +
+                    "Type 'confirm' to proceed.");
         //@@author
         
         case "action":
@@ -76,7 +99,8 @@ public class Parser {
         case "gift":
             return prepareGiftAction(arguments);
         case "degift":
-            return prepareDeGiftAction(arguments);
+            pendingCommand = prepareDeGiftAction(arguments);
+            throw new IllegalValueException("WARNING: You are about to remove a gift. Type 'confirm' to proceed.");
         case "deliver":
             return prepareDeliverAction(arguments);
         case "giftlist":
