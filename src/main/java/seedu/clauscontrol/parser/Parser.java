@@ -151,24 +151,41 @@ public class Parser {
     }
 
     //@@author shrabasti-c-reused
-    // ChatGPT was used to generate the prepareAdd function with reference from https://github.com/
+    // ChatGPT was used to generate the boilerplate of the prepareAdd function with reference from https://github.com/
     // se-edu/addressbook-level2/blob/master/src/seedu/addressbook/parser/Parser.java and supervision from the author
     private Command prepareAdd(String args) throws IllegalValueException {
         String name = null;
+        String location = null;
+        String ageString = null;
+        int age = 0;
 
-        String[] tokens = args.split(" ");
+        String[] tokens = args.split(" (?=[nla]/)");
 
         for (String token : tokens) {
             if (token.startsWith("n/")) {
                 name = token.substring(2);
             }
+            if (token.startsWith("l/")) {
+                location = token.substring(2);
+            }
+            if (token.startsWith("a/")) {
+                ageString = token.substring(2);
+            }
         }
 
-        if (name == null || name.isEmpty()) {
-            throw new IllegalValueException("Format: child n/NAME");
-        }
+        checkValidity(name);
+        checkValidity(location);
+        checkValidity(ageString);
 
-        return new ChildCommand(name);
+        age = Integer.parseInt(ageString);
+        
+        return new ChildCommand(name, location, age);
+    }
+
+    private static void checkValidity(String ageString) throws IllegalValueException {
+        if (ageString == null || ageString.isEmpty()) {
+            throw new IllegalValueException("Format: age a/AGE");
+        }
     }
     //@@author
 

@@ -19,8 +19,8 @@ public class ChildCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public ChildCommand(String name) throws IllegalValueException {
-        this.toAdd = new Child(new Name(name));
+    public ChildCommand(String name, String location, int age) throws IllegalValueException {
+        this.toAdd = new Child(new Name(name), age, location);
         assert toAdd != null : "Child should not be null";
     }
 

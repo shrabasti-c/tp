@@ -1,1 +1,4 @@
 CHILD|Bobby
+CHILD|Bob
+CHILD|Bruce
+CHILD|Peter Parker
