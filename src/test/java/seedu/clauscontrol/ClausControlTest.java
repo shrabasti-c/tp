@@ -12,7 +12,7 @@ import java.io.PrintStream;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class DukeTest {
+class ClausControlTest {
     //@@author shrabasti-c-reused
     //Inspired from https://www.geeksforgeeks.org/advance-java/unit-testing-of-system-out-println-with-junit/
     // with modifications
