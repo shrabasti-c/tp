@@ -3,12 +3,12 @@ package seedu.clauscontrol.commands;
 import seedu.clauscontrol.data.child.Child;
 import seedu.clauscontrol.data.gift.Gift;
 
-public class DeliverGiftCommand extends Command{
+public class DeliveryStatusCommand extends Command{
     private int childIndex;
     private int giftIndex;
     private boolean delivered;
 
-    public DeliverGiftCommand(int childIndex,int giftIndex,boolean delivered){
+    public DeliveryStatusCommand(int childIndex, int giftIndex, boolean delivered){
         this.childIndex=childIndex;
         this.giftIndex=giftIndex;
         this.delivered=delivered;

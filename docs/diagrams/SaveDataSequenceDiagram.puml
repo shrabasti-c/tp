@@ -1,0 +1,20 @@
+@startuml
+
+participant Duke
+participant Storage
+participant File
+
+Duke -> Storage : save(childList)
+activate Storage
+
+loop for each Child
+    Storage -> File : write "CHILD|name"
+
+    loop for each Gift
+        Storage -> File : write "GIFT|name|state"
+    end
+end
+
+deactivate Storage
+
+@enduml

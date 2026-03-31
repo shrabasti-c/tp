@@ -2,7 +2,7 @@ package seedu.clauscontrol.parser;
 
 import seedu.clauscontrol.commands.Command;
 import seedu.clauscontrol.commands.DeGiftCommand;
-import seedu.clauscontrol.commands.DeliverGiftCommand;
+import seedu.clauscontrol.commands.DeliveryStatusCommand;
 import seedu.clauscontrol.commands.DetaskCommand;
 import seedu.clauscontrol.commands.GiftCommand;
 import seedu.clauscontrol.commands.PrepareGiftCommand;
@@ -135,7 +135,7 @@ public class Parser {
         case "degift":
             pendingCommand = prepareDeGiftAction(arguments);
             throw new IllegalValueException("WARNING: You are about to remove a gift. Type 'confirm' to proceed.");
-        case "deliver":
+        case "delivery_status":
             return prepareDeliverAction(arguments);
         case "giftlist":
             return new GiftListCommand();
@@ -268,7 +268,7 @@ public class Parser {
             throw new IllegalValueException("Please use valid command format : degift [childindex] [giftindex]");
         }
     }
-    private DeliverGiftCommand prepareDeliverAction(String args) throws IllegalValueException {
+    private DeliveryStatusCommand prepareDeliverAction(String args) throws IllegalValueException {
         try {
             String[] parts=args.trim().split(" ");
             int childIndex= Integer.parseInt(parts[0]);
@@ -284,7 +284,7 @@ public class Parser {
                 throw new IllegalValueException("Use d/delivered or d/undelivered please");
             }
 
-            return new DeliverGiftCommand(childIndex,giftIndex,delivered);
+            return new DeliveryStatusCommand(childIndex,giftIndex,delivered);
 
         } catch (NumberFormatException e) {
             throw new IllegalValueException("input numbers for child index and gift index");

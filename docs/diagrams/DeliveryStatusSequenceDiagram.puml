@@ -1,0 +1,47 @@
+@startuml
+
+actor Santa
+participant Parser #E9F6EF
+participant DeliveryStatusCommand #E9F6EF
+participant childList #E9F6EF
+participant Child #E9F6EF
+participant giftList #E9F6EF
+participant Gift #E9F6EF
+
+Santa -> Parser : deliver 1 2
+activate Parser
+
+Parser -> Parser : parseCommand("deliver 1 2 d/delivered")
+Parser -> Parser : prepareDeliverAction(args)
+Parser -> DeliveryStatusCommand : new DeliveryStatusCommand(childIndex, giftIndex, delivered)
+
+activate DeliveryStatusCommand
+
+DeliveryStatusCommand -> DeliverGiftCommand : execute()
+
+DeliveryStatusCommand -> childList : get(childIndex-1)
+activate childList
+childList --> DeliveryStatusCommand : Child
+deactivate childList
+
+DeliveryStatusCommand -> Child : getGifts()
+activate Child
+Child --> DeliverGiftCommand : giftList
+deactivate Child
+
+DeliveryStatusCommand -> giftList : get(giftIndex-1)
+giftList --> DeliverGiftCommand : Gift
+
+alt delivered == true
+    DeliveryStatusCommand -> Gift : markDelivered()
+else delivered == false
+    DeliverGiftCommand -> Gift : markUndelivered()
+end
+
+DeliveryStatusCommand --> Parser : result
+deactivate DeliverGiftCommand
+
+Parser --> Santa : "Gift status updated,check giftlist"
+deactivate Parser
+
+@enduml

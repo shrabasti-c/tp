@@ -1,0 +1,43 @@
+@startuml
+
+actor Santa
+participant Parser
+participant PrepareGiftCommand
+participant childList
+participant Child
+participant giftList
+participant Gift
+
+Santa -> Parser : prepared 1 2
+activate Parser
+
+Parser -> Parser : parseCommand("prepared 1 2)
+Parser -> Parser : preparePreparedAction(args)
+Parser -> PrepareGiftCommand : new PrepareGiftCommand(childIndex, giftIndex)
+
+activate PrepareGiftCommand
+
+PrepareGiftCommand -> PrepareGiftCommand : execute()
+
+PrepareGiftCommand -> childList : get(childIndex-1)
+activate childList
+childList --> PrepareGiftCommand : Child
+deactivate childList
+
+PrepareGiftCommand -> Child : getGifts()
+activate Child
+Child --> PrepareGiftCommand : giftList
+deactivate Child
+
+PrepareGiftCommand -> giftList : get(giftIndex-1)
+giftList --> PrepareGiftCommand : Gift
+
+PrepareGiftCommand -> Gift : markPrepared()
+
+PrepareGiftCommand --> Parser : result
+deactivate PrepareGiftCommand
+
+Parser --> Santa : "Gift marked as prepared!!!" + gift;
+deactivate Parser
+
+@enduml

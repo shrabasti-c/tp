@@ -1,0 +1,41 @@
+@startuml
+
+participant User
+participant Duke
+participant Parser
+participant FinalizeCommand
+participant ActionCommand
+
+User -> Duke: "finalize"
+activate Duke
+
+Duke -> Parser: parseCommand("finalize")
+activate Parser
+Parser --> Duke: FinalizeCommand
+deactivate Parser
+
+Duke -> FinalizeCommand: execute()
+activate FinalizeCommand
+FinalizeCommand --> Duke: "Lists have been finalised!"
+deactivate FinalizeCommand
+
+Duke -> Duke: isFinalized = true
+Duke --> User: "Lists have been finalised!"
+deactivate Duke
+
+User -> Duke: "action 1 a/test s/2"
+activate Duke
+Duke -> Parser: parseCommand(...)
+activate Parser
+Parser --> Duke: ActionCommand
+deactivate Parser
+
+Duke -> ActionCommand: execute()
+activate ActionCommand
+ActionCommand --> Duke: "Cannot add actions after finalised!"
+deactivate ActionCommand
+
+Duke --> User: "Cannot add actions after finalised!"
+deactivate Duke
+
+@enduml

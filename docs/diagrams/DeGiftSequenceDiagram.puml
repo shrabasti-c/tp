@@ -1,0 +1,42 @@
+@startuml
+
+actor Santa
+participant Parser
+participant DeGiftCommand
+participant childList
+participant Child
+participant Gift
+
+Santa -> Parser : degift 1 2
+activate Parser
+
+Parser -> Parser : parseCommand("degift 1 2")
+Parser -> Parser : prepareDeGiftAction(args)
+Parser -> DeGiftCommand : new DeGiftCommand(childIndex, giftIndex)
+
+activate DeGiftCommand
+
+DeGiftCommand -> DeGiftCommand : execute()
+
+DeGiftCommand -> childList : get(childIndex-1)
+activate childList
+childList --> DeGiftCommand : Child
+deactivate childList
+
+DeGiftCommand -> Child : getGifts()
+activate Child
+Child --> DeGiftCommand : giftList
+deactivate Child
+
+DeGiftCommand -> giftList : get(giftIndex-1)
+giftList --> DeGiftCommand : Gift
+
+DeGiftCommand -> giftList : remove(giftIndex-1)
+
+DeGiftCommand --> Parser : result
+deactivate DeGiftCommand
+
+Parser --> Santa : "gift removed " + giftIndex + " for child " + child.getName()"
+deactivate Parser
+
+@enduml

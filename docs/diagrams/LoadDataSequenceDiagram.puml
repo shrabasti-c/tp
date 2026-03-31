@@ -1,0 +1,33 @@
+@startuml
+
+participant Duke
+participant Storage
+participant File
+participant Child
+participant Gift
+
+Duke -> Storage : load()
+activate Storage
+
+Storage -> File : readLine()
+
+loop for each line
+    alt line starts with CHILD
+        Storage -> Child : new Child(name)
+    else line starts with GIFT
+        Storage -> Gift : new Gift(name)
+
+        alt state == PREPARED
+            Storage -> Gift : markPrepared()
+        else state == DELIVERED
+            Storage -> Gift : markDelivered()
+        end
+
+        Storage -> Child : addGift(gift)
+    end
+end
+
+Storage --> Duke : List<Child>
+deactivate Storage
+
+@enduml

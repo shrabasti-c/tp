@@ -51,7 +51,7 @@ public class Gift {
 
     public void markDelivered() {
         this.state = State.DELIVERED;
-        logger.info("Gift '" + giftName + "' marked as DELIVERED");
+        logger.info("Gift '" + giftName + "' marked as delivered");
     }
 
     @Override

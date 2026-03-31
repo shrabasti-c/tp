@@ -9,27 +9,50 @@
 ### Finalize Feature (Shubhan Gabra)
 
 #### Overview
-The "finalize" command freezes the nice and naughty lists, preventing further addition of actions and reassignments.
-After the finalize command, gift assignment is enabled.
+The "finalize" command freezes the nice and naughty lists, preventing further
+action changes and enabling gift allocation.
 
 #### Implementation
-The finalize feature uses a boolean flag "isFinalized" stored in Duke.java.
+The finalize feature uses a boolean flag "isFinalized" that is stored in Duke.java.
 This flag is passed to every command via setData() in Command.java.
 When the user types "finalize", FinalizeCommand.execute() returns a success message.
 Duke then detects it via instanceof FinalizeCommand and sets the flag to true.
 
+ActionCommand, GiftCommand and ReassignCommand each check "isFinalized"
+at the start of execute(). Once finalized, action additions and reassignments
+are blocked since the lists are frozen. Gift allocation is also blocked
+before finalization since gifts should only be assigned after the lists are set.
+
+#### Why this way?
+The instanceof approach was chosen to keep each command class simple and focused.
+Other options like passing a mutable wrapper object or using a static field were
+considered but not used as they were less readable or harder to test.
+
+Given below is an example usage scenario:
+
+1. Add a child: child n/Tom  
+2. Try adding a gift: gift 1 g/toy: should be blocked  
+3. Add an action: action 1 a/helped grandma s/2  
+4. Finalize: finalize  
+5. Try adding another action: should be blocked  
+6. Add a gift: gift 1 g/toy: should work now
+
+Given below is a sequence diagram showing how the finalize command works.
+
+![](diagrams/FinalizeSequenceDiagram.png)
+
 ### Add Child Feature (Chakraborty Shrabasti)
 
 #### Overview
-The "child" command creates a child entity/profile consisting of its name and location.
+The `child` command creates a child entity/profile consisting of its name and location.
 
 #### Implementation
 The proposed child profile is facilitated by `Child` Class. 
 It implements `ReadOnlyChild` which contains a name fetching mechanism, the name being stored internally via a `Name` class with a reference to a `name` String input by the user.
 The child operation must minimally have a name argument i.e. location, etc. are optional.
 Additionally, it implements the following operations:
-* `toAdd()`— adds the child to the internal child list.
-* `execute()`— returns a successfull operation message.
+* `toAdd()`—adds the child to the internal child list.
+* `execute()`—returns a successful operation message.
 These operations comprise the `ChildCommand` class (which inherits from a base `Command` class).
 Given below is an example usage scenario and how the add child mechanism behaves at each step.
 1. The user launches the application for the first time.
@@ -41,7 +64,7 @@ Given below is an example usage scenario and how the add child mechanism behaves
 6. The successful message is displayed.
 
 Given below is a sequence diagram describing the child operation (happy path).
-![](team/ChildSequenceDiagram.png)
+![](diagrams/ChildSequenceDiagram.png)
 
 **Aspect:** How to implement the Child Profile  
   - **Alternative 1 (current choice):** Construct a `ReadOnlyChild` interface which implements `Child`  
@@ -72,6 +95,184 @@ It implements ReadOnlyElf with a name fetching mechanism, stored internally with
 Given below is an example usage scenario and how the add elf mechanism behaves at each step.
 Step 1. The user launches the application for the first time.
 Step 2. The user executes elf n/Buddy to add an elf in the elf list.
+
+
+### Add gift feature(Prerana Ravi Shankar)
+
+#### Overview
+The gift feature allows Santa to assign one or a list of gifts to a child. The gifts are assigned "in progress" status on assignment.
+This allows Santa to manage the gifts assigned to children.
+
+#### Implementation
+This feature is implemented with the GiftCommand class.
+When Santa enters "gift [child index] g/[gift name]" the Parser extracts the following-
+1. The child index
+2. The list of gifts prefixed with g/.
+
+A GiftCommand object is created with the above parameters.
+The following steps occur-
+1. The command checks whether the lists have been finalised.
+2. The child index is checked to ensure it is a numeral.
+3. The child is retrieved from childList.
+4. For each gift, a new Gift object is created and the gift is added to the child with addGift() method.
+5. The gift is assigned the "in progress" status upon assignment.
+
+#### UML Diagram- Sequence Diagram
+Given below is the sequence diagram
+![GiftSequenceDiagram.png](diagrams/GiftSequenceDiagram.png)
+
+**Aspect:** How to implement the Gift feature
+  - **Alternative 1 (current choice):** Allowing multiple gifts to be added in one command
+   - **Pros:** User friendly as it supports multiple entries at once
+   - **Cons:** Parsing is complex. 
+  - **Alternative 2:** Allow single gift assignment per command
+   - **Pros:** Implementing this feature is simpler.
+   - **Cons:** Not as user-friendly since multiple assignment isn't supported
+
+### Degift feature(Prerana Ravi Shankar)
+
+#### Overview
+This feature allows Santa to remove a gift for a particular child. This is useful since it helps Santa update the giftlist.
+
+#### Implementation
+This feature is implemented with the DeGiftCommand class.
+When Santa enters "degift [child index] [gift index]" the Parser extracts the following-
+1. The child index
+2. The gift index
+
+A DeGiftCommand object is created with the above parameters.
+The following steps occur- 
+1. The child index is checked to ensure it is a numeral.
+2. The child is retrieved from childList.
+3. The command validates the gift index.
+4. The gift is removed from the child's gift list.
+5. The gift is removed using remove(giftIndex-1)
+
+Appropriate error messages are returned in case a check fails.
+
+#### UML Diagram- Sequence Diagram
+Given below is the sequence diagram
+![DeGiftSequenceDiagram.png](diagrams/DeGiftSequenceDiagram.png)
+
+**Aspect:** How to implement the DeGift feature
+  - **Alternative 1 (current choice):** Remove gift from child list
+    - **Pros:** Simple to implement.
+    - - **Cons:** Requires proper error handling
+  - **Alternative 2:** Remove gift by name
+    - **Pros:** User friendly as the user need not refer to indexes.
+    - **Cons:** Increases complexity of the code.
+
+
+### Gift delivery status (Prerana Ravi Shankar)
+
+#### Overview
+This feature allows Santa to set the gift status as delivered or undelivered. This is useful as it allows Santa to plan the gift deliveries by
+updating the delivery status.
+
+#### Implementation
+This feature is implemented with the DeliveryStatusCommand class.
+When Santa enters "delivery_status [child index] [gift index] d/delivered/undelivered" the Parser extracts the following-
+1. The child index
+2. The gift index
+3. delivery status
+
+A DeliveryStatusCommand object is created with the above parameters.
+The following steps occur-
+1. The child index is checked to ensure it is a numeral.
+2. The child is retrieved from childList.
+3. The command validates the gift index.
+4. The gift is retrieved from the child's giftlist.
+5. The gift status is updated- markDelivered() if delivered=true and markUndelivered() when delivered=false;
+
+Appropriate error messages are returned in case a check fails.
+
+#### UML Diagram- Sequence Diagram
+Given below is the sequence diagram
+![DeliveryStatusSequenceDiagram.png](diagrams/DeliveryStatusSequenceDiagram.png)
+
+**Aspect:** How to implement the Delivery Status feature
+  - **Alternative 1 (current choice):** Use a boolean variable to determine action
+    - **Pros:** Less intuitive as the parameter is not clear without looking at it's implementation.
+    - - **Cons:** 
+  - **Alternative 2:** Using two command objects for delivered and undelivered actions.
+    - **Pros:** User friendly.
+    - **Cons:** Breaks encapsulation.
+
+### Prepare Gift Feature (Prerana Ravi Shankar)
+
+#### Overview
+This feature allows Santa to set a gift status as prepared. This is to indicate that the gift is prepared and not delivered yet.
+This allows Santa to track the progress of gifts.
+
+#### Implementation
+This feature is implemented with the PrepareGiftCommand class.
+When Santa enters "prepared [child index] [gift index] " the Parser extracts the following-
+1. The child index
+2. The gift index
+
+
+A PrepareGiftCommand object is created with the above parameters.
+The following steps occur-
+1. The command retrieves the child from the childlist.
+2. The list of gifts are retrieved using the getGifts() method.
+3. The gift as per the specified gift index is retrieved.
+4. the method markPrepared() is called on the gift.
+
+#### UML Diagram- Sequence Diagram
+Given below is the sequence diagram
+![PrepareGiftSequencDiagram.png](diagrams/PrepareGiftSequencDiagram.png)
+
+**Aspect:** How to implement the Prepare feature
+  - **Alternative 1 (current choice):** Use a separate class for Prepare command
+    - **Pros:** Clear separation of responsibilities.
+    - - **Cons:** Additional class required.
+  - **Alternative 2:** Merge the command into deliveryStatus command.
+    - **Pros:** Fewer classes.
+    - **Cons:** Increases complexity of conditional logic.
+
+
+### Storage  (Prerana Ravi Shankar)
+
+#### Overview
+This component saves the data in the application and reloads it upon running the application.
+
+#### Implementation
+**Saving data**
+The save() method writes the lists into a .txt file in a strcutured format.
+1. Each child's name is written.
+2. The corresponding gifts of the child are written just below it.
+
+**Loading data**
+The load() method reconstructs data from the .txt file.
+1. It reads the file line by line.
+2. Splits each line using "|".
+3. Processes:
+   "CHILD" → creates new Child
+   "GIFT" → creates new Gift
+4. Restores gift state:
+   PREPARED → markPrepared()
+   DELIVERED → markDelivered()
+   default → remains IN_PROGRESS
+5. Adds gift to the current child
+
+#### UML Diagram- Sequence Diagram
+Given below is the sequence diagram for saving data.
+![SaveDataSequenceDiagram.png](diagrams/SaveDataSequenceDiagram.png)
+
+Given below is the sequence diagram for loading data.
+![LoadDataSequenceDiagram.png](diagrams/LoadDataSequenceDiagram.png)
+
+**Aspect:** How to implement the Prepare feature
+  - **Alternative 1 (current choice):** Simple .txt file used to store data
+    - **Pros:** Human-readable file.
+    - - **Cons:** Less structures.
+  - **Alternative 2:** JSON format
+    - **Pros:** Structured.
+    - **Cons:** Requires external libraries.
+
+
+
+
 
 ## Product scope
 ### Target user profile
