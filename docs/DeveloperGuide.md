@@ -28,8 +28,8 @@ The proposed child profile is facilitated by `Child` Class.
 It implements `ReadOnlyChild` which contains a name fetching mechanism, the name being stored internally via a `Name` class with a reference to a `name` String input by the user.
 The child operation must minimally have a name argument i.e. location, etc. are optional.
 Additionally, it implements the following operations:
-* `toAdd()`— adds the child to the internal child list.
-* `execute()`— returns a successfull operation message.
+* `toAdd()`—adds the child to the internal child list.
+* `execute()`—returns a successful operation message.
 These operations comprise the `ChildCommand` class (which inherits from a base `Command` class).
 Given below is an example usage scenario and how the add child mechanism behaves at each step.
 1. The user launches the application for the first time.
