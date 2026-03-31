@@ -6,8 +6,6 @@
 
 ## Design & implementation
 
-{Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
-
 ### Finalize Feature (Shubhan Gabra)
 
 #### Overview
@@ -26,14 +24,14 @@ Duke then detects it via instanceof FinalizeCommand and sets the flag to true.
 The `child` command creates a child entity/profile consisting of its name and location.
 
 #### Implementation
-The proposed child profile is facilitated by `Child` Class.
+The proposed child profile is facilitated by `Child` Class. 
 It implements `ReadOnlyChild` which contains a name fetching mechanism, the name being stored internally via a `Name` class with a reference to a `name` String input by the user.
 The child operation must minimally have a name argument i.e. location, etc. are optional.
 Additionally, it implements the following operations:
-* `toAdd()`—adds the child to the internal child list.
-* `execute()`—returns a successfull operation message.
-  These operations comprise the `ChildCommand` class (which inherits from a base `Command` class).
-  Given below is an example usage scenario and how the add child mechanism behaves at each step.
+* `toAdd()`— adds the child to the internal child list.
+* `execute()`— returns a successfull operation message.
+These operations comprise the `ChildCommand` class (which inherits from a base `Command` class).
+Given below is an example usage scenario and how the add child mechanism behaves at each step.
 1. The user launches the application for the first time.
 2. The user executes `child n/Bruce Wayne` to add a child in the child list.
 3. The Parser parses the command and returns the arguments to a new `ChildCommand`.
@@ -45,23 +43,23 @@ Additionally, it implements the following operations:
 Given below is a sequence diagram describing the child operation (happy path).
 ![](diagrams/ChildSequenceDiagram.png)
 
-**Aspect:** How to implement the Child Profile
-- **Alternative 1 (current choice):** Construct a `ReadOnlyChild` interface which implements `Child`
-    - **Pros:** Ensures no external access as well as immutability
-    - **Cons:** More lines of code and more complex implementation (extra interface)
+**Aspect:** How to implement the Child Profile  
+  - **Alternative 1 (current choice):** Construct a `ReadOnlyChild` interface which implements `Child`  
+    - **Pros:** Ensures no external access as well as immutability  
+    - **Cons:** More lines of code and more complex implementation (extra interface)  
 
-- **Alternative 2:** Implement via a Single `Child` Class
-    - **Pros:** Lesser lines of code and simpler implementation
-    - **Cons:** Higher risk of child data modification
+  - **Alternative 2:** Implement via a Single `Child` Class  
+    - **Pros:** Lesser lines of code and simpler implementation  
+    - **Cons:** Higher risk of child data modification  
 
-**Aspect:** How to store the Child Name
-- **Alternative 1 (current choice):** Store as `Name` class
-    - **Pros:** Ensures validation at time of object creation
-    - **Cons:** More lines of code and more complex implementation (extra class)
+ **Aspect:** How to store the Child Name  
+  - **Alternative 1 (current choice):** Store as `Name` class  
+    - **Pros:** Ensures validation at time of object creation  
+    - **Cons:** More lines of code and more complex implementation (extra class)  
 
-- **Alternative 2:** Store as `String` in `Child` class
-    - **Pros:** Lesser lines of code and simpler implementation
-    - **Cons:** No enforced validation and violation of Separation of Concerns
+  - **Alternative 2:** Store as `String` in `Child` class  
+    - **Pros:** Lesser lines of code and simpler implementation  
+    - **Cons:** No enforced validation and violation of Separation of Concerns  
 
 ### Add Elf Feature (XIAO Yanjing)
 
@@ -96,7 +94,6 @@ Santa Claus [single user]
 
 ## Non-Functional Requirements
 
-{Give non-functional requirements}
 
 ## Glossary
 
