@@ -39,7 +39,7 @@ public class Parser {
     // se-edu/addressbook-level2/blob/master/src/seedu/addressbook/parser/Parser.java and supervision from the author
     public Command parseCommand(String userInput) throws IllegalValueException {
         
-        //@@author Kiri
+        //@@author Aurosky
         String trimmedInput = userInput.trim();
         if (trimmedInput.equalsIgnoreCase("confirm")) {
             if (pendingCommand == null) {
@@ -72,7 +72,7 @@ public class Parser {
         
         //@@author
 
-        //@@author Kiri
+        //@@author Aurosky
         case "childlist":
             return new ChildListCommand();
 

@@ -32,6 +32,17 @@ Given below is an example usage scenario and how the add child mechanism behaves
 Step 1. The user launches the application for the first time.
 Step 2. The user executes child n/Bruce Wayne to add a child in the child list.
 
+### Add Elf Feature (XIAO Yanjing)
+
+#### Overview
+The "elf" command creates an elf entity consisting of its name and task(initialized as null).
+
+#### Implementation
+The proposed elf profile is facilitated by Elf Class.
+It implements ReadOnlyElf with a name fetching mechanism, stored internally with a Name class with a reference to a name String input by the user.
+Given below is an example usage scenario and how the add elf mechanism behaves at each step.
+Step 1. The user launches the application for the first time.
+Step 2. The user executes elf n/Buddy to add an elf in the elf list.
 
 ## Product scope
 ### Target user profile

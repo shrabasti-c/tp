@@ -1,4 +1,4 @@
-//@@author Kiri
+//@@author Aurosky
 package seedu.duke.data.elf;
 // Similar to child class
 

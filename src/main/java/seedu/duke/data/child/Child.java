@@ -25,7 +25,7 @@ public class Child implements ReadOnlyChild{
         this.gifts=new ArrayList<>();
     }
     
-    //@@author Kiri
+    //@@author Aurosky
     public Child(Name name, int age, String location) {
         this(name);
         this.age = age;

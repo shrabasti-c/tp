@@ -30,7 +30,7 @@ public class ParserTest {
     }
     //@@author
     
-    //@@author Kiri
+    //@@author Aurosky
     @Test
     public void parse_elfCommand_parsedCorrectly() throws Exception {
         String input = "elf n/Dobby";
