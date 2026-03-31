@@ -73,6 +73,42 @@ Given below is an example usage scenario and how the add elf mechanism behaves a
 Step 1. The user launches the application for the first time.
 Step 2. The user executes elf n/Buddy to add an elf in the elf list.
 
+
+### Add gift feature(Prerana Ravi Shankar)
+
+### Overview
+The gift feature allows Santa to assign one or a list of gifts to a child. The gifts are assigned "in progress" status on assignment.
+This allows Santa to manage the gifts assigned to children.
+
+### Implementation
+
+This feature is implemented with the GiftCommand class.
+When Santa enters "gift [child index] g/[gift name]" the Parser extracts the following-
+1. The child index
+2. The list of gifts prefixed with g/.
+
+A GiftCommand object is created with the above parameters.
+The following steps occur-
+1. The command checks whether the lists have been finalised.
+2. The child index is checked to ensure it is a numeral.
+3. The child is retrieved from childList.
+4. For each gift, a new Gift object is created and the gift is added to the child with addGift() method.
+5. The gift is assigned the "in progress" status upon assignment.
+
+### UML Diagram- Sequence Diagram
+Given below is the sequence diagram
+![GiftSequenceDiagram.png](team/diagrams/GiftSequenceDiagram.png)
+
+**Aspect:** How to implement the Gift feature
+- **Alternative 1 (current choice):** Allowing multiple gifts to be added in one command
+    - **Pros:** User friendly as it supports multiple entries at once
+    - **Cons:** Parsing is complex.
+
+    - **Alternative 2:** Allow single gift assignment per command
+        - **Pros:** Implementing this feature is simpler.
+        - **Cons:** Not as user-friendly since multiple assignment isn't supported
+
+
 ## Product scope
 ### Target user profile
 

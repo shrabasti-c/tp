@@ -1,0 +1,44 @@
+@startuml
+
+actor Santa
+participant Parser #E9F6EF
+participant GiftCommand #E9F6EF
+participant childList #E9F6EF
+participant Child #E9F6EF
+participant Gift #E9F6EF
+
+Santa -> Parser : gift 1 g/toy g/book
+activate Parser
+
+Parser -> Parser : parseCommand(...)
+Parser -> Parser : prepareGiftAction(args)
+Parser -> GiftCommand : new GiftCommand(childIndex, giftNames)
+
+activate GiftCommand
+
+GiftCommand -> GiftCommand : execute()
+
+GiftCommand -> childList : get(childIndex)
+activate childList
+childList --> GiftCommand : Child
+deactivate childList
+
+loop for each gift name
+    GiftCommand -> Gift : new Gift(name)
+    activate Gift
+    Gift --> GiftCommand
+    deactivate Gift
+
+    GiftCommand -> Child : addGift(gift)
+    activate Child
+    Child --> GiftCommand
+    deactivate Child
+end
+
+GiftCommand --> Parser : result
+deactivate GiftCommand
+
+Parser --> Santa : Added gifts to child " + (childIndex) + ": " + [toy,book]]
+deactivate Parser
+
+@enduml
