@@ -34,6 +34,7 @@ public class ClausControl {
             "   {     }\n" +
             "    `---'\n";
 
+    public static final String DIVIDER = "_.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._";
     private static final Logger logger = Logger.getLogger("Foo");
     private final TextUi ui;
     private final Parser parser;
@@ -104,16 +105,25 @@ public class ClausControl {
                     logger.warning("Error saving todos: " + e.getMessage());
                 }
 
-                System.out.println(result);
+                displayWithDividers(result);
                 //@@author
             } catch (IllegalValueException e) {
-                System.out.println(e.getMessage());
+                displayWithDividers(e.getMessage());
                 logger.log(Level.INFO, "processing error");
             } catch(Exception e){
                 return;
             }
         } while (true);
     }
+
+
+    //@@author shrabasti-c
+    private void displayWithDividers(String message) {
+        System.out.println("\n" + DIVIDER);
+        System.out.println(message);
+        System.out.println(DIVIDER + "\n");
+    }
+    //@@author
 
     /**
      * Displays application logo and starts command loop.

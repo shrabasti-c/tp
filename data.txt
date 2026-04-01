@@ -1,8 +1,5 @@
 CHILD|Robert
-CHILD|Bob
 CHILD|Bruce
 CHILD|Peter Parker
 CHILD|Nick Jonas
 CHILD|doe
-CHILD|nick
-GIFT|book|IN_PROGRESS
