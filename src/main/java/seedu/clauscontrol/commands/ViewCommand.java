@@ -5,6 +5,9 @@ import seedu.clauscontrol.data.gift.Gift;
 import java.util.ArrayList;
 
 //@@author shrabasti-c
+/**
+ * Views a child in the child list.
+ */
 public class ViewCommand extends Command{
     private final int childIndex;
 
@@ -12,6 +15,19 @@ public class ViewCommand extends Command{
         this.childIndex = childIndex;
     }
 
+    /**
+     * Executes the view command.
+     * Displays details of a child profile given an index, comprising:
+     * <ul>
+     *     <li> child's name (minimally) </li>
+     *     <li> child's age </li>
+     *     <li> child's location </li>
+     *     <li> child's status (naughty/nice) </li>
+     *     <li> child's gifts </li>
+     * </ul>
+     *
+     * @return String comprising child profile list or error message.
+     */
     @Override
     public String execute() {
         if (childIndex < 0 || childIndex >= childList.size()) {
@@ -36,6 +52,10 @@ public class ViewCommand extends Command{
         return sb.toString();
     }
 
+    /**
+     * Builds gift list to display in profile.
+     *
+     */
     private static void createList(ArrayList<Gift> gifts, StringBuilder sb) {
         for (int j = 0; j < gifts.size(); j++) {
             sb.append("   ")

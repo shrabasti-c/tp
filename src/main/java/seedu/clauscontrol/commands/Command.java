@@ -4,37 +4,29 @@ import seedu.clauscontrol.data.elf.Elf;
 
 import java.util.ArrayList;
 
-
 //@@author shrabasti-c
-//Solution below adapted from https://github.com/se-edu/addressbook-level2/blob/master/src/seedu/addressbook
-// /commands/Command.java and shrabasti-c's iP
+/* Adapted from AddCommand Class of AB2 application and author's iP.
+ * Link: https://github.com/se-edu/addressbook-level2/blob/master/src/seedu/addressbook/commands/Command.java
+ * Link: https://github.com/shrabasti-c/ip
+ * with some modifications
+ */
+/**
+ * Serves as a baseline *Command template.
+ */
 public abstract class Command {
     protected ArrayList<Child> childList;
     protected ArrayList<Elf> elfList;
-
-    //@@author GShubhan
     protected boolean isFinalized = false;
-    //@@author
-
 
     protected Command() {
     }
 
-    /**
-     * Executes the command and returns the result.
-     */
     public abstract String execute();
 
-    /**
-     * Supplies the data the command will operate on.
-     */
     public void setData(ArrayList<Child> childList, ArrayList<Elf> elfList, boolean isFinalized) {
         this.childList = childList;
         this.elfList = elfList;
-        //@@author GShubhan
         this.isFinalized = isFinalized;
-        //@@author
     }
 }
-
 //@@author

@@ -4,9 +4,13 @@ import java.util.ArrayList;
 import seedu.clauscontrol.data.exception.IllegalValueException;
 import seedu.clauscontrol.data.gift.Gift;
 
-//Solution below inspired by https://github.com/se-edu/addressbook-level2/blob/master/src/seedu/addressbook/data
-// /person/Person.java
 //@@author shrabasti-c
+/* Inspired by Person class of AB2 application
+ * Link: https://github.com/se-edu/addressbook-level2/blob/master/src/seedu/addressbook/data/person/Person.java
+ */
+/**
+ * Creates a Child Profile consisting of minimally name, as well as, age, location and gifts.
+ */
 public class Child implements ReadOnlyChild{
     private Name name;
     private ArrayList<Gift> gifts;
@@ -32,7 +36,21 @@ public class Child implements ReadOnlyChild{
         this.age = age;
         this.location = (location != null) ? location.trim() : null;
     }
-    
+    //@@author
+
+    public void addGift(Gift gift){
+        gifts.add(gift);
+    }
+    public ArrayList<Gift> getGifts(){
+        return gifts;
+    }
+
+    //@@author shrabasti-c
+    @Override
+    public Name getName() {
+        return name;
+    }
+
     public int getAge() {
         return age;
     }
@@ -47,21 +65,6 @@ public class Child implements ReadOnlyChild{
 
     public boolean hasLocation() {
         return location != null && !location.isEmpty();
-    }
-    //@@author
-
-
-    public void addGift(Gift gift){
-        gifts.add(gift);
-    }
-    public ArrayList<Gift> getGifts(){
-        return gifts;
-    }
-
-    //@@author shrabasti-c
-    @Override
-    public Name getName() {
-        return name;
     }
 
     public void setName(String newName) throws IllegalValueException {
@@ -119,3 +122,4 @@ public class Child implements ReadOnlyChild{
     }
     //@@author
 }
+//@@author
