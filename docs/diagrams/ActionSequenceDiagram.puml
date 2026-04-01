@@ -1,0 +1,34 @@
+@startuml
+
+participant User
+participant ClausControl
+participant Parser
+participant ActionCommand
+participant Child
+
+User -> ClausControl: "action 1 a/helped grandma s/2"
+activate ClausControl
+
+ClausControl -> Parser: parseCommand(...)
+activate Parser
+Parser --> ClausControl: ActionCommand
+deactivate Parser
+
+ClausControl -> ActionCommand: execute()
+activate ActionCommand
+
+alt isFinalized
+    ActionCommand --> ClausControl: "Cannot add actions after finalised!"
+else not finalized
+    ActionCommand -> Child: addAction("helped grandma", 2)
+    activate Child
+    Child --> ActionCommand
+    deactivate Child
+    ActionCommand --> ClausControl: "Action added for Tom..."
+end
+
+deactivate ActionCommand
+ClausControl --> User: result
+deactivate ClausControl
+
+@enduml

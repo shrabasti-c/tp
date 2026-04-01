@@ -39,7 +39,97 @@ Given below is an example usage scenario:
 
 Given below is a sequence diagram showing how the finalize command works.
 
-![](diagrams/FinalizeSequenceDiagram.png)
+![](docs/diagrams/FinalizeSequenceDiagram.png)
+
+### Action Tracking Feature (Shubhan Gabra)
+
+#### Overview
+The "action" command allows Santa to record a good or bad action for a child
+with an associated severity score between -5 and 5.
+
+#### Implementation
+Each Child object stores two ArrayLists, one for action descriptions and one
+for severity scores. getTotalScore() sums all severities to determine if the
+child is on the nice (score >= 0) or naughty (score < 0) list.
+
+Format: action CHILD_INDEX a/ACTION s/SEVERITY
+
+The following steps occur:
+1. Parser extracts the child index, action description and severity.
+2. ActionCommand checks if the lists are finalised. If so, the action is blocked.
+3. The child index is validated.
+4. The action and severity are added to the child via addAction().
+
+#### Why this way?
+Storing actions and severities in parallel ArrayLists keeps the data simple
+and makes getTotalScore() a straightforward loop. Alternatives like a single
+ArrayList of Action objects were considered but rejected for added complexity.
+
+Given below is a sequence diagram showing how the action command works.
+
+![](docs/diagrams/ActionSequenceDiagram.png)
+
+### Nice and Naughty List Feature (Shubhan Gabra)
+
+#### Overview
+The "nice" and "naughty" commands list all children whose total action score
+is >= 0 or < 0 respectively. Manual overrides via "reassign" take priority
+over the score-based classification.
+
+#### Implementation
+Both NiceCommand and NaughtyCommand loop through the childList and call
+isNice() or isNaughty() on each child. These methods check the listAssignment
+field first. If it is not null, the manual override is used. Otherwise the
+total score determines the list.
+
+### Reassign Feature (Shubhan Gabra)
+
+#### Overview
+The "reassign" command allows Santa to manually override a child's list
+assignment to either nice or naughty, regardless of their action score.
+Once finalised, reassignment is blocked.
+
+#### Implementation
+ReassignCommand calls setListAssignment() on the child, which sets the
+listAssignment field in Child. This field is checked first in isNice()
+and isNaughty(), so it always takes priority over the computed score.
+
+Format: reassign CHILD_INDEX l/LIST
+
+### Todo and Reminder Feature (Shubhan Gabra)
+
+#### Overview
+The "todo" command allows Santa to add tasks with deadlines. On startup,
+any todos due within the next 7 days are automatically shown as reminders.
+Todos are persisted across sessions using TodoStorage.
+
+#### Implementation
+Each Todo stores a description and a LocalDate deadline. TodoStorage saves
+and loads todos from todos.txt using a pipe-separated format.
+
+The following steps occur when adding a todo:
+1. Parser extracts the description and deadline from the input.
+2. AddTodoCommand validates the description is not empty.
+3. AddTodoCommand validates the deadline is not in the past.
+4. The todo is added to the todoList and saved via TodoStorage.
+
+On startup, ClausControl calls showUpcomingTodos() which filters todos
+using isUpcoming(), showing only those due within 7 days.
+
+Format: todo d/DESCRIPTION by/YYYY-MM-DD
+
+#### Why this way?
+LocalDate was chosen over epoch seconds since only date precision is needed.
+A separate TodoStorage file was created to avoid modifying the existing
+Storage class written by another team member.
+
+**Alternatives considered:**
+- Storing todos in the same data.txt file was rejected to avoid coupling
+  with the existing storage format.
+- Using epoch seconds was rejected as unnecessary since deadlines are
+  date-based, not time-based.
+
+
 
 ### Add Child Feature (Chakraborty Shrabasti)
 
