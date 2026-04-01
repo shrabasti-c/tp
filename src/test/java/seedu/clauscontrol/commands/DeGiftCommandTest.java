@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+
 
 public class DeGiftCommandTest {
 
@@ -35,7 +35,9 @@ public class DeGiftCommandTest {
         Command command = null;
         try {
             parser.parseCommand("degift 1 1");
-        } catch (IllegalValueException e) {}
+        } catch (IllegalValueException e) {
+            //expected warning
+        }
         command = parser.parseCommand("confirm");
         command.setData(childList, null, true);
         command.execute();
@@ -47,7 +49,9 @@ public class DeGiftCommandTest {
         Command command = null;
         try {
             parser.parseCommand("degift 2 1");
-        } catch (IllegalValueException e) {}
+        } catch (IllegalValueException e) {
+            //expected warning
+        }
         command = parser.parseCommand("confirm");
         command.setData(childList, null, true);
         String result = command.execute();
@@ -59,7 +63,9 @@ public class DeGiftCommandTest {
         Command command = null;
         try {
             parser.parseCommand("degift 1 5");
-        } catch (IllegalValueException e) {}
+        } catch (IllegalValueException e) {
+            //expected warning
+        }
         command = parser.parseCommand("confirm");
         command.setData(childList, null, true);
         String result = command.execute();

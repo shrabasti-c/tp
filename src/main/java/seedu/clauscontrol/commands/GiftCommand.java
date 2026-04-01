@@ -21,10 +21,10 @@ public class GiftCommand extends Command{
             return "Please finalise the lists before allocating gifts!";
         }
         //@@author
-        if(childIndex<0 || childIndex>childList.size()){
+        if(childIndex<1 || childIndex>childList.size()){
             return "Please enter valid child index";
         }
-        Child child= childList.get(childIndex);
+        Child child= childList.get(childIndex-1);
         for(String name :giftNames){
             if(name==null || name.trim().isEmpty()){
                 return "Please enter a gift name";
