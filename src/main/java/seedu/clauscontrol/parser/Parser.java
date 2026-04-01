@@ -24,6 +24,9 @@ import seedu.clauscontrol.commands.RmElfCommand;
 import seedu.clauscontrol.commands.TaskCommand;
 import seedu.clauscontrol.commands.ViewCommand;
 import seedu.clauscontrol.commands.DeleteCommand;
+import seedu.clauscontrol.commands.AddTodoCommand;
+import seedu.clauscontrol.commands.TodoListCommand;
+import seedu.clauscontrol.data.todo.Todo;
 
 import seedu.clauscontrol.data.exception.IllegalValueException;
 
@@ -32,6 +35,14 @@ import java.util.ArrayList;
 
 public class Parser {
     private static Command pendingCommand = null;
+
+    //@@author GShubhan
+    private final ArrayList<Todo> todoList;
+
+    public Parser(ArrayList<Todo> todoList) {
+        this.todoList = todoList;
+    }
+    //@@author
     public Command parseCommand(String userInput) throws IllegalValueException {
         //@@author Aurosky
         String trimmedInput = userInput.trim();
@@ -117,6 +128,12 @@ public class Parser {
             int index = Integer.parseInt(arguments.split(" ")[0]);
             String list = arguments.split(" ")[1].substring(2);
             return new ReassignCommand(index, list);
+        case "todo":
+            return new AddTodoCommand(arguments, todoList);
+
+        case "todolist":
+            return new TodoListCommand(todoList);
+
         //@@author
 
         //@@author prerana-r11

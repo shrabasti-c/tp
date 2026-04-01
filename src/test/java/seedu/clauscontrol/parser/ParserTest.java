@@ -7,6 +7,8 @@ import seedu.clauscontrol.commands.FindCommand;
 import seedu.clauscontrol.commands.Command;
 import seedu.clauscontrol.data.child.Child;
 import seedu.clauscontrol.data.exception.IllegalValueException;
+import java.util.ArrayList;
+
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -14,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 public class ParserTest {
-    private Parser parser = new Parser();
+    private Parser parser = new Parser(new ArrayList<>());
 
     //@@author shrabasti-c-reused
     //generated using ChatGPT
