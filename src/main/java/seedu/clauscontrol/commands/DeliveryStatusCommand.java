@@ -16,7 +16,7 @@ public class DeliveryStatusCommand extends Command{
 
     @Override
     public String execute() {
-        if (childIndex < 0 || childIndex >= childList.size()) {
+        if (childIndex < 1 || childIndex > childList.size()) {
             return "Please enter valid index value";
         }
         Child child = childList.get(childIndex - 1);

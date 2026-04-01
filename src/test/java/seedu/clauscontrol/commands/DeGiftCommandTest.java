@@ -72,7 +72,9 @@ public class DeGiftCommandTest {
         Command command = null;
         try {
             parser.parseCommand("degift 1 1");
-        } catch (IllegalValueException e) {}
+        } catch (IllegalValueException e) {
+            // expected warning
+        }
         command = parser.parseCommand("confirm");
         command.setData(childList, null, true);
         String result = command.execute();
