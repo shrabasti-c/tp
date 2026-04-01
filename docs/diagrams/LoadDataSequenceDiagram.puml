@@ -1,6 +1,6 @@
 @startuml
 
-participant Duke
+participant ClausControl
 participant Storage
 participant File
 participant Child
@@ -27,7 +27,7 @@ loop for each line
     end
 end
 
-Storage --> Duke : List<Child>
+Storage --> ClausControl : List<Child>
 deactivate Storage
 
 @enduml

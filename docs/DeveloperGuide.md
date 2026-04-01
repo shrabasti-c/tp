@@ -157,7 +157,7 @@ Given below is the sequence diagram
 **Aspect:** How to implement the DeGift feature
   - **Alternative 1 (current choice):** Remove gift from child list
     - **Pros:** Simple to implement.
-    - - **Cons:** Requires proper error handling
+    - **Cons:** Requires proper error handling
   - **Alternative 2:** Remove gift by name
     - **Pros:** User friendly as the user need not refer to indexes.
     - **Cons:** Increases complexity of the code.
@@ -192,8 +192,8 @@ Given below is the sequence diagram
 
 **Aspect:** How to implement the Delivery Status feature
   - **Alternative 1 (current choice):** Use a boolean variable to determine action
-    - **Pros:** Less intuitive as the parameter is not clear without looking at it's implementation.
-    - - **Cons:** 
+    - **Pros:** Simple to implement.
+    - **Cons:** Less intuitive as the parameter is not clearly understandable without looking at it's implementation.
   - **Alternative 2:** Using two command objects for delivered and undelivered actions.
     - **Pros:** User friendly.
     - **Cons:** Breaks encapsulation.
