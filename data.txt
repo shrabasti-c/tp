@@ -1,3 +1,3 @@
-CHILD|Bruce
-CHILD|Peter Parker
-CHILD|Nick Jonas
+CHILD|Bruce|NYC|3
+CHILD|Peter Parker||-1
+CHILD|Nick Jonas||-1

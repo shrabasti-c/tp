@@ -27,7 +27,10 @@ public class Storage {
         BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
 
         for (Child child : children) {
-            writer.write("CHILD|" + child.getName());
+            //@@author shrabasti-c
+            writer.write("CHILD|" + child.getName() + "|" +
+                    ((child.getLocation() == null) ? "" : child.getLocation()) + "|" + child.getAge());
+            //@@author
             writer.newLine();
 
             for (Gift gift : child.getGifts()) {
@@ -54,7 +57,20 @@ public class Storage {
 
             if (parts[0].equals("CHILD")) {
                 try {
-                    currentChild = new Child(new Name(parts[1]));
+                    String name = parts[1];
+                    int age = -1;
+                    String location = null;
+
+                    if (parts.length > 2 && !parts[2].isEmpty()) {
+                        location = parts[2];
+                    }
+
+                    if (parts.length > 3 && !parts[3].isEmpty()) {
+                        age = Integer.parseInt(parts[3]);
+                    }
+
+                    currentChild = new Child(new Name(name), age, location);
+
                     children.add(currentChild);
                 } catch (IllegalValueException e) {
                     logger.warning("Invalid child name in file: " + parts[1]);

@@ -23,27 +23,35 @@ public class EditCommand extends Command {
     @Override
     public String execute() {
         if (childIndex < 0 || childIndex >= childList.size()) {
-            return "Invalid position :(";
+            return "Invalid index position :(";
         }
 
         Child child = childList.get(childIndex);
 
+        String nameChanged = "Child "+(childIndex + 1) + "'s name changed to ";
+        String locationChanged = "Child "+(childIndex + 1) + "'s location changed to ";
+        String ageChanged = "Child "+(childIndex + 1) + "'s name changed to ";
+        StringBuilder finalString = new StringBuilder("Ho ho ho! The following have changed.\n");
+
         try {
             if (newName != null) {
                 child.setName(newName);
+                finalString.append(nameChanged).append(newName).append("\n");
             }
 
             if (newLocation != null) {
                 child.setLocation(newLocation);
+                finalString.append(locationChanged).append(newLocation).append("\n");
             }
 
             if (newAge != -1) {
                 child.setAge(newAge);
+                finalString.append(ageChanged).append(newAge);
             }
         } catch (IllegalValueException e) {
             throw new RuntimeException(e);
         }
-        return "Details changed!";
+        return String.valueOf(finalString);
     }
 }
 //@@author
