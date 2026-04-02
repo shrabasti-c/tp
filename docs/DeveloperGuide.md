@@ -225,7 +225,7 @@ Given below is the sequence diagram
 **Aspect:** How to implement the Prepare feature
   - **Alternative 1 (current choice):** Use a separate class for Prepare command
     - **Pros:** Clear separation of responsibilities.
-    - - **Cons:** Additional class required.
+    - **Cons:** Additional class required.
   - **Alternative 2:** Merge the command into deliveryStatus command.
     - **Pros:** Fewer classes.
     - **Cons:** Increases complexity of conditional logic.
@@ -238,9 +238,11 @@ This component saves the data in the application and reloads it upon running the
 
 #### Implementation
 **Saving data**
-The save() method writes the lists into a .txt file in a strcutured format.
-1. Each child's name is written.
-2. The corresponding gifts of the child are written just below it.
+The save() method writes the lists into a .txt file in a structured format.
+1. Each child's name is written with the CHILD tag.
+2. The corresponding gifts of the child are written just below it with the GIFT tag.
+3. Each elf is written with the ELF tag.
+4. The corresponding elf tasks are written under it with the TASK tag.
 
 **Loading data**
 The load() method reconstructs data from the .txt file.
@@ -249,6 +251,8 @@ The load() method reconstructs data from the .txt file.
 3. Processes:
    "CHILD" → creates new Child
    "GIFT" → creates new Gift
+   "ELF" → creates a new Elf 
+   "TASK" → creates a new ElfTask
 4. Restores gift state:
    PREPARED → markPrepared()
    DELIVERED → markDelivered()
@@ -262,17 +266,43 @@ Given below is the sequence diagram for saving data.
 Given below is the sequence diagram for loading data.
 ![LoadDataSequenceDiagram.png](diagrams/LoadDataSequenceDiagram.png)
 
-**Aspect:** How to implement the Prepare feature
+**Aspect:** How to implement the Storage feature
   - **Alternative 1 (current choice):** Simple .txt file used to store data
     - **Pros:** Human-readable file.
-    - - **Cons:** Less structures.
+    - **Cons:** Less structures.
   - **Alternative 2:** JSON format
     - **Pros:** Structured.
     - **Cons:** Requires external libraries.
 
 
+### GiftList Feature  (Prerana Ravi Shankar)
 
+#### Overview
+The giftlist feature displays all the gifts assigned to a child along with the child name. This allows Santa to view all the gifts in a structured format.
 
+#### Implementation
+This feature is implemented with the GiftListCommand class.
+When Santa enters "giftlist " the Parser creates a GiftListCommand object.
+*Only children with assigned gifts are displayed in the giftlist.*
+
+1. The command checks if childList is empty.
+2. It iterates through each child in the childList.
+3. For each child, the list of gifts are retrieved using the getGifts() method.
+4. The child's name and index are appended to the output.
+5. The createList() method iterates through each gift and appends the gift index and gift details to the output.
+6. If no gifts are assigned to any child, an appropriate error message is displayed.
+
+#### UML Diagram- Sequence Diagram
+Given below is the sequence diagram.
+![GiftListSequenceDiagram.png](diagrams/GiftListSequenceDiagram.png)
+
+**Aspect:** How to implement the GiftList feature
+- **Alternative 1 (current choice):** Iterate through childlist and display children with assigned gifts.
+    - **Pros:** Output is relevant and shows useful information.
+    - **Cons:** Children without gifts are not displayed.
+- **Alternative 2:** Display all children regardless or whether gifts are assigned or not.
+    - **Pros:** Provides a complete overview of all children details.
+    - **Cons:** Output may look messy.
 
 ## Product scope
 ### Target user profile

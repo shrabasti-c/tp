@@ -41,6 +41,7 @@ public class DeGiftCommandTest {
         command = parser.parseCommand("confirm");
         command.setData(childList, null, true);
         command.execute();
+
         assertEquals(0, childList.get(0).getGifts().size());
     }
 
@@ -55,6 +56,7 @@ public class DeGiftCommandTest {
         command = parser.parseCommand("confirm");
         command.setData(childList, null, true);
         String result = command.execute();
+
         assertEquals("Please enter valid child index", result);
     }
 
@@ -69,6 +71,7 @@ public class DeGiftCommandTest {
         command = parser.parseCommand("confirm");
         command.setData(childList, null, true);
         String result = command.execute();
+
         assertEquals("Please enter valid gift index", result);
     }
 
@@ -84,6 +87,7 @@ public class DeGiftCommandTest {
         command = parser.parseCommand("confirm");
         command.setData(childList, null, true);
         String result = command.execute();
+
         assertTrue(result.contains("delivered"));
     }
 }

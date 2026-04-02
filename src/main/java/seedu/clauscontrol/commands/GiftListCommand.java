@@ -5,9 +5,22 @@ import seedu.clauscontrol.data.child.Child;
 
 import java.util.ArrayList;
 
+/**
+ * Displays all gifts assigned to each child.
+ *
+ * This command iterates through all children and lists their associated gifts.
+ * Only children with assigned gifts are displayed.
+ *
+ * If no children exist or no gifts are assigned, an appropriate message is returned.
+ */
 public class GiftListCommand extends Command{
 
     @Override
+    /**
+     * Executes the gift listing operation.
+     *
+     * @return a formatted string showing all children with their assigned gifts,or a message if no children or gifts exist
+     */
     public String execute(){
         if(childList==null || childList.isEmpty()){
             return "No children added";

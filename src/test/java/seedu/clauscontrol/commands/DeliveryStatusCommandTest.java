@@ -36,6 +36,7 @@ public class DeliveryStatusCommandTest {
         Command command = parser.parseCommand(input);
         command.setData(childList, null, true);
         command.execute();
+
         assertTrue(childList.get(0).getGifts().get(0).isDelivered());
     }
 
@@ -47,6 +48,7 @@ public class DeliveryStatusCommandTest {
         Command command = parser.parseCommand(input);
         command.setData(childList, null, true);
         String result = command.execute();
+
         assertEquals("Gift is already delivered!", result);
     }
 
@@ -56,6 +58,7 @@ public class DeliveryStatusCommandTest {
         Command command = parser.parseCommand(input);
         command.setData(childList, null, true);
         command.execute();
+
         assertFalse(childList.get(0).getGifts().get(0).isDelivered());
     }
 
@@ -65,6 +68,7 @@ public class DeliveryStatusCommandTest {
         Command command = parser.parseCommand(input);
         command.setData(childList, null, true);
         String result = command.execute();
+
         assertEquals("Gift is already undelivered!", result);
     }
 

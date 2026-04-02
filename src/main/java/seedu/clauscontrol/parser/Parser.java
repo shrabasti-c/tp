@@ -426,17 +426,25 @@ public class Parser {
     }
 
     //@@author prerana-r11
+
+
+    private static final String GIFT_PREFIX="g/";
+    /**
+     * Parses input arguments to create a GiftCommand
+     * Expected format: {gift CHILD_INDEX g/GIFT_NAME...}
+     * Extracts the target child index and one or more gift names prefixed with g/.
+     *
+     * @param args the user input arguments
+     * @return a GiftCommand containing the parsed child index and gift names
+     * @throws IllegalValueException if the input format is invalid, index is not a number or no gift names are provided.
+     */
     private GiftCommand prepareGiftAction(String args) throws IllegalValueException {
         try {
             String[] parts=args.trim().split(" ");
             int childIndex= Integer.parseInt(parts[0])-1;
             ArrayList<String> giftNames= new ArrayList<>();
 
-            for(int i=1;i<parts.length;i++){
-                if(parts[i].startsWith("g/")){
-                    giftNames.add(parts[i].substring(2));
-                }
-            }
+            addGifts(parts, giftNames);
 
             if(giftNames.isEmpty()){
                 throw new IllegalValueException("Please enter gift names:)");
@@ -447,6 +455,24 @@ public class Parser {
         }
 
     }
+
+    private static void addGifts(String[] parts, ArrayList<String> giftNames) {
+        for(int i = 1; i< parts.length; i++){
+            if(parts[i].startsWith(GIFT_PREFIX)){
+                giftNames.add(parts[i].substring(2));
+            }
+        }
+    }
+
+    /**
+     * Parses input arguments to create a DeGiftCommand.
+     * Expected format: degift CHILD_INDEX GIFT_INDEX
+     * Removes a specific gift from a child based on the given indices.
+     *
+     * @param args the user input arguments
+     * @return a DeGiftCommand with the specified child and gift indices
+     * @throws IllegalValueException if the format is invalid or indices are not valid integers
+     */
     private DeGiftCommand prepareDeGiftAction(String args) throws IllegalValueException {
         try {
             String[] parts=args.trim().split(" ");
@@ -458,6 +484,20 @@ public class Parser {
             throw new IllegalValueException("Please use valid command format :degift CHILD_INDEX GIFT_INDEX");
         }
     }
+
+
+    private  static final String DELIVERED="d/delivered";
+    private  static final String UNDELIVERED="d/undelivered";
+    /**
+     * Parses input arguments to create a DeliveryStatusCommand.
+     *
+     * Expected format:delivery_status CHILD_INDEX GIFT_INDEX d/delivered|d/undelivered
+     * Updates the delivery status of a specific gift for a child.
+     *
+     * @param args the user input arguments
+     * @return a DeliveryStatusCommand with the parsed indices and delivery status
+     * @throws IllegalValueException if the format is invalid, indices are not valid, or status flag is incorrect
+     */
     private DeliveryStatusCommand prepareDeliverAction(String args) throws IllegalValueException {
         try {
             String[] parts=args.trim().split(" ");
@@ -466,14 +506,7 @@ public class Parser {
             String status=parts[2];
             boolean delivered;
 
-            if(status.equals("d/delivered")){
-                delivered=true;
-            } else if(status.equals("d/undelivered")){
-                delivered=false;
-            } else{
-                throw new IllegalValueException("Please use valid command format:"
-                        + "delivery_status CHILD_INDEX GIFT_INDEX d/delivered|d/undelivered");
-            }
+            delivered = isDelivered(status);
 
             return new DeliveryStatusCommand(childIndex,giftIndex,delivered);
 
@@ -481,6 +514,29 @@ public class Parser {
             throw new IllegalValueException("input numbers for child index and gift index");
         }
     }
+
+    private static boolean isDelivered(String status) throws IllegalValueException {
+        boolean delivered;
+        if(status.equals(DELIVERED)){
+            delivered=true;
+        } else if(status.equals(UNDELIVERED)){
+            delivered=false;
+        } else{
+            throw new IllegalValueException("Please use valid command format:"
+                    + "delivery_status CHILD_INDEX GIFT_INDEX d/delivered|d/undelivered");
+        }
+        return delivered;
+    }
+
+    /**
+     * Parses input arguments to create a PrepareGiftCommand
+     * Expected format:prepared CHILD_INDEX GIFT_INDEX
+     * Marks a specific gift as prepared for delivery.
+     *
+     * @param args the user input arguments
+     * @return a PrepareGiftCommand with the specified child and gift indices
+     * @throws IllegalValueException if the format is invalid or indices are not valid integers
+     */
     private Command preparePreparedAction(String args) throws IllegalValueException{
         try{
             String[] parts=args.trim().split(" ");

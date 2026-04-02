@@ -1,0 +1,26 @@
+@startuml
+
+participant ClausControl
+participant GiftListCommand
+participant Child
+participant Gift
+
+ClausControl -> GiftListCommand : execute()
+activate GiftListCommand
+
+loop for each Child
+    GiftListCommand -> Child : getGifts()
+
+    alt has gifts
+        GiftListCommand -> GiftListCommand : append child info
+
+        loop for each Gift
+            GiftListCommand -> Gift : toString()
+        end
+    end
+end
+
+GiftListCommand --> ClausControl :
+deactivate GiftListCommand
+
+@enduml

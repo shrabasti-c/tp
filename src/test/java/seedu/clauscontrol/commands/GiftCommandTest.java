@@ -33,7 +33,9 @@ public class GiftCommandTest {
         Command command = parser.parseCommand(input);
         command.setData(childList, null, true);
         command.execute();
+
         Child child = childList.get(0);
+
         assertEquals(1, child.getGifts().size());
         assertEquals("chocolate", child.getGifts().get(0).getGiftName());
     }
@@ -44,6 +46,7 @@ public class GiftCommandTest {
         Command command = parser.parseCommand(input);
         command.setData(childList, null, false);
         String result = command.execute();
+
         assertEquals("Please finalise the lists before allocating gifts!", result);
     }
     //invalid child index
@@ -61,6 +64,7 @@ public class GiftCommandTest {
         Exception e = assertThrows(Exception.class, () -> {
             parser.parseCommand("gift 1");
         });
+
         assertTrue(e.getMessage().contains("gift"));
     }
     //multiple gifts
@@ -70,6 +74,7 @@ public class GiftCommandTest {
         Command command = parser.parseCommand(input);
         command.setData(childList, null, true);
         command.execute();
+
         assertEquals(3, childList.get(0).getGifts().size());
     }
 }

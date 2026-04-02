@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import seedu.clauscontrol.commands.FinalizeCommand;
+import seedu.clauscontrol.storage.StorageData;
 
 //@@author shrabasti-c
 /* Adapted from Main Class of AB2 application
@@ -56,9 +57,11 @@ public class ClausControl {
         this.ui = new TextUi(inputStream);
         this.elfList = new ArrayList<>();
         try {
-            this.childList = new ArrayList<>(storage.load());
+           StorageData data=storage.load();
+            this.childList=new ArrayList<>(data.children);
+            this.elfList.addAll(data.elves);
         } catch (IOException e) {
-            this.childList = new ArrayList<>();
+            this.childList=new ArrayList<>();
         }
         //@@author
         //@@author GShubhan
@@ -92,7 +95,7 @@ public class ClausControl {
                 //@@author GShubhan
                 String result = command.execute();
                 try {
-                    storage.save(childList);
+                    storage.save(childList,elfList);
                 } catch (IOException e) {
                     logger.warning("Error saving: " + e.getMessage());
                 }
