@@ -16,8 +16,8 @@ Storage -> File : readLine()
 loop for each line
 
     alt line starts with CHILD
-        Storage -> Child : new Child(name)
-        note right: currentChild = Child
+        Storage -> Child : new Child(name, age, location)
+        note right: currentChild = Child\ncurrentElf = null
 
     else line starts with GIFT
         Storage -> Gift : new Gift(name)
@@ -30,15 +30,19 @@ loop for each line
 
         Storage -> Child : addGift(gift)
 
+    else line starts with ACTION
+        Storage -> Child : addAction(description, severity)
+
     else line starts with ELF
         Storage -> Elf : new Elf(name)
-        note right: currentElf = Elf
+        note right: currentElf = Elf\ncurrentChild = null
 
     else line starts with TASK
         Storage -> Task : new Task(description)
         Storage -> Elf : addTask(task)
 
     end
+
 end
 
 Storage --> ClausControl : StorageData(children, elves)

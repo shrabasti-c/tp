@@ -6,6 +6,7 @@ import seedu.clauscontrol.data.elf.ElfTask;
 import seedu.clauscontrol.data.exception.IllegalValueException;
 import seedu.clauscontrol.data.gift.Gift;
 import seedu.clauscontrol.data.child.Name;
+
 import java.util.logging.Logger;
 
 import java.io.BufferedReader;
@@ -28,6 +29,7 @@ public class Storage {
     public void save(List<Child> children,List<Elf> elves) throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
 
+
         for (Child child : children) {
             //@@author shrabasti-c
             writer.write("CHILD|" + child.getName() + "|" +
@@ -41,6 +43,18 @@ public class Storage {
                         + gift.getState());
                 writer.newLine();
             }
+            ArrayList<String> actions = child.getActions();
+            ArrayList<Integer> severities = child.getSeverities();
+            if (actions.size() != severities.size()) {
+                logger.warning("action and severities size mismatch!");
+            }
+
+            for (int i = 0; i < actions.size(); i++) {
+                writer.write("ACTION|"
+                        + actions.get(i) + "|"
+                        + severities.get(i));
+                writer.newLine();
+            }
         }
         for (Elf elf : elves) {
             writer.write("ELF|" + elf.getName());
@@ -51,6 +65,7 @@ public class Storage {
                 writer.newLine();
             }
         }
+
 
         writer.close();
     }
@@ -130,6 +145,25 @@ public class Storage {
                 currentChild.addGift(gift);
                 break;
             }
+            case "ACTION": {
+                if (currentChild == null) {
+                    throw new IllegalStateException("Action before child in file");
+                }
+
+                String action = parts[1];
+                int severity;
+
+                try {
+                    severity = Integer.parseInt(parts[2]);
+                } catch (NumberFormatException e) {
+                    logger.warning("Invalid severity in file: " + parts[2]);
+                    break;
+                }
+
+                currentChild.addAction(action, severity);
+                break;
+            }
+
             case "ELF": {
                 currentChild = null;
                 try {

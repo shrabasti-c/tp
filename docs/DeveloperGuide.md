@@ -213,11 +213,12 @@ Given below is the sequence diagram
 
 **Aspect:** How to implement the Gift feature
   - **Alternative 1 (current choice):** Allowing multiple gifts to be added in one command
-   - **Pros:** User friendly as it supports multiple entries at once
-   - **Cons:** Parsing is complex. 
-  - **Alternative 2:** Allow single gift assignment per command
-   - **Pros:** Implementing this feature is simpler.
-   - **Cons:** Not as user-friendly since multiple assignment isn't supported
+    - **Pros:** User friendly as it supports multiple entries at once.
+    - **Cons:** Parsing is complex.
+  - **Alternative 2:** Allow single gift assignment per command.
+    - **Pros:** Implementing this feature is simpler.
+    - **Cons:** Not as user-friendly since multiple assignment is not supported.
+
 
 ### Degift feature(Prerana Ravi Shankar)
 
@@ -325,14 +326,20 @@ Given below is the sequence diagram
 
 #### Overview
 This component saves the data in the application and reloads it upon running the application.
+It stores:
+1. Child name
+2. Gift name/s
+3. Actions and severities
+4. Elves and elf tasks
 
 #### Implementation
 **Saving data**
 The save() method writes the lists into a .txt file in a structured format.
 1. Each child's name is written with the CHILD tag.
 2. The corresponding gifts of the child are written just below it with the GIFT tag.
-3. Each elf is written with the ELF tag.
-4. The corresponding elf tasks are written under it with the TASK tag.
+3. The child's actions and severities are stores with the ACTION tag.
+4. Each elf is written with the ELF tag.
+5. The corresponding elf tasks are written under it with the TASK tag.
 
 **Loading data**
 The load() method reconstructs data from the .txt file.
@@ -340,9 +347,10 @@ The load() method reconstructs data from the .txt file.
 2. Splits each line using "|".
 3. Processes:
    "CHILD" → creates new Child
-   "GIFT" → creates new Gift
+   "GIFT" → creates new Gift and restores the status of the gift.
+   "ACTION" → restores an action and its severity
    "ELF" → creates a new Elf 
-   "TASK" → creates a new ElfTask
+   "TASK" → adds a ElfTask
 4. Restores gift state:
    PREPARED → markPrepared()
    DELIVERED → markDelivered()
@@ -350,11 +358,8 @@ The load() method reconstructs data from the .txt file.
 5. Adds gift to the current child
 
 #### UML Diagram- Sequence Diagram
-Given below is the sequence diagram for saving data.
-![SaveDataSequenceDiagram.png](diagrams/SaveDataSequenceDiagram.png)
-
-Given below is the sequence diagram for loading data.
-![LoadDataSequenceDiagram.png](diagrams/LoadDataSequenceDiagram.png)
+Given below is the sequence diagram 
+![StorageSequenceDiagram.png](diagrams/StorageSequenceDiagram.png)
 
 **Aspect:** How to implement the Storage feature
   - **Alternative 1 (current choice):** Simple .txt file used to store data
