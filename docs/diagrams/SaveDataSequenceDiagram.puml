@@ -3,18 +3,31 @@
 participant ClausControl
 participant Storage
 participant File
+participant Child
+participant Gift
 
-ClausControl -> Storage : save(childList)
+Duke -> Storage : load()
 activate Storage
 
-loop for each Child
-    Storage -> File : write "CHILD|name"
+Storage -> File : readLine()
 
-    loop for each Gift
-        Storage -> File : write "GIFT|name|state"
+loop for each line
+    alt line starts with CHILD
+        Storage -> Child : new Child(name)
+    else line starts with GIFT
+        Storage -> Gift : new Gift(name)
+
+        alt state == PREPARED
+            Storage -> Gift : markPrepared()
+        else state == DELIVERED
+            Storage -> Gift : markDelivered()
+        end
+
+        Storage -> Child : addGift(gift)
     end
 end
 
+Storage --> ClausControl : List<Child>
 deactivate Storage
 
 @enduml

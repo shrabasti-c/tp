@@ -1,6 +1,8 @@
 //@@author prerana-r11
 package seedu.clauscontrol.storage;
 import seedu.clauscontrol.data.child.Child;
+import seedu.clauscontrol.data.elf.Elf;
+import seedu.clauscontrol.data.elf.ElfTask;
 import seedu.clauscontrol.data.exception.IllegalValueException;
 import seedu.clauscontrol.data.gift.Gift;
 import seedu.clauscontrol.data.child.Name;
@@ -23,7 +25,7 @@ public class Storage {
         this.filePath=filePath;
     }
 
-    public void save(List<Child> children) throws IOException {
+    public void save(List<Child> children,List<Elf> elves) throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
 
         for (Child child : children) {
@@ -40,22 +42,44 @@ public class Storage {
                 writer.newLine();
             }
         }
+        for (Elf elf : elves) {
+            writer.write("ELF|" + elf.getName());
+            writer.newLine();
+
+            for (ElfTask task : elf.getTasks()) {
+                writer.write("TASK|" + task.toString());
+                writer.newLine();
+            }
+        }
 
         writer.close();
     }
 
     //this function was written with the aid of ChatGPT
-    public List<Child> load() throws IOException {
+    public StorageData load() throws IOException {
         List<Child> children = new ArrayList<>();
+        List<Elf> elves = new ArrayList<>();
+
+        Child currentChild = null;
+        Elf currentElf = null;
+
         BufferedReader reader = new BufferedReader(new FileReader(filePath));
 
         String line;
-        Child currentChild = null;
+
 
         while ((line = reader.readLine()) != null) {
-            String[] parts = line.split("\\|");
+            if (line.trim().isEmpty()) {
+                continue;
+            }
+            String[] parts = line.trim().split("\\|");
+            if (parts.length == 0) {
+                continue;
+            }
 
-            if (parts[0].equals("CHILD")) {
+            switch (parts[0]) {
+            case "CHILD": {
+                currentElf = null;
                 try {
                     String name = parts[1];
                     int age = -1;
@@ -75,8 +99,9 @@ public class Storage {
                 } catch (IllegalValueException e) {
                     logger.warning("Invalid child name in file: " + parts[1]);
                 }
-
-            } else if (parts[0].equals("GIFT")) {
+                break;
+            }
+            case "GIFT": {
                 if (currentChild == null) {
                     throw new IllegalStateException("Gift before child in file");
                 }
@@ -103,11 +128,33 @@ public class Storage {
                 }
 
                 currentChild.addGift(gift);
+                break;
+            }
+            case "ELF": {
+                currentChild = null;
+                try {
+                    currentElf = new Elf(new Name(parts[1]));
+                    elves.add(currentElf);
+                } catch (IllegalValueException e) {
+                    logger.warning("Invalid elf name: " + parts[1]);
+                }
+                break;
+            }
+            case "TASK": {
+                if (currentElf == null) {
+                    throw new IllegalStateException("Task before elf in file");
+                }
+                currentElf.addTask(new ElfTask(parts[1]));
+                break;
+            }
+            default:
+                break;
             }
         }
 
         reader.close();
-        return children;
+        return new StorageData(children, elves);
     }
 }
 //@@author
+

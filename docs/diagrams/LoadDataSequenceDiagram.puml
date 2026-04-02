@@ -5,15 +5,20 @@ participant Storage
 participant File
 participant Child
 participant Gift
+participant Elf
+participant Task
 
-Duke -> Storage : load()
+ClausControl -> Storage : load()
 activate Storage
 
 Storage -> File : readLine()
 
 loop for each line
+
     alt line starts with CHILD
         Storage -> Child : new Child(name)
+        note right: currentChild = Child
+
     else line starts with GIFT
         Storage -> Gift : new Gift(name)
 
@@ -24,10 +29,19 @@ loop for each line
         end
 
         Storage -> Child : addGift(gift)
+
+    else line starts with ELF
+        Storage -> Elf : new Elf(name)
+        note right: currentElf = Elf
+
+    else line starts with TASK
+        Storage -> Task : new Task(description)
+        Storage -> Elf : addTask(task)
+
     end
 end
 
-Storage --> ClausControl : List<Child>
+Storage --> ClausControl : StorageData(children, elves)
 deactivate Storage
 
 @enduml

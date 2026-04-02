@@ -34,6 +34,7 @@ public class PrepareGiftCommandTest {
         Command command = parser.parseCommand(input);
         command.setData(childList, null, true);
         command.execute();
+
         assertEquals("PREPARED",
                 childList.get(0).getGifts().get(0).getState().toString());
     }
@@ -45,6 +46,7 @@ public class PrepareGiftCommandTest {
         Command command = parser.parseCommand(input);
         command.setData(childList, null, true);
         String result = command.execute();
+
         assertEquals("Cannot prepare a delivered gift, try another command!", result);
     }
     //invalid gift index
@@ -54,6 +56,7 @@ public class PrepareGiftCommandTest {
         Command command = parser.parseCommand(input);
         command.setData(childList, null, true);
         String result = command.execute();
+
         assertTrue(result.contains("Invalid gift index"));
     }
 
@@ -63,6 +66,7 @@ public class PrepareGiftCommandTest {
         Command command = parser.parseCommand(input);
         command.setData(childList, null, true);
         String result = command.execute();
+
         assertTrue(result.contains("Invalid child index"));
     }
 }

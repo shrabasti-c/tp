@@ -9,18 +9,22 @@ import seedu.clauscontrol.parser.Parser;
 import seedu.clauscontrol.storage.TodoStorage;
 import seedu.clauscontrol.ui.TextUi;
 import seedu.clauscontrol.storage.Storage;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import seedu.clauscontrol.commands.FinalizeCommand;
+import seedu.clauscontrol.storage.StorageData;
 
 //@@author shrabasti-c
 /* Adapted from Main Class of AB2 application
  * Link: https://github.com/se-edu/addressbook-level2/blob/master/src/seedu/addressbook/Main.java
  * with some modifications
  */
+
 /**
  * Starts and runs the ClausControl application until termination.
  */
@@ -40,7 +44,7 @@ public class ClausControl {
     private final Parser parser;
     private ArrayList<Child> childList;
     private final ArrayList<Elf> elfList;
-    private final Storage storage= new Storage("data.txt");
+    private final Storage storage = new Storage("data.txt");
 
     //@@author GShubhan
     private boolean isFinalized = false;
@@ -51,12 +55,15 @@ public class ClausControl {
     public ClausControl() {
         this(System.in);
     }
+
     //@@author prerana-r11
     public ClausControl(InputStream inputStream) {
         this.ui = new TextUi(inputStream);
         this.elfList = new ArrayList<>();
         try {
-            this.childList = new ArrayList<>(storage.load());
+            StorageData data = storage.load();
+            this.childList = new ArrayList<>(data.children);
+            this.elfList.addAll(data.elves);
         } catch (IOException e) {
             this.childList = new ArrayList<>();
         }
@@ -92,7 +99,7 @@ public class ClausControl {
                 //@@author GShubhan
                 String result = command.execute();
                 try {
-                    storage.save(childList);
+                    storage.save(childList, elfList);
                 } catch (IOException e) {
                     logger.warning("Error saving: " + e.getMessage());
                 }
@@ -110,7 +117,7 @@ public class ClausControl {
             } catch (IllegalValueException e) {
                 displayWithDividers(e.getMessage());
                 logger.log(Level.INFO, "processing error");
-            } catch(Exception e){
+            } catch (Exception e) {
                 return;
             }
         } while (true);
@@ -135,6 +142,7 @@ public class ClausControl {
         showUpcomingTodos();
         runCommandLoopUntilExitCommand();
     }
+
     //@@author GShubhan
     private void showUpcomingTodos() {
         StringBuilder sb = new StringBuilder();
@@ -151,6 +159,7 @@ public class ClausControl {
         }
     }
     //@@author
+
     /**
      * Main entry-point for the ClausControl application.
      *

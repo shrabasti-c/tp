@@ -55,11 +55,11 @@ Searches for children based on their registered location.
 * Example: `find l/Singapore`
 
 #### Add gift: gift
-Assigns gift/s to a child.
+Assigns a single gift or multiple gifts at a time to a child.
 * Format: gift CHILD_INDEX g/GIFT
 1. Assigns gifts to children according to the specified CHILD_INDEX. The index refers to the index number shown in the displayed child list. The index must be a positive integer 1, 2, 3, …​
 *Examples:
-gift 1 g/toy
+gift 1 g/toy g/chocolate g/book
 gift 3 g/book
 
 #### Remove gift: degift
