@@ -20,18 +20,17 @@ ClausControl is a **desktop app for Santa Claus to manage children, gifts, elves
 
 --------------------------------------------------------------------------------------------------------------------
 ## Features
-<div markdown="block" class="alert alert-info">
+<div markdown="block">
 
 **! Notes about the command format:**<br>
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
-  e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/Peter Parker`.
+  e.g. in `child n/NAME`, `NAME` is a parameter which can be used as `add n/Peter Parker`.
 
 * Items in square brackets are optional.<br>
   e.g `n/NAME [l/LOCATION]` can be used as `n/Peter Parker l/New York` or as `n/Peter Parker`.
 
-* Items with `…` after them can be used multiple times can be used multiple times but minimally one time.<br>
-  e.g. `[g/GIFT]…` can be used as `g/BOOK` (i.e. 1 time), `g/BOOK g/TOY` etc.
+* Items with … after them can be used multiple times but minimally one time. e.g. `degift CHILD_INDEX GIFT_INDEX...`… can be used as `degift 1 1` (i.e. 1 time), `degift 1 1 2 3` etc. 
 
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME l/LOCATION a/AGE`, `a/AGE l/LOCATION n/NAME` is also acceptable.
@@ -175,48 +174,49 @@ Searches for children based on their registered location.
 
 ### Gift Management
 
-#### Add gift: gift
+#### Add gift: `gift`
 Assigns a single gift or multiple gifts at a time to a child.
-* Format: gift CHILD_INDEX g/GIFT
-1. Assigns gifts to children according to the specified CHILD_INDEX. The index refers to the index number shown in the displayed child list. The index must be a positive integer 1, 2, 3, …​
-*Examples:
-gift 1 g/toy g/chocolate g/book
-gift 3 g/book
+* Format: `gift CHILD_INDEX g/GIFT `
+* Assigns gifts to children according to the specified CHILD_INDEX. The index refers to the index number shown in the displayed child list. The index must be a positive integer 1, 2, 3, …​
 
-#### Remove gift: degift
+Examples:
+* `gift 1 g/toy g/chocolate g/book `
+* `gift 3 g/book`
+
+#### Remove gift: `degift`
 Removes gift/s assigned to a child.
-* Format: degift CHILD_INDEX GIFT_INDEX...
-1. The user inputs the child index and gift index.
-2. Removes the gift from the gift list using the input child index and gift index. 
-3. The index must be a positive integer 1, 2, 3..
-* Examples:
-degift 1 2
+* Format: `degift CHILD_INDEX GIFT_INDEX...`
+* The user inputs the child index and gift index. 
+* Removes the gift from the gift list using the input child index and gift index. 
+* The index must be a positive integer 1, 2, 3.. 
+Example:
+* `degift 1 2`
 
 
-#### Update delivery status: delivery_status
+#### Update delivery status: `delivery_status`
 Assigns delivery status of gifts as delivered/undelivered.
-* Format: delivery_status CHILD_INDEX GIFT_INDEX d/delivery_status
-1. The user inputs the child index, gift index and delivery status.
-2. Assigns delivery status (delivered/undelivered) to a gift in the gift list based on the input child index and gift index. 
-3. The index must be a positive integer 1, 2, 3
-* Examples:
-deliver 1 2 delivered
+* Format: `delivery_status CHILD_INDEX GIFT_INDEX d/delivery_status `
+* The user inputs the child index, gift index and delivery status. 
+* Assigns delivery status (delivered/undelivered) to a gift in the gift list based on the input child index and gift index. 
+* The index must be a positive integer 1, 2, 3
+Example:
+* `deliver 1 2 delivered`
 
-#### View gift list: giftlist
+#### View gift list: `giftlist`
 Displays all gifts assigned to children.
-* Format: giftlist
-* Examples: giftlist 
+* Format: `giftlist`
+Example: 
+* `giftlist`
 Displays the following:
 toy
 book
 
-#### Mark gift as prepared: prepared
+#### Mark gift as prepared: `prepared`
 Marks a gift which is prepared but not delivered yet.
-* Format: prepared CHILD_INDEX GIFT_INDEX
-1. The user inputs the child index, gift index
-2. The index must be a positive integer 1, 2, 3
-* Examples
-prepared 1 2
+* Format: `prepared CHILD_INDEX GIFT_INDEX `
+* The user inputs the child index, gift index. The index must be a positive integer 1, 2, 3
+Example:
+* `prepared 1 2`
 
 ### Todo List
 
