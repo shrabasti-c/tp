@@ -84,12 +84,20 @@ public class ViewCommand extends Command{
 
     private String getLocationMessage(Child child) {
         String location = child.getLocation();
-        return (location == null )? "Not Provided": location;
+        if (location == null) {
+            return "Not Provided";
+        } else {
+            return location;
+        }
     }
 
     private String getAgeMessage(Child child) {
         int age = child.getAge();
-        return (age == -1)? "Not Provided": String.valueOf(age);
+        if (age == -1) {
+            return "Not Provided";
+        } else {
+            return String.valueOf(age);
+        }
     }
 
     /**

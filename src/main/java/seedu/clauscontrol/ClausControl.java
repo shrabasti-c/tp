@@ -17,6 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import seedu.clauscontrol.commands.FinalizeCommand;
+import seedu.clauscontrol.commands.ResetCommand;
 import seedu.clauscontrol.storage.StorageData;
 
 //@@author shrabasti-c
@@ -104,6 +105,8 @@ public class ClausControl {
                 }
                 if (command instanceof FinalizeCommand) {
                     isFinalized = true;
+                } else if (command instanceof ResetCommand) {
+                    isFinalized = false;
                 }
                 try {
                     todoStorage.save(todoList);
