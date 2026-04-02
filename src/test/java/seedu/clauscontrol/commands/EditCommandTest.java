@@ -16,7 +16,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 //@@author shrabasti-c
 /* Inspired by AddCommandTest Class of AB2 application
- * Link: https://github.com/se-edu/addressbook-level2/blob/master/test/java/seedu/addressbook/commands/AddCommandTest.java
+ * Link: https://github.com/se-edu/addressbook-level2/blob/master/test/java/seedu/addressbook/commands
+ * /AddCommandTest.java
  */
 public class EditCommandTest {
     private static Parser parser;
