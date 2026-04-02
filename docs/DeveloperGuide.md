@@ -399,6 +399,115 @@ Given below is the sequence diagram.
     - **Pros:** Provides a complete overview of all children details.
     - **Cons:** Output may look messy.
 
+
+## Documentation, logging, testing, configuration, dev-ops
+
+### Setting up and maintaining the project website
+This project uses Jekyll to manage documentation.
+
+- All documentation files are under the docs/ folder.
+- Markdown(.md) is used for writing documentation.
+- The structure and navigation of the site are controlled with Jekyll.
+
+To set up and maintain the project website, refer to:
+- se-edu/guides: Using Jekyll for project documentation
+
+### Project specific notes
+When adapting documentation for ClausControl:
+- Update all references to match Children, Gifts, Elves, Todos, Commanss
+- Ensure command formats match logic in the parser.
+- Update configuration files if required.
+
+If using IntelliJ, enable soft wrapping for `.md` files.
+
+### Style guidance
+- Follow the Google Developer Documentation Style Guide
+- Follow Markdown standards from:
+    - se-edu/guides: Markdown coding standard
+
+### Diagrams
+Use PlantUML for diagrams such as:
+- Command flows
+- Class diagrams
+- Sequence diagrams
+Guide:
+- se-edu/guides: Using PlantUML
+
+### Converting documentation to PDF
+Use browser print → Save as PDF.
+
+## Testing Guide
+
+### Running tests
+
+#### Method 1: IntelliJ
+
+- Right-click `src/test/java`
+- Select **Run 'All Tests'**
+
+You can also run:
+- Individual test classes
+- Specific test methods
+
+#### Method 2: Gradle
+./gradlew clean test
+
+### Types of tests
+
+#### 1. Unit Tests
+These tests focus on internal logic and data classes.
+Examples of behaviors tested:
+1. Gift state transitions.
+2. Todo deadline transitions.
+
+#### 2. Command Tests
+These tests validate command parsing and execution logic.
+Some examples include:
+1. ActionCommand→ updates child's behavior scores.
+2. ViewCommand→ displays collected child information.
+
+#### 3. Parser Tests
+These tests validate whether the user input is correctly interpreted into commands.
+They ensure that the correct command is created, parameters are parsed accurately and errors are thrown.
+Examples:
+1. Handling flexible input order (e.g. `child n/Name a/10 l/City`)
+
+#### 4. System-Level Tests
+These tests simulate real application execution.
+
+## Logging Guide
+
+### Logging Framework
+ClausControl uses java's built in logging framework.
+
+## Dev-Ops Guide
+
+### Build Automation
+ClausControl used **Gradle** for build automation.
+
+### Common Gradle Commands
+./gradlew clean → Removes build files
+./gradlew test  → Runs all tests
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Product scope
+### Target user profile
 ## Appendix A: Product Scope
 
 ### Target user profile
