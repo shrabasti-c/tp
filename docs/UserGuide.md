@@ -5,7 +5,7 @@ title: User Guide
 
 ClausControl is a **desktop app for Santa Claus to manage children, gifts, elves and deadlines, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If Santa can type fast, ClausControl can get his management tasks done faster than traditional GUI apps.
 
-* Table of Contents
+## Table of Contents
   {:toc}
 
 --------------------------------------------------------------------------------------------------------------------
@@ -20,18 +20,17 @@ ClausControl is a **desktop app for Santa Claus to manage children, gifts, elves
 
 --------------------------------------------------------------------------------------------------------------------
 ## Features
-<div markdown="block" class="alert alert-info">
+<div markdown="block">
 
 **! Notes about the command format:**<br>
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
-  e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/Peter Parker`.
+  e.g. in `child n/NAME`, `NAME` is a parameter which can be used as `add n/Peter Parker`.
 
 * Items in square brackets are optional.<br>
   e.g `n/NAME [l/LOCATION]` can be used as `n/Peter Parker l/New York` or as `n/Peter Parker`.
 
-* Items with `…` after them can be used multiple times can be used multiple times but minimally one time.<br>
-  e.g. `[g/GIFT]…` can be used as `g/BOOK` (i.e. 1 time), `g/BOOK g/TOY` etc.
+* Items with … after them can be used multiple times but minimally one time. e.g. `degift CHILD_INDEX GIFT_INDEX...`… can be used as `degift 1 1` (i.e. 1 time), `degift 1 1 2 3` etc. 
 
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME l/LOCATION a/AGE`, `a/AGE l/LOCATION n/NAME` is also acceptable.
@@ -143,7 +142,7 @@ Removes an existing Elf based on their index in the list.
 * Format: `rmelf e/ELF_INDEX`
 * Example: `rmelf e/1`
 
-#### Editing an Elf: `Editelf`
+#### Editing an Elf: `editelf`
 Updates the name of an existing Elf identified by their index.
 * Format: `Editelf e/ELF_INDEX n/ELF_NEW_NAME`
 * Example: `Editelf e/1 n/Legolas`
@@ -175,48 +174,49 @@ Searches for children based on their registered location.
 
 ### Gift Management
 
-#### Add gift: gift
+#### Add gift: `gift`
 Assigns a single gift or multiple gifts at a time to a child.
-* Format: gift CHILD_INDEX g/GIFT
-1. Assigns gifts to children according to the specified CHILD_INDEX. The index refers to the index number shown in the displayed child list. The index must be a positive integer 1, 2, 3, …​
-*Examples:
-gift 1 g/toy g/chocolate g/book
-gift 3 g/book
+* Format: `gift CHILD_INDEX g/GIFT `
+* Assigns gifts to children according to the specified CHILD_INDEX. The index refers to the index number shown in the displayed child list. The index must be a positive integer 1, 2, 3, …​
 
-#### Remove gift: degift
+Examples:
+* `gift 1 g/toy g/chocolate g/book `
+* `gift 3 g/book`
+
+#### Remove gift: `degift`
 Removes gift/s assigned to a child.
-* Format: degift CHILD_INDEX GIFT_INDEX...
-1. The user inputs the child index and gift index.
-2. Removes the gift from the gift list using the input child index and gift index. 
-3. The index must be a positive integer 1, 2, 3..
-* Examples:
-degift 1 2
+* Format: `degift CHILD_INDEX GIFT_INDEX...`
+* The user inputs the child index and gift index. 
+* Removes the gift from the gift list using the input child index and gift index. 
+* The index must be a positive integer 1, 2, 3.. 
+Example:
+* `degift 1 2`
 
 
-#### Update delivery status: delivery_status
+#### Update delivery status: `delivery_status`
 Assigns delivery status of gifts as delivered/undelivered.
-* Format: delivery_status CHILD_INDEX GIFT_INDEX d/delivery_status
-1. The user inputs the child index, gift index and delivery status.
-2. Assigns delivery status (delivered/undelivered) to a gift in the gift list based on the input child index and gift index. 
-3. The index must be a positive integer 1, 2, 3
-* Examples:
-deliver 1 2 delivered
+* Format: `delivery_status CHILD_INDEX GIFT_INDEX d/delivery_status `
+* The user inputs the child index, gift index and delivery status. 
+* Assigns delivery status (delivered/undelivered) to a gift in the gift list based on the input child index and gift index. 
+* The index must be a positive integer 1, 2, 3
+Example:
+* `deliver 1 2 delivered`
 
-#### View gift list: giftlist
+#### View gift list: `giftlist`
 Displays all gifts assigned to children.
-* Format: giftlist
-* Examples: giftlist 
+* Format: `giftlist`
+Example: 
+* `giftlist`
 Displays the following:
 toy
 book
 
-#### Mark gift as prepared: prepared
+#### Mark gift as prepared: `prepared`
 Marks a gift which is prepared but not delivered yet.
-* Format: prepared CHILD_INDEX GIFT_INDEX
-1. The user inputs the child index, gift index
-2. The index must be a positive integer 1, 2, 3
-* Examples
-prepared 1 2
+* Format: `prepared CHILD_INDEX GIFT_INDEX `
+* The user inputs the child index, gift index. The index must be a positive integer 1, 2, 3
+Example:
+* `prepared 1 2`
 
 ### Todo List
 
@@ -274,32 +274,32 @@ Stores data in a txt file which allows retrieval of lists upon restarting the ap
 
 ## Command Summary
 
-| Action                     | Format                                                | Example                                |
-|:---------------------------|:------------------------------------------------------|:---------------------------------------|
-| **Add Child**              | `child n/NAME [l/LOCATION] [a/AGE]`                   | `child n/Peter Parker a/16 l/New York` |
-| **Edit Child**             | `edit edit CHILD_INDEX [n/NAME] [l/LOCATION] [a/AGE]` | `edit 1 n/Eddie Brock`                 |
-| **View Child**             | `view CHILD_INDEX`                                    | `view 1`                               |
-| **Delete Child**           | `delete CHILD_INDEX`                                  | `delete 1`                             |
-| **Add action**             | `action CHILD_INDEX a/ACTION s/SEVERITY`              | `action 1 a/helped grandma s/2`        |
-| **View nice list**         | `nice`                                                | `nice`                                 |
-| **View naughty list**      | `naughty`                                             | `naughty`                              |
-| **Reassign child**         | `reassign CHILD_INDEX l/LIST`                         | `reassign 1 l/nice`                    |
-| **Finalize lists**         | `finalize`                                            | `finalize`                             |
-| **Add Elf**                | `elf n/NAME`                                          | `elf n/Dobby`                          |
-| **Remove Elf**             | `rmelf e/INDEX`                                       | `rmelf e/1`                            |
-| **Edit Elf**               | `Editelf e/INDEX n/NEW_NAME`                          | `Editelf e/2 n/Zobby`                  |
-| **List Children**          | `childlist`                                           | `childlist`                            |
-| **List Elves**             | `elflist`                                             | `elflist`                              |
-| **Find by Name**           | `find n/NAME`                                         | `find n/James Jake`                    |
-| **Find by Age**            | `find a/AGE`                                          | `find a/11`                            |
-| **Find by Location**       | `find l/LOCATION`                                     | `find l/Singapore`                     |
-| **Add Gift**               | `gift CHILD_INDEX [g/GIFT]`                           | `gift 1 g/toy`                         |
-| **Remove gift**            | `degift CHILD_INDEX GIFT_INDEX`                       | `degift 1 2`                           |
-| **Update delivery status** | `delivery_status CHILD_INDEX GIFT_INDEX d/[status]`   | `delivery_status 1 2 d/delivered`      |
-| **Mark prepared gift **    | `prepared CHILD INDEX GIFT INDEX`                     | `prepared 1 2`                         |
-| **view giftlist**          | `giftlist`                                            | `giftlist`                             |
-| **Add todo**               | `todo d/DESCRIPTION by/YYYY-MM-DD`                    | `todo d/Buy gifts by/2026-12-20`       |
-| **Edit todo**              | `edittodo INDEX [d/DESCRIPTION] [by/YYYY-MM-DD]`      | `edittodo d/Wrap gifts by/2026-12-22`  |
-| **View todos**             | `todolist`                                            | `todolist`                             |
-| **Remove todo**            | `removetodo INDEX`                                    | `removetodo 1`                         |
-| **Exit Application**       | `bye`                                                 | `bye`                                  |
+| Action                     | Format                                              | Example                                |
+|:---------------------------|:----------------------------------------------------|:---------------------------------------|
+| **Add Child**              | `child n/NAME [l/LOCATION] [a/AGE]`                 | `child n/Peter Parker a/16 l/New York` |
+| **Edit Child**             | `edit CHILD_INDEX [n/NAME] [l/LOCATION] [a/AGE]`    | `edit 1 n/Eddie Brock`                 |
+| **View Child**             | `view CHILD_INDEX`                                  | `view 1`                               |
+| **Delete Child**           | `delete CHILD_INDEX`                                | `delete 1`                             |
+| **Add action**             | `action CHILD_INDEX a/ACTION s/SEVERITY`            | `action 1 a/helped grandma s/2`        |
+| **View nice list**         | `nice`                                              | `nice`                                 |
+| **View naughty list**      | `naughty`                                           | `naughty`                              |
+| **Reassign child**         | `reassign CHILD_INDEX l/LIST`                       | `reassign 1 l/nice`                    |
+| **Finalize lists**         | `finalize`                                          | `finalize`                             |
+| **Add Elf**                | `elf n/NAME`                                        | `elf n/Dobby`                          |
+| **Remove Elf**             | `rmelf e/INDEX`                                     | `rmelf e/1`                            |
+| **Edit Elf**               | `Editelf e/INDEX n/NEW_NAME`                        | `Editelf e/2 n/Zobby`                  |
+| **List Children**          | `childlist`                                         | `childlist`                            |
+| **List Elves**             | `elflist`                                           | `elflist`                              |
+| **Find by Name**           | `find n/NAME`                                       | `find n/James Jake`                    |
+| **Find by Age**            | `find a/AGE`                                        | `find a/11`                            |
+| **Find by Location**       | `find l/LOCATION`                                   | `find l/Singapore`                     |
+| **Add Gift**               | `gift CHILD_INDEX [g/GIFT]`                         | `gift 1 g/toy`                         |
+| **Remove gift**            | `degift CHILD_INDEX GIFT_INDEX`                     | `degift 1 2`                           |
+| **Update delivery status** | `delivery_status CHILD_INDEX GIFT_INDEX d/[status]` | `delivery_status 1 2 d/delivered`      |
+| **Mark prepared gift **    | `prepared CHILD INDEX GIFT INDEX`                   | `prepared 1 2`                         |
+| **view giftlist**          | `giftlist`                                          | `giftlist`                             |
+| **Add todo**               | `todo d/DESCRIPTION by/YYYY-MM-DD`                  | `todo d/Buy gifts by/2026-12-20`       |
+| **Edit todo**              | `edittodo INDEX [d/DESCRIPTION] [by/YYYY-MM-DD]`    | `edittodo d/Wrap gifts by/2026-12-22`  |
+| **View todos**             | `todolist`                                          | `todolist`                             |
+| **Remove todo**            | `removetodo INDEX`                                  | `removetodo 1`                         |
+| **Exit Application**       | `bye`                                               | `bye`                                  |

@@ -50,6 +50,7 @@ Allows Santa to access saved data(childlist,giftlist and elflist) across all ses
 * Added all above commands to the Command Summary table.
 * Formatted initial UG Canvas Submission and submitted it.
 * Formatted final UG submission and added common sections: Title, Table of Contents, Features (with Notes).
+* Carried out basic formatting of whole team's parts (a significant endeavor) for both cases of User Guide 
 
 ### Contributions to the DG
 * Added implementation details for: child feature and other common features.
