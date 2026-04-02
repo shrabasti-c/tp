@@ -274,32 +274,32 @@ Stores data in a txt file which allows retrieval of lists upon restarting the ap
 
 ## Command Summary
 
-| Action                     | Format                                                | Example                                |
-|:---------------------------|:------------------------------------------------------|:---------------------------------------|
-| **Add Child**              | `child n/NAME [l/LOCATION] [a/AGE]`                   | `child n/Peter Parker a/16 l/New York` |
-| **Edit Child**             | `edit edit CHILD_INDEX [n/NAME] [l/LOCATION] [a/AGE]` | `edit 1 n/Eddie Brock`                 |
-| **View Child**             | `view CHILD_INDEX`                                    | `view 1`                               |
-| **Delete Child**           | `delete CHILD_INDEX`                                  | `delete 1`                             |
-| **Add action**             | `action CHILD_INDEX a/ACTION s/SEVERITY`              | `action 1 a/helped grandma s/2`        |
-| **View nice list**         | `nice`                                                | `nice`                                 |
-| **View naughty list**      | `naughty`                                             | `naughty`                              |
-| **Reassign child**         | `reassign CHILD_INDEX l/LIST`                         | `reassign 1 l/nice`                    |
-| **Finalize lists**         | `finalize`                                            | `finalize`                             |
-| **Add Elf**                | `elf n/NAME`                                          | `elf n/Dobby`                          |
-| **Remove Elf**             | `rmelf e/INDEX`                                       | `rmelf e/1`                            |
-| **Edit Elf**               | `Editelf e/INDEX n/NEW_NAME`                          | `Editelf e/2 n/Zobby`                  |
-| **List Children**          | `childlist`                                           | `childlist`                            |
-| **List Elves**             | `elflist`                                             | `elflist`                              |
-| **Find by Name**           | `find n/NAME`                                         | `find n/James Jake`                    |
-| **Find by Age**            | `find a/AGE`                                          | `find a/11`                            |
-| **Find by Location**       | `find l/LOCATION`                                     | `find l/Singapore`                     |
-| **Add Gift**               | `gift CHILD_INDEX [g/GIFT]`                           | `gift 1 g/toy`                         |
-| **Remove gift**            | `degift CHILD_INDEX GIFT_INDEX`                       | `degift 1 2`                           |
-| **Update delivery status** | `delivery_status CHILD_INDEX GIFT_INDEX d/[status]`   | `delivery_status 1 2 d/delivered`      |
-| **Mark prepared gift **    | `prepared CHILD INDEX GIFT INDEX`                     | `prepared 1 2`                         |
-| **view giftlist**          | `giftlist`                                            | `giftlist`                             |
-| **Add todo**               | `todo d/DESCRIPTION by/YYYY-MM-DD`                    | `todo d/Buy gifts by/2026-12-20`       |
-| **Edit todo**              | `edittodo INDEX [d/DESCRIPTION] [by/YYYY-MM-DD]`      | `edittodo d/Wrap gifts by/2026-12-22`  |
-| **View todos**             | `todolist`                                            | `todolist`                             |
-| **Remove todo**            | `removetodo INDEX`                                    | `removetodo 1`                         |
-| **Exit Application**       | `bye`                                                 | `bye`                                  |
+| Action                     | Format                                              | Example                                |
+|:---------------------------|:----------------------------------------------------|:---------------------------------------|
+| **Add Child**              | `child n/NAME [l/LOCATION] [a/AGE]`                 | `child n/Peter Parker a/16 l/New York` |
+| **Edit Child**             | `edit CHILD_INDEX [n/NAME] [l/LOCATION] [a/AGE]`    | `edit 1 n/Eddie Brock`                 |
+| **View Child**             | `view CHILD_INDEX`                                  | `view 1`                               |
+| **Delete Child**           | `delete CHILD_INDEX`                                | `delete 1`                             |
+| **Add action**             | `action CHILD_INDEX a/ACTION s/SEVERITY`            | `action 1 a/helped grandma s/2`        |
+| **View nice list**         | `nice`                                              | `nice`                                 |
+| **View naughty list**      | `naughty`                                           | `naughty`                              |
+| **Reassign child**         | `reassign CHILD_INDEX l/LIST`                       | `reassign 1 l/nice`                    |
+| **Finalize lists**         | `finalize`                                          | `finalize`                             |
+| **Add Elf**                | `elf n/NAME`                                        | `elf n/Dobby`                          |
+| **Remove Elf**             | `rmelf e/INDEX`                                     | `rmelf e/1`                            |
+| **Edit Elf**               | `Editelf e/INDEX n/NEW_NAME`                        | `Editelf e/2 n/Zobby`                  |
+| **List Children**          | `childlist`                                         | `childlist`                            |
+| **List Elves**             | `elflist`                                           | `elflist`                              |
+| **Find by Name**           | `find n/NAME`                                       | `find n/James Jake`                    |
+| **Find by Age**            | `find a/AGE`                                        | `find a/11`                            |
+| **Find by Location**       | `find l/LOCATION`                                   | `find l/Singapore`                     |
+| **Add Gift**               | `gift CHILD_INDEX [g/GIFT]`                         | `gift 1 g/toy`                         |
+| **Remove gift**            | `degift CHILD_INDEX GIFT_INDEX`                     | `degift 1 2`                           |
+| **Update delivery status** | `delivery_status CHILD_INDEX GIFT_INDEX d/[status]` | `delivery_status 1 2 d/delivered`      |
+| **Mark prepared gift **    | `prepared CHILD INDEX GIFT INDEX`                   | `prepared 1 2`                         |
+| **view giftlist**          | `giftlist`                                          | `giftlist`                             |
+| **Add todo**               | `todo d/DESCRIPTION by/YYYY-MM-DD`                  | `todo d/Buy gifts by/2026-12-20`       |
+| **Edit todo**              | `edittodo INDEX [d/DESCRIPTION] [by/YYYY-MM-DD]`    | `edittodo d/Wrap gifts by/2026-12-22`  |
+| **View todos**             | `todolist`                                          | `todolist`                             |
+| **Remove todo**            | `removetodo INDEX`                                  | `removetodo 1`                         |
+| **Exit Application**       | `bye`                                               | `bye`                                  |
