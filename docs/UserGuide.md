@@ -143,8 +143,8 @@ Removes an existing Elf based on their index in the list.
 
 #### Editing an Elf: `editelf`
 Updates the name of an existing Elf identified by their index.
-* Format: `Editelf e/ELF_INDEX n/ELF_NEW_NAME`
-* Example: `Editelf e/1 n/Legolas`
+* Format: `editelf e/ELF_INDEX n/ELF_NEW_NAME`
+* Example: `editelf e/1 n/Legolas`
 
 #### Assigning a task to an Elf: `task`
 Assigns a task to an existing Elf.
@@ -305,7 +305,7 @@ Stores data in a txt file which allows retrieval of lists upon restarting the ap
 | **Finalize lists**         | `finalize`                                          | `finalize`                             |
 | **Add Elf**                | `elf n/NAME`                                        | `elf n/Dobby`                          |
 | **Remove Elf**             | `rmelf e/INDEX`                                     | `rmelf e/1`                            |
-| **Edit Elf**               | `Editelf e/INDEX n/NEW_NAME`                        | `Editelf e/2 n/Zobby`                  |
+| **Edit Elf**               | `editelf e/INDEX n/NEW_NAME`                        | `editelf e/2 n/Zobby`                  |
 | **Assign Elf Task**        | `task ELF_INDEX t/TASK_DESCRIPTION`                 | `task 1 t/wrap gifts`                  |
 | **Remove Elf Task**        | `detask e/ELF_INDEX t/TASK_INDEX`                   | `detask e/1 t/1`                       |
 | **List Children**          | `childlist`                                         | `childlist`                            |
