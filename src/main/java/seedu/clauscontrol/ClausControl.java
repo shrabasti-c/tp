@@ -115,7 +115,7 @@ public class ClausControl {
                 //@@author
             } catch (IllegalValueException e) {
                 displayWithDividers(e.getMessage());
-                logger.log(Level.WARNING, "processing error");
+                logger.log(Level.WARNING, "processing error or delete command triggered.");
             } catch (Exception e) {
                 return;
             }
