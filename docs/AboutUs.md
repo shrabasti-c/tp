@@ -1,12 +1,8 @@
 # About us
 
-Display |     Name      | Github Profile | Portfolio 
---------|:-------------:|:--------------:|:---------:
-![](https://via.placeholder.com/100.png?text=Photo) | Shubhan Gabra | [Github](https://github.com/GShubhan) | [Portfolio](https://github.com/GShubhan/GShubhan)
-Display |         Name         | Github Profile | Portfolio 
---------|:--------------------:|:--------------:|:---------:
-![](https://via.placeholder.com/100.png?text=Photo) | Prerana Ravi Shankar | https://github.com/settings/profile | https://github.com/prerana-r11
-Display |     Name     | Github Profile | Portfolio 
---------|:------------:|:--------------:|:---------:
-![](https://via.placeholder.com/100.png?text=Photo) | XIAO Yanjing | [Github](https://github.com/Aurosky) | [Portfolio](https://github.com/Aurosky))
-![](https://via.placeholder.com/100.png?text=Photo) | Chakraborty Shrabasti | [Github](https://github.com/shrabasti-c) | [Portfolio](https://github.com/shrabasti-c/shrabasti-c)
+Display |     Name      |                               Github Profile                                | Portfolio 
+--------|:-------------:|:---------------------------------------------------------------------------:|:---------:
+![](docs/teamutils/placeholder.png) | Shubhan Gabra |                    [Github](https://github.com/GShubhan)                    | [Portfolio](docs/team/gshubhan.md)
+![](docs/teamutils/placeholder.png) | Prerana Ravi Shankar | [Github](https://github.com/prerana-r11) | [Portfolio](docs/team/prerana-r11.md)
+![](docs/teamutils/placeholder.png) | XIAO Yanjing |                    [Github](https://github.com/Aurosky)                     | [Portfolio](docs/team/aurosky.md)
+![](docs/teamutils/shrabasti-c.png) | Chakraborty Shrabasti |                  [Github](https://github.com/shrabasti-c)                   | [Portfolio](docs/team/shrabasti-c.md)

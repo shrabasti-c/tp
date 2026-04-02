@@ -1,4 +1,4 @@
-# Duke
+# ClausControl
 
 {Give product intro here}
 

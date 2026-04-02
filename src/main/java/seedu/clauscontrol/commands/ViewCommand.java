@@ -22,8 +22,9 @@ public class ViewCommand extends Command{
      *     <li> child's name (minimally) </li>
      *     <li> child's age </li>
      *     <li> child's location </li>
-     *     <li> child's status (naughty/nice) </li>
      *     <li> child's gifts </li>
+     *     <li> child's actions and their severities </li>
+     *     <li> child's status (naughty/nice) </li>
      * </ul>
      *
      * @return String comprising child profile list or error message.
@@ -47,7 +48,16 @@ public class ViewCommand extends Command{
         ArrayList<Gift> gifts = child.getGifts();
         if (!gifts.isEmpty()) {
             sb.append("Gifts: \n");
-            createList(gifts, sb);
+            createGiftList(gifts, sb);
+        }
+
+        ArrayList<String> actions = child.getActions();
+        ArrayList<Integer> severities = child.getSeverities();
+        if (!actions.isEmpty()) {
+            for (int i = 0; i < actions.size(); i++) {
+                sb.append("Actions: \n");
+                createActionList(actions, severities, sb);
+            }
         }
 
         String listAssignment = getListAssignment(child);
@@ -57,11 +67,19 @@ public class ViewCommand extends Command{
     }
 
     private String getListAssignment(Child child) {
-        String listAssignment = "Yet to be evaluated/assigned.";
         if (child.getListAssignment() != null) {
-            listAssignment = child.getListAssignment();
+            return child.getListAssignment();
         }
-        return listAssignment;
+
+        if (child.getSeverities().isEmpty()){
+            return "Yet to be evaluated/assigned.";
+        }
+
+        if (child.isNaughty()) {
+            return "naughty";
+        } else {
+            return "nice";
+        }
     }
 
     private String getLocationMessage(Child child) {
@@ -78,12 +96,29 @@ public class ViewCommand extends Command{
      * Builds gift list to display in profile.
      *
      */
-    private static void createList(ArrayList<Gift> gifts, StringBuilder sb) {
+    private static void createGiftList(ArrayList<Gift> gifts, StringBuilder sb) {
         for (int j = 0; j < gifts.size(); j++) {
             sb.append("   ")
                     .append(j + 1)
                     .append(". ")
                     .append(gifts.get(j))
+                    .append("\n");
+        }
+    }
+
+    /**
+     * Builds actions and severities list to display in profile.
+     *
+     */
+    private static void createActionList(ArrayList<String> actions, ArrayList<Integer> severities, StringBuilder sb) {
+        for (int j = 0; j < actions.size(); j++) {
+            sb.append("   ")
+                    .append(j + 1)
+                    .append(". ")
+                    .append(actions.get(j))
+                    .append(" (")
+                    .append(severities.get(j))
+                    .append(")")
                     .append("\n");
         }
     }

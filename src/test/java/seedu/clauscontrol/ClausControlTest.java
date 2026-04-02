@@ -13,11 +13,11 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ClausControlTest {
-    //@@author shrabasti-c-reused
-    //Inspired from https://www.geeksforgeeks.org/advance-java/unit-testing-of-system-out-println-with-junit/
-    // with modifications
-
-    //Claude was used to debug and modify tests 1 and 3 after implementation of the Main (Duke)
+    //@@author shrabasti-c
+    /* Inspired by JUnit test structure found on GeeksforGeeks
+     * Link: https://www.geeksforgeeks.org/advance-java/unit-testing-of-system-out-println-with-junit/
+     * with some modifications
+     */
 
     private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;

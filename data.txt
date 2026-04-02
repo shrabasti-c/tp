@@ -1,3 +1,6 @@
 CHILD|Bruce|NYC|3
+ACTION|smile|4
 CHILD|Peter Parker||-1
+GIFT|watch|IN_PROGRESS
+ACTION|cry|-2
 CHILD|Nick Jonas||-1
