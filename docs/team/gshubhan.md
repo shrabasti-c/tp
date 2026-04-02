@@ -45,19 +45,25 @@ are shown as reminders on startup.
 ### Contributions to the UG
 * Added sections for: `action`, `nice`, `naughty`, `reassign`, `finalize`,
   `todo`, `todolist`, `removetodo`
-* Added all commands to the Command Summary table
+* Added all commands written by me to the Command Summary table
 
 ### Contributions to the DG
 * Added implementation details for: Action Tracking, Nice/Naughty Lists,
   Reassign, Finalize and Todo features
+* Added all appendices for the DG.
 * Added sequence diagram for the Finalize feature
 * Added sequence diagram for the Action command
+
 
 ### Contributions to Team-Based Tasks
 * Set up team meeting on MS teams
 * Reviewed PRs from teammates
 * Updated `Command.java` `setData()` to support the `isFinalized` flag
   used by all team members
+* Led a few project meetings.
+* Contribute to google docs for planning of TP.
+* Help draft UG and DG.
 
 ### Review/Mentoring Contributions
 * Helped teammates resolve Git merge conflicts
+* Debugging of conflicts/failing CI of other members.

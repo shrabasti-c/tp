@@ -78,6 +78,8 @@ Deletes the specified child from the address book.
 * Format: `delete CHILD_INDEX`
 * Deletes the child at the specified CHILD_INDEX. The index refers to the index number shown in the displayed child list. The index **must be a positive integer** 1, 2, 3, …
 * Due to the sensitive nature of the command, a warning is issued wherein a user has to further `confirm` the deletion of a child profile by typing `confirm` after the delete command.
+* The following workflow is provided for the user's/tester's reference (delete, followed by confirm).
+  ![DeleteWorkflow](teamutils/delete.png) 
 
 ### Action Tracking
 
@@ -268,6 +270,10 @@ Stores data in a txt file which allows retrieval of lists upon restarting the ap
 **Q**: How do I transfer my data to another computer?
 
 **A**: All your data is automatically saved in a local `data` folder within the same directory as the `.jar` file. Simply copy the entire folder and the `.jar` file to the new computer to resume where you left off.
+
+**Q**: Sometimes the output contains messages starting with INFO: and WARNING:, is that normal?
+
+**A**: These are simply the messages for logging purposes. You can ignore them.
 
 ## Command Summary
 

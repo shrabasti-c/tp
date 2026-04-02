@@ -50,11 +50,12 @@ Allows Santa to access saved data(childlist,giftlist and elflist) across all ses
 * Added all above commands to the Command Summary table.
 * Formatted initial UG Canvas Submission and submitted it.
 * Formatted final UG submission and added common sections: Title, Table of Contents, Features (with Notes).
-* Carried out basic formatting of whole team's parts (a significant endeavor) for both cases of User Guide 
+* Carried out basic formatting of whole team's parts (a significant endeavor) for both cases of User Guide.
 
 ### Contributions to the DG
-* Added implementation details for: child feature and other common features.
-* Added sequence diagram for all above features.
+* Added implementation details for: child feature.
+* Added sequence diagram for above feature.
+* Wrote acknowledgements section.
 
 ### Contributions to Team-Based Tasks
 * Set up GitHub repository (current maintainer).
@@ -63,7 +64,7 @@ Allows Santa to access saved data(childlist,giftlist and elflist) across all ses
 * Reviewed and approved PRs from teammates.
 * Configured majority of AboutUs deliverable.
 * Set up milestones in GitHub (v1.0 and v2.0) with dates.
-* Set up initial repo structure for this project i.e. packages like command, data, and the main class to be used as boilerplate for the entire team.
+* Set up initial repo structure for this project i.e. refactored packages like command, data, and the main class to be used as boilerplate for the entire team.
 * Set up initial Parser, Command and Claus Control classes (common classes, and ClausControl with additional Logging) with foundational boilerplate used by entire team.
 * Set up TextUi and other output formatting for use of entire team.
 

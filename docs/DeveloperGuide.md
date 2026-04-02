@@ -2,7 +2,16 @@
 
 ## Acknowledgements
 
-{list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
+* We, team CS2113-T09-2, acknowledge the use of the following sources in our tP.
+
+| Source                                                                                              | Extent of reuse                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | 
+|:----------------------------------------------------------------------------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **[AddressBook-Level2 (AB2)](https://github.com/se-edu/addressbook-level2/)**                       | The class Child was inspired by the Person class of AB2.<br/>The class EditCommandTest was inspired by the AddCommandTest class of AB2. <br/><br/>The class ClausControl was adapted from the Main class of AB2 with some modifications.<br/>The class Command was adapted from the addCommand class of AB2 with some modifications.<br/>The class ChildCommand was adapted from the AddCommand class of AB2 with some modifications.<br/><br/>The class TextUi was reused from the TextUi class of AB2 with minor modifications.<br/>The class IllegalValueException was reused from the IllegalValueException class of AB2 with minor modifications.<br/>The class Name was reused from the Name class of AB2 with minor modifications.<br/>The class ReadOnlyChild was reused from the ReadOnlyPerson class of AB2 with minor modifications. | 
+| **[AddressBook-Level3 (AB3)](https://github.com/se-edu/addressbook-level3/)**                       | The docs of our tP (AboutUs, README, UG, DG & PPPs) were made with reference to the AB3 application's docs.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| **[iP (author: shrabasti-c)](https://github.com/shrabasti-c/ip)**                       | The structure of class ChildCommand was adapted from the *Command classes of shrabasti-c's iP with some modifications.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| **[GeeksforGeeks JUnit tests](https://www.geeksforgeeks.org/advance-java/unit-testing-of-system-out-println-with-junit/)**                      | The class ClausControlTest was inspired by the JUnit tests on the aforementioned website.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| **ChatGPT**                                                                                         | The load() function of Storage class was written with the aid of ChatGPT. <br/> The prepareAdd() and prepareEdit() functions of the Parser class (along with their refactored helpers) were reused from ChatGPT with significant modifications. ChatGPT was also used for trivial debugging.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| **Claude**                                                                                          | The tool was used for trivial debugging of ParserTest class after a merge conflict.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 
 ## Design & implementation
 
@@ -39,7 +48,7 @@ Given below is an example usage scenario:
 
 Given below is a sequence diagram showing how the finalize command works.
 
-![](docs/diagrams/FinalizeSequenceDiagram.png)
+![](diagrams/FinalizeSequenceDiagram.png)
 
 ### Action Tracking Feature (Shubhan Gabra)
 
@@ -67,7 +76,7 @@ ArrayList of Action objects were considered but rejected for added complexity.
 
 Given below is a sequence diagram showing how the action command works.
 
-![](docs/diagrams/ActionSequenceDiagram.png)
+![](diagrams/ActionSequenceDiagram.png)
 
 ### Nice and Naughty List Feature (Shubhan Gabra)
 
@@ -399,47 +408,283 @@ Given below is the sequence diagram.
     - **Pros:** Provides a complete overview of all children details.
     - **Cons:** Output may look messy.
 
+
+## Documentation, logging, testing, configuration, dev-ops
+
+### Setting up and maintaining the project website
+This project uses Jekyll to manage documentation.
+
+- All documentation files are under the docs/ folder.
+- Markdown(.md) is used for writing documentation.
+- The structure and navigation of the site are controlled with Jekyll.
+
+To set up and maintain the project website, refer to:
+- se-edu/guides: Using Jekyll for project documentation
+
+### Project specific notes
+When adapting documentation for ClausControl:
+- Update all references to match Children, Gifts, Elves, Todos, Commanss
+- Ensure command formats match logic in the parser.
+- Update configuration files if required.
+
+If using IntelliJ, enable soft wrapping for `.md` files.
+
+### Style guidance
+- Follow the Google Developer Documentation Style Guide
+- Follow Markdown standards from:
+    - se-edu/guides: Markdown coding standard
+
+### Diagrams
+Use PlantUML for diagrams such as:
+- Command flows
+- Class diagrams
+- Sequence diagrams
+Guide:
+- se-edu/guides: Using PlantUML
+
+### Converting documentation to PDF
+Use browser print → Save as PDF.
+
+## Testing Guide
+
+### Running tests
+
+#### Method 1: IntelliJ
+
+- Right-click `src/test/java`
+- Select **Run 'All Tests'**
+
+You can also run:
+- Individual test classes
+- Specific test methods
+
+#### Method 2: Gradle
+./gradlew clean test
+
+### Types of tests
+
+#### 1. Unit Tests
+These tests focus on internal logic and data classes.
+Examples of behaviors tested:
+1. Gift state transitions.
+2. Todo deadline transitions.
+
+#### 2. Command Tests
+These tests validate command parsing and execution logic.
+Some examples include:
+1. ActionCommand→ updates child's behavior scores.
+2. ViewCommand→ displays collected child information.
+
+#### 3. Parser Tests
+These tests validate whether the user input is correctly interpreted into commands.
+They ensure that the correct command is created, parameters are parsed accurately and errors are thrown.
+Examples:
+1. Handling flexible input order (e.g. `child n/Name a/10 l/City`)
+
+#### 4. System-Level Tests
+These tests simulate real application execution.
+
+## Logging Guide
+
+### Logging Framework
+ClausControl uses java's built in logging framework.
+
+## Dev-Ops Guide
+
+### Build Automation
+ClausControl used **Gradle** for build automation.
+
+### Common Gradle Commands
+./gradlew clean → Removes build files
+./gradlew test  → Runs all tests
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Product scope
 ### Target user profile
+## Appendix A: Product Scope
 
-Santa Claus [single user]
+### Target user profile
+Santa Claus managing a large number of children, gifts and elves
 
 ### Value proposition
+Manage children, gifts and elves with automated nice/naughty classification, gift tracking, elf task management
+and a todo reminder system.
 
-{Describe the value proposition: what problem does it solve?}
+## Appendix B: User Stories
 
-## User Stories
+Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-|Version| As a ... | I want to ... | So that I can ...|
-|--------|------|--------------|------------------|
-|v1.0| Santa|Assign gifts to all children|I can spread christmas cheer|
-|v1.0| Santa|Edit gifts - add/remove|I can correct my list if i make mistakes|
-|v1.0| Santa|Mark/unmark gifts as delivered/not delivered|I can keep track of my delivery list|
-|v1.0| Santa|See list of gifts|I can allocate the budget appropriately|
-|v2.0| user |find a to-do item by name|locate a to-do without having to go through the entire list|
+| Priority | As a ... | I want to ... | So that I can ... |
+|----------|----------|---------------|-------------------|
+| `* * *`  | Santa | add a child with name, age and location | track children in the system |
+| `* * *`  | Santa | edit a child's details | correct mistakes |
+| `* * *`  | Santa | delete a child | remove entries no longer needed |
+| `* * *`  | Santa | view a child's full profile | see all details at once |
+| `* * *`  | Santa | list all children | get an overview of all children |
+| `* * *`  | Santa | find a child by name, age or location | locate a child quickly |
+| `* * *`  | Santa | record good or bad actions for a child | track child behaviour |
+| `* * *`  | Santa | view the nice list | see which children deserve gifts |
+| `* * *`  | Santa | view the naughty list | see which children do not deserve gifts |
+| `* * *`  | Santa | manually reassign a child to nice or naughty | override the automatic classification |
+| `* * *`  | Santa | finalize the lists | lock in decisions and start allocating gifts |
+| `* * *`  | Santa | assign gifts to a child | plan gift delivery |
+| `* * *`  | Santa | remove a gift from a child | correct mistakes in gift allocation |
+| `* * *`  | Santa | mark a gift as prepared | track gift preparation progress |
+| `* * *`  | Santa | mark a gift as delivered or undelivered | track gift delivery status |
+| `* * *`  | Santa | view all gifts assigned to children | keep track of gift allocation |
+| `* * *`  | Santa | add elves | manage my workforce |
+| `* * *`  | Santa | remove an elf | remove elves no longer needed |
+| `* * *`  | Santa | edit an elf's name | correct mistakes |
+| `* * *`  | Santa | assign tasks to elves | delegate work |
+| `* * *`  | Santa | remove a task from an elf | update elf workload |
+| `* * *`  | Santa | list all elves and their tasks | get an overview of my workforce |
+| `* * *`  | Santa | add todos with deadlines | keep track of things to do |
+| `* * *`  | Santa | view all todos | see everything on my list |
+| `* * *`  | Santa | remove a todo | keep my list clean |
+| `* * *`  | Santa | see upcoming reminders on startup | not miss important deadlines |
+| `* * *`  | Santa | reset the entire system | start fresh |
+| `* * *`  | Santa | data persists across sessions | not lose my work after restarting |
 
-## Non-Functional Requirements
+## Appendix C: Non-Functional Requirements
 
+1. Should work on any mainstream OS as long as it has Java 17 or above installed.
+2. Should be able to hold up to 1000 children without noticeable sluggishness.
+3. A user with above average typing speed should be able to accomplish most
+   tasks faster using commands than using a mouse.
+4. Data should persist across sessions without any manual saving by the user.
+5. The system should handle invalid inputs gracefully without crashing.
+6. Todo reminders should reflect the correct upcoming deadlines based on
+   the current date at startup.
 
-## Glossary
+## Appendix D: Glossary
 
+* **Child**: A system entity representing a gift recipient tracked by Santa.
 * **Elf**: A system entity representing a staff member or volunteer.
-* **Child**: A system entity representing a recipient or target user.
-* **CLI**: Command Line Interface; an interface where users type commands to interact with the software.
-* **Index**: A unique numerical identifier assigned to an item in the current displayed list.
+* **CLI**: Command Line Interface — an interface where users type commands.
+* **Nice list**: The list of children with a total action score >= 0.
+* **Naughty list**: The list of children with a total action score < 0.
+* **Severity**: An integer between -5 and 5 representing how good or bad an action is.
+* **Finalize**: The act of locking the nice/naughty lists to enable gift allocation.
+* **Index**: A unique numerical identifier assigned to an item in the displayed list.
+* **Todo**: A task with a deadline added to Santa's reminder system.
+* **Mainstream OS**: Windows, Linux, Unix, MacOS.
+* **Gift state**: The current status of a gift — In Progress, Prepared or Delivered.
+* **Task**: A piece of work assigned to an elf.
 
-## Instructions for manual testing
+## Appendix E: Instructions for Manual Testing
 
-#### Initial Launch
-1. Download the `.jar` file and place it in an empty folder.
-2. Run `java -jar duke.jar`. The GUI should load with a sample message.
+Given below are instructions to test the app manually.
 
-#### Testing Elf Commands
-1. **Adding:** Type `elf n/Buddy`. Verify "Buddy" appears in the `elflist`.
-2. **Editing:** Type `Editelf e/1 n/Dobby`. Verify the first Elf's name changes to "Dobby".
-3. **Deleting:** Type `rmelf e/1`. Verify the Elf is removed.
+### Launch and shutdown
+1. Download the jar file and copy into an empty folder.
+2. Run `java -jar tp.jar`.
+3. Expected: Shows the ClausControl logo and welcome message.
+4. Type `bye` to exit.
 
-#### Testing Find Functionality
-1. Ensure you have children data loaded (use `childlist` to check).
-2. Type `find l/Singapore`.
-3. **Expected Result:** Only children with the location "Singapore" are displayed in the list.
+### Testing child commands
+1. Add a child: `child n/Tom`
+   Expected: "Ho ho ho! New child added: Tom"
+2. Add with all details: `child n/Lucy l/Singapore a/10`
+   Expected: Child added with all details.
+3. View child: `view 1`
+   Expected: Tom's full profile shown.
+4. Edit child: `edit 1 n/Tommy`
+   Expected: Name updated to Tommy.
+5. Find by name: `find n/Tom`
+   Expected: Tom shown with index and details.
+6. Find by location: `find l/Singapore`
+   Expected: Lucy shown.
+7. Find by age: `find a/10`
+   Expected: Lucy shown.
+8. List all: `childlist`
+   Expected: All children listed.
+9. Delete child: `delete 1` then `confirm`
+   Expected: Child removed.
+10. Invalid name: `child n/123`
+    Expected: Error message about name constraints.
+
+### Testing action commands
+1. Add a good action: `action 1 a/helped grandma s/2`
+   Expected: Action recorded with severity 2.
+2. Add a bad action: `action 1 a/broke window s/-3`
+   Expected: Action recorded with severity -3.
+3. Invalid severity: `action 1 a/test s/10`
+   Expected: Error - severity must be between -5 and 5.
+4. View nice list: `nice`
+   Expected: Shows children with total score >= 0.
+5. View naughty list: `naughty`
+   Expected: Shows children with total score < 0.
+6. Reassign: `reassign 1 l/nice`
+   Expected: Child moved to nice list regardless of score.
+
+### Testing finalize and gift commands
+1. Try adding a gift before finalize: `gift 1 g/toy`
+   Expected: Blocked with message to finalize first.
+2. Finalize: `finalize`
+   Expected: Lists frozen message shown.
+3. Try adding action after finalize: `action 1 a/test s/1`
+   Expected: Blocked with message.
+4. Add gift after finalize: `gift 1 g/toy`
+   Expected: Gift added successfully.
+5. Mark gift as prepared: `prepared 1 1`
+   Expected: Gift status updated to Prepared.
+6. Mark gift as delivered: `delivery_status 1 1 d/delivered`
+   Expected: Gift status updated to Delivered.
+7. View gift list: `giftlist`
+   Expected: All gifts shown with their status.
+8. Remove gift: `degift 1 1` then `confirm`
+   Expected: Gift removed.
+
+### Testing elf commands
+1. Add elf: `elf n/Buddy`
+   Expected: "Ho ho ho! New elf added: Buddy"
+2. Assign task: `task 1 t/wrap gifts`
+   Expected: Task assigned to Buddy.
+3. List elves: `elflist`
+   Expected: Buddy shown with task.
+4. Edit elf: `editelf e/1 n/Dobby`
+   Expected: Elf name updated.
+5. Remove task: `detask e/1 t/1` then `confirm`
+   Expected: Task removed.
+6. Remove elf: `rmelf e/1` then `confirm`
+   Expected: Elf removed.
+
+### Testing todo commands
+1. Add a todo: `todo d/Buy wrapping paper by/2026-12-20`
+   Expected: Todo added successfully.
+2. Past date: `todo d/Old task by/2020-01-01`
+   Expected: Error - deadline cannot be in the past.
+3. Invalid date: `todo d/Test by/2026-13-78`
+   Expected: Error - invalid date format.
+4. View todos: `todolist`
+   Expected: All todos listed.
+5. Remove todo: `removetodo 1`
+   Expected: Todo removed.
+6. Restart the app with a todo due within 7 days.
+   Expected: Reminder shown on startup automatically.
+
+### Testing reset command
+1. Add some children and elves.
+2. Type `reset` then `confirm`.
+   Expected: All children and elves cleared.
+
+### Saving data
+1. Add some children and todos, then type `bye` to exit.
+2. Relaunch the app.
+3. Expected: Children and todos are restored.
