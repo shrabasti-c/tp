@@ -1232,3 +1232,4 @@ Given below are instructions to test the app manually.
 1. Add some children and todos, then type `bye` to exit.
 2. Relaunch the app.
 3. Expected: Children and todos are restored.
+'''

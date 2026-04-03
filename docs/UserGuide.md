@@ -138,11 +138,15 @@ Adds a new Elf to the system records.
 
 #### Removing an Elf: `rmelf`
 Removes an existing Elf based on their index in the list.
+The elf_index must be valid (ie, integer larger than 0, mapped to existing elf).
+you can use 'elflist' command if you are not sure about the accurate index.
 * Format: `rmelf e/ELF_INDEX`
 * Example: `rmelf e/1`
 
 #### Editing an Elf: `editelf`
 Updates the name of an existing Elf identified by their index.
+The elf_index must be valid (ie, integer larger than 0, mapped to existing elf).
+you can use 'elflist' command if you are not sure about the accurate index.
 * Format: `editelf e/ELF_INDEX n/ELF_NEW_NAME`
 * Example: `editelf e/1 n/Legolas`
 
@@ -163,9 +167,13 @@ Example: `detask e/1 t/1`
 
 #### Listing Children: `childlist`
 Displays a complete list of all children currently in the database.
+* Format: `childlist`
+* Example: `childlist`
 
 #### Listing Elves: `elflist`
-Displays a complete list of all elves currently in the database.
+Displays a complete list of all elves and their task currently in the database.
+* Format: `elflist`
+* Example: `elflist`
 
 ### Finding Children
 
