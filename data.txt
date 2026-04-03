@@ -1,2 +1,6 @@
-CHILD|mo||-1
+CHILD|mo||10
 ACTION|a|2
+CHILD|aaa||-1
+ELF|Bobby
+ELF|Dobby
+TASK|Buy Ccandy
