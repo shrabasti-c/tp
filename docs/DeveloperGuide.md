@@ -1,8 +1,7 @@
 # Developer Guide
 
 ## Acknowledgements
-
-* We, team CS2113-T09-2, acknowledge the use of the following sources in our tP.
+We, team CS2113-T09-2, acknowledge the use of the following sources in our tP.
 
 | Source                                                                                              | Extent of reuse                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | 
 |:----------------------------------------------------------------------------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -13,7 +12,18 @@
 | **ChatGPT**                                                                                         | The load() function of Storage class was written with the aid of ChatGPT. <br/> The prepareAdd() and prepareEdit() functions of the Parser class (along with their refactored helpers) were reused from ChatGPT with significant modifications. ChatGPT was also used for trivial debugging.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | **Claude**                                                                                          | The tool was used for trivial debugging of ParserTest class after a merge conflict, and to refine the DG language.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 
+## Design
+### Architecture
+The bulk of the app’s work is done by the following five components:
 
+* Main (ClausControl.java): Starts the application and runs the command loop until termination.
+* Storage: Reads data from, and writes data to, the hard disk.
+* Data: Responsible for storing relevant entities in ClausControl.
+* Parser: Takes in user input and executes commands.
+* (trivial implementation) Ui: The Ui of the App.
+  ![ArchitectureDiagram.png](diagrams/ArchitectureDiagram.png)
+  
+The sections below give more details of the major components.
 
 ## Storage Component
 
@@ -145,36 +155,37 @@ Within the Child Feature, Santa can interact with the `child` profile using the 
 These commands can be used in conjunction with the `childlist` command.
 Given below is an example usage scenario: 
 
-**Santa, at the beginning of the year, adds children to his system**
+**A.** Santa, at the beginning of the year, adds children to his system.
 1. child n/Bruce a/25
 2. child n/Diana l/Washington DC
 3. child n/Clark 
 
-**Santa, later in the year, consults the list of children and their individual profiles as and when necessary**
-**He makes updates when needed as well**
+**B.** Santa, later in the year, consults the list of children and their individual profiles as and when necessary.
+
+He makes updates when needed as well.
 1. childlist
 2. view 3
 2. edit 3 n/Kal El
 3. delete 1
 
-**Santa, throughout the year, adds actions to children's profiles with associated severities in the range [-5, 5].**
-**Each child has a total score attribute that is the sum of his/her action severities. These gifts determine which of Santa's lists they end up in (naughty/nice)**
+**C.** Santa, throughout the year, adds actions to children's profiles with associated severities in the range [-5, 5].
+Each child has a total score attribute that is the sum of his/her action severities. This score determines which of Santa's lists they end up in (naughty/nice)
 1. action 1 a/helped grandma s/2
 2. action 1 a/did homework s/5
 3. action 2 a/was rude to classmate s/-1
 
-**One can observe that child 1 with total score 3 ends up in nice list whereas child 2 ends up in naughty one**
-**However, Santa can `reassign` kids to different lists as well, for instance moving child 2 from naughty to nice**
+One can observe that child 1 with total score 3 ends up in the nice list whereas child 2 ends up in the naughty one.
+However, Santa can `reassign` kids to different lists as well, for instance moving child 2 from naughty to nice.
 
-**Nearing Christmas, Santa freezes the lists, after which gifts can be assigned and no more actions can be added.**
+**D.** Nearing Christmas, Santa freezes the lists, after which gifts can be assigned and no more actions can be added.
 
 #### Implementation
-As mentioned earlier, the `child` command creates a child entity/profile consisting of its name and location.
+As mentioned earlier, the `child` command creates a child entity/profile consisting of its name (minimally) as well as age and location.
 As the implementation of `child` is the most complex of its related commands (`child`, `view`, `edit`, `delete`), let us examine the same.
 
 The proposed child profile is facilitated by `Child` Class.
 It implements `ReadOnlyChild` which contains a name fetching mechanism, the name being stored internally via a `Name` class with a reference to a `name` String input by the user.
-The child operation must minimally have a name argument i.e. location, etc. are optional.
+The child operation must minimally have a name argument i.e. location, age are optional.
 Additionally, it implements the following operations:
 * `toAdd()`—adds the child to the internal child list.
 * `execute()`—returns a successful operation message.
@@ -192,7 +203,7 @@ Given below is a sequence diagram describing the child operation (happy path).
 ![](diagrams/ChildSequenceDiagram.png)
 
 **Aspect:** How to implement the Child Profile
-- **Alternative 1 (current choice):** Construct a `ReadOnlyChild` interface which implements `Child`
+- **Alternative 1 (current choice):** Construct a `ReadOnlyChild` interface which `Child` implements
     - **Pros:** Ensures no external access as well as immutability
     - **Cons:** More lines of code and more complex implementation (extra interface)
 
