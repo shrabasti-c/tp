@@ -55,9 +55,8 @@ Allows Santa to access saved data(childlist,giftlist and elflist) across all ses
 ### Contributions to the DG
 * Added implementation details for: child feature (comprising child, view, edit, delete commands).
 * Added sequence diagram for above feature.
-* Wrote acknowledgements section.
+* Wrote acknowledgements and design with architecture section.
 * Added class diagram with elaboration on Data Component.
-
 ### Contributions to Team-Based Tasks
 * Set up GitHub repository (current maintainer).
 * Led project meetings.
