@@ -19,7 +19,7 @@ activate ElfListCommand
 
 ResetCommand -> ResetCommand : execute()
 
-alt elfList is empty
+opt elfList is empty
     ElfListCommand --> Parser : "The elf list is empty."
 else not empty - iterate each Elf
     loop for each Elf in elfList

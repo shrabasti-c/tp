@@ -18,7 +18,7 @@ activate ChildListCommand
 
 ResetCommand -> ResetCommand : execute()
 
-alt childList is empty
+opt childList is empty
     ChildListCommand --> Parser : "The child list is empty."
 else not empty - iterate each Child
     loop for each Child in childList

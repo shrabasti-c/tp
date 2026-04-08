@@ -20,7 +20,7 @@ activate RmElfCommand
 RmElfCommand -> elfList : size()
 elfList --> RmElfCommand : listSize
 
-alt elfIndex is invalid
+opt elfIndex is invalid
     RmElfCommand --> Parser : "Error: Invalid Elf index."
 else elfIndex is valid
     RmElfCommand -> elfList : get(0)

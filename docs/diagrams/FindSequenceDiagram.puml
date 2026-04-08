@@ -25,7 +25,7 @@ loop for each Child in childList
     FindCommand -> childList : get(i)
     childList --> FindCommand : child
 
-    alt type == NAME
+    opt type == NAME
         FindCommand -> Child : getName()
         Child --> FindCommand : nameString
     else type == AGE
@@ -39,7 +39,7 @@ loop for each Child in childList
     note over FindCommand : check if isMatch
 end
 
-alt count == 0
+opt count == 0
     FindCommand --> Parser : "No match found..."
 else count > 0
     FindCommand --> Parser : "Found X matches:\n..."

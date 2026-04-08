@@ -18,7 +18,7 @@ Parser -> EditElfCommand : new EditElfCommand(1, "Buddy")
 Parser -> EditElfCommand : execute()
 activate EditElfCommand
 
-alt elfIndex is invalid
+opt elfIndex is invalid
     EditElfCommand --> Parser : "Error: Invalid Elf index."
 else elfIndex is valid
     EditElfCommand -> elfList : get(0)

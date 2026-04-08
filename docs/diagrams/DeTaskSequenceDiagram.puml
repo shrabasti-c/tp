@@ -18,7 +18,7 @@ Parser -> DetaskCommand : new DetaskCommand(1, 1)
 Parser -> DetaskCommand : execute()
 activate DetaskCommand
 
-alt elfIndex is invalid
+opt elfIndex is invalid
     DetaskCommand --> Parser : "Error: Invalid Elf index."
 else elfIndex is valid
     DetaskCommand -> elfList : get(0)
@@ -29,7 +29,7 @@ else elfIndex is valid
     Elf --> DetaskCommand : tasksArrayList
     deactivate Elf
 
-    alt tasks is empty OR taskIndex is invalid
+    opt tasks is empty OR taskIndex is invalid
         DetaskCommand --> Parser : "Error: Invalid Task index."
     else taskIndex is valid
         DetaskCommand -> Elf : deleteTask(0)

@@ -22,7 +22,7 @@ activate TaskCommand
 TaskCommand -> elfList : size()
 elfList --> TaskCommand : listSize
 
-alt targetIndex is invalid (index < 1 or > size)
+opt targetIndex is invalid (index < 1 or > size)
     TaskCommand --> Parser : MESSAGE_INVALID_INDEX
 else targetIndex is valid
     TaskCommand -> elfList : get(0)
