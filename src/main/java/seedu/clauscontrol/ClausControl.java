@@ -65,6 +65,8 @@ public class ClausControl {
             StorageData data = storage.load();
             this.childList = new ArrayList<>(data.children);
             this.elfList.addAll(data.elves);
+            this.isFinalized = data.isFinalized;
+
         } catch (IOException e) {
             this.childList = new ArrayList<>();
         }
@@ -99,7 +101,7 @@ public class ClausControl {
                 //@@author GShubhan
                 String result = command.execute();
                 try {
-                    storage.save(childList, elfList);
+                    storage.save(childList, elfList, isFinalized);
                 } catch (IOException e) {
                     logger.warning("Error saving: " + e.getMessage());
                 }

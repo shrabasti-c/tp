@@ -26,9 +26,11 @@ public class Storage {
         this.filePath=filePath;
     }
 
-    public void save(List<Child> children,List<Elf> elves) throws IOException {
+    public void save(List<Child> children,List<Elf> elves, boolean isFinalized) throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
 
+        writer.write("FINALIZED|" + isFinalized);
+        writer.newLine();
 
         for (Child child : children) {
             //@@author shrabasti-c
@@ -82,6 +84,7 @@ public class Storage {
 
         String line;
 
+        boolean isFinalized = false;
 
         while ((line = reader.readLine()) != null) {
             if (line.trim().isEmpty()) {
@@ -114,6 +117,10 @@ public class Storage {
                 } catch (IllegalValueException e) {
                     logger.warning("Invalid child name in file: " + parts[1]);
                 }
+                break;
+            }
+            case "FINALIZED": {
+                isFinalized = Boolean.parseBoolean(parts[1]);
                 break;
             }
             case "GIFT": {
@@ -187,7 +194,7 @@ public class Storage {
         }
 
         reader.close();
-        return new StorageData(children, elves);
+        return new StorageData(children, elves, isFinalized);
     }
 }
 //@@author

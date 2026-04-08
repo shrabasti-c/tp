@@ -9,10 +9,13 @@ import java.util.List;
 public class StorageData {
     public List<Child> children;
     public List<Elf> elves;
+    public boolean isFinalized;
 
-    public StorageData(List<Child> children, List<Elf> elves) {
+    public StorageData(List<Child> children, List<Elf> elves, boolean isFinalized) {
         this.children = children;
         this.elves = elves;
+        this.isFinalized = isFinalized;
+
     }
 }
 //@@author

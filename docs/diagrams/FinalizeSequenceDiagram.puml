@@ -1,41 +1,44 @@
 @startuml
+skinparam dpi 600
 
 participant User
-participant Duke
+participant ClausControl
 participant Parser
 participant FinalizeCommand
 participant ActionCommand
 
-User -> Duke: "finalize"
-activate Duke
+User -> ClausControl: "finalize"
+activate ClausControl
 
-Duke -> Parser: parseCommand("finalize")
+ClausControl -> Parser: parseCommand("finalize")
 activate Parser
-Parser --> Duke: FinalizeCommand
+Parser --> ClausControl: FinalizeCommand
 deactivate Parser
 
-Duke -> FinalizeCommand: execute()
+ClausControl -> FinalizeCommand: execute()
 activate FinalizeCommand
-FinalizeCommand --> Duke: "Lists have been finalised!"
+FinalizeCommand --> ClausControl: "Lists have been finalised!"
 deactivate FinalizeCommand
 
-Duke -> Duke: isFinalized = true
-Duke --> User: "Lists have been finalised!"
-deactivate Duke
+note over ClausControl : isFinalized = true
 
-User -> Duke: "action 1 a/test s/2"
-activate Duke
-Duke -> Parser: parseCommand(...)
+ClausControl --> User: "Lists have been finalised!"
+deactivate ClausControl
+
+User -> ClausControl: "action 1 a/test s/2"
+activate ClausControl
+
+ClausControl -> Parser: parseCommand(...)
 activate Parser
-Parser --> Duke: ActionCommand
+Parser --> ClausControl: ActionCommand
 deactivate Parser
 
-Duke -> ActionCommand: execute()
+ClausControl -> ActionCommand: execute()
 activate ActionCommand
-ActionCommand --> Duke: "Cannot add actions after finalised!"
+ActionCommand --> ClausControl: "Cannot add actions after finalised!"
 deactivate ActionCommand
 
-Duke --> User: "Cannot add actions after finalised!"
-deactivate Duke
+ClausControl --> User: "Cannot add actions after finalised!"
+deactivate ClausControl
 
 @enduml

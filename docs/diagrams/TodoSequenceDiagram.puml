@@ -1,10 +1,28 @@
 @startuml
+skinparam dpi 600
 Actor Santa
 Santa -> Parser : todo d/Buy gifts by/2026-12-20
+activate Parser
+
 Parser -> AddTodoCommand : new AddTodoCommand(arguments, todoList)
+activate AddTodoCommand
+
 AddTodoCommand -> AddTodoCommand : validate description
 AddTodoCommand -> AddTodoCommand : validate deadline not in past
+
 AddTodoCommand -> Todo : new Todo(description, deadline)
+activate Todo
+Todo --> AddTodoCommand : todo
+deactivate Todo
+
 AddTodoCommand -> todoList : add(todo)
-AddTodoCommand --> Santa : "Todo added: Buy gifts (due: 2026-12-20)"
+activate todoList
+todoList --> AddTodoCommand
+deactivate todoList
+
+AddTodoCommand --> Parser : "Todo added: Buy gifts (due: 2026-12-20)"
+deactivate AddTodoCommand
+
+Parser --> Santa : "Todo added: Buy gifts (due: 2026-12-20)"
+deactivate Parser
 @enduml

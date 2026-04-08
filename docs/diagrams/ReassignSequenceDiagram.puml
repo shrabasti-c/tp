@@ -1,8 +1,25 @@
 @startuml
+skinparam dpi 600
 Actor Santa
 Santa -> Parser : reassign 1 l/nice
+activate Parser
+
 Parser -> ReassignCommand : new ReassignCommand(1, "nice")
+activate ReassignCommand
+
 ReassignCommand -> Command : setData(childList, elfList, isFinalized)
+activate Command
+Command --> ReassignCommand
+deactivate Command
+
 ReassignCommand -> Child : setListAssignment("nice")
-ReassignCommand --> Santa : "Tom has been reassigned to the nice list!"
+activate Child
+Child --> ReassignCommand
+deactivate Child
+
+ReassignCommand --> Parser : "Tom has been reassigned to the nice list!"
+deactivate ReassignCommand
+
+Parser --> Santa : "Tom has been reassigned to the nice list!"
+deactivate Parser
 @enduml

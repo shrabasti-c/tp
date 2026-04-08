@@ -1,12 +1,28 @@
 @startuml
+skinparam dpi 600
 Actor Santa
 Santa -> Parser : nice
+activate Parser
+
 Parser -> NiceCommand : new NiceCommand()
+activate NiceCommand
+
 NiceCommand -> Command : setData(childList, elfList, isFinalized)
+activate Command
+Command --> NiceCommand
+deactivate Command
+
 loop for each child in childList
     NiceCommand -> Child : isNice()
+    activate Child
     Child -> Child : check listAssignment
     Child --> NiceCommand : true/false
+    deactivate Child
 end
-NiceCommand --> Santa : list of nice children
+
+NiceCommand --> Parser : list of nice children
+deactivate NiceCommand
+
+Parser --> Santa : list of nice children
+deactivate Parser
 @enduml
