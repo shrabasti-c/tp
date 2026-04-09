@@ -1,44 +1,40 @@
 @startuml
-
 actor Santa
-participant Parser #E9F6EF
-participant GiftCommand #E9F6EF
-participant childList #E9F6EF
-participant Child #E9F6EF
-participant Gift #E9F6EF
+participant ":ClausControl" as CC
+participant ":Parser" as Parser
+participant ":GiftCommand" as GC
+participant ":Child" as Child
+participant ":Gift" as Gift
 
-Santa -> Parser : gift 1 g/toy g/book
+Santa -> CC : gift CHILD_INDEX g/GIFT_NAME...
+activate CC
+
+CC -> Parser : parseCommand(userInput)
 activate Parser
-
-Parser -> Parser : parseCommand("gift 1 g/toy g/book")
 Parser -> Parser : prepareGiftAction(args)
-Parser -> GiftCommand : new GiftCommand(childIndex, giftNames)
+Parser --> CC : GiftCommand
+deactivate Parser
 
-activate GiftCommand
+CC -> GC : execute()
+activate GC
 
-GiftCommand -> GiftCommand : execute()
-
-GiftCommand -> childList : get(childIndex)
-activate childList
-childList --> GiftCommand : Child
-deactivate childList
+GC -> GC : isFinalized check
+GC -> GC : childList.get(childIndex)
 
 loop for each gift name
-    GiftCommand -> Gift : new Gift(name)
+    GC -> Gift : <<create>> new Gift(name)
     activate Gift
-    Gift --> GiftCommand
-    deactivate Gift
-
-    GiftCommand -> Child : addGift(gift)
+    GC -> Child : addGift(gift)
     activate Child
-    Child --> GiftCommand
+    Child --> GC
     deactivate Child
+    deactivate Gift
 end
 
-GiftCommand --> Parser : result
-deactivate GiftCommand
+GC --> CC : "Added gifts to child X: [giftNames]"
+deactivate GC
 
-Parser --> Santa : Added gifts to child " + (childIndex) + ": " + [toy,book]]
-deactivate Parser
+CC --> Santa : result
+deactivate CC
 
 @enduml

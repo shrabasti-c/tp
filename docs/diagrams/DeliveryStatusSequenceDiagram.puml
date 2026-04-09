@@ -1,47 +1,44 @@
 @startuml
-
 actor Santa
-participant Parser #E9F6EF
-participant DeliveryStatusCommand #E9F6EF
-participant childList #E9F6EF
-participant Child #E9F6EF
-participant giftList #E9F6EF
-participant Gift #E9F6EF
+participant ":ClausControl" as CC
+participant ":Parser" as Parser
+participant ":DeliveryStatusCommand" as DSC
+participant ":Child" as Child
+participant ":Gift" as Gift
 
-Santa -> Parser : deliver 1 2
+Santa -> CC : delivery_status CHILD_INDEX GIFT_INDEX d/delivered|d/undelivered
+activate CC
+
+CC -> Parser : parseCommand(userInput)
 activate Parser
-
-Parser -> Parser : parseCommand("deliver 1 2 d/delivered")
 Parser -> Parser : prepareDeliverAction(args)
-Parser -> DeliveryStatusCommand : new DeliveryStatusCommand(childIndex, giftIndex, delivered)
+Parser --> CC : DeliveryStatusCommand
+deactivate Parser
 
-activate DeliveryStatusCommand
+CC -> DSC : execute()
+activate DSC
 
-DeliveryStatusCommand -> DeliverGiftCommand : execute()
-
-DeliveryStatusCommand -> childList : get(childIndex-1)
-activate childList
-childList --> DeliveryStatusCommand : Child
-deactivate childList
-
-DeliveryStatusCommand -> Child : getGifts()
+DSC -> DSC : isValidChildIndex()
+DSC -> DSC : isValidGiftIndex(child)
+DSC -> Child : getGifts().get(giftIndex-1)
 activate Child
-Child --> DeliverGiftCommand : giftList
+Child --> DSC : gift
 deactivate Child
 
-DeliveryStatusCommand -> giftList : get(giftIndex-1)
-giftList --> DeliverGiftCommand : Gift
-
 alt delivered == true
-    DeliveryStatusCommand -> Gift : markDelivered()
+    DSC -> Gift : markDelivered()
+    activate Gift
+    deactivate Gift
 else delivered == false
-    DeliverGiftCommand -> Gift : markUndelivered()
+    DSC -> Gift : markUndelivered()
+    activate Gift
+    deactivate Gift
 end
 
-DeliveryStatusCommand --> Parser : result
-deactivate DeliverGiftCommand
+DSC --> CC : "Gift status updated! ..."
+deactivate DSC
 
-Parser --> Santa : "Gift status updated,check giftlist"
-deactivate Parser
+CC --> Santa : result
+deactivate CC
 
 @enduml

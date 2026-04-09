@@ -1,17 +1,18 @@
 @startuml
 skinparam classAttributeIconSize 0
 
-package Storage {
+package storage {
 
 class Storage {
   - filePath : String
-  + save(children : List<Child>, elves : List<Elf>) : void
+  + save(children : List<Child>, elves : List<Elf>, isFinalized : boolean)
   + load() : StorageData
 }
 
 class StorageData {
   + children : List<Child>
   + elves : List<Elf>
+  + isFinalized : boolean
 }
 
 class Child {
@@ -21,44 +22,31 @@ class Child {
   - location : String
   - actions : ArrayList<String>
   - severities : ArrayList<Integer>
-
-  + addGift(gift : Gift)
-  + addAction(action : String, severity : int)
 }
 
 class Gift {
   - giftName : String
   - state : State
-
-  + markPrepared()
-  + markDelivered()
-}
-
-enum State {
-  PREPARED
-  IN_PROGRESS
-  DELIVERED
 }
 
 class Elf {
   - name : Name
   - tasks : ArrayList<ElfTask>
-
-  + addTask(task : ElfTask)
 }
 
 class ElfTask {
   - task : String
 }
 
+enum State {
+  PREPARED
+  UNDELIVERED
+  DELIVERED
+}
+
 }
 
 Storage ..> StorageData : <<create>>
-Storage ..> Child : <<create>>
-Storage ..> Gift : <<create>>
-Storage ..> Elf : <<create>>
-Storage ..> ElfTask : <<create>>
-
 
 StorageData o-- "0..*" Child
 StorageData o-- "0..*" Elf

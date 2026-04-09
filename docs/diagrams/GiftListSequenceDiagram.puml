@@ -1,26 +1,31 @@
 @startuml
+participant ":ClausControl" as CC
+participant ":GiftListCommand" as GLC
+participant ":Child" as Child
+participant ":Gift" as Gift
 
-participant ClausControl
-participant GiftListCommand
-participant Child
-participant Gift
+CC -> GLC : execute()
+activate GLC
 
-ClausControl -> GiftListCommand : execute()
-activate GiftListCommand
+loop for each Child in childList
+    GLC -> Child : getGifts()
+    activate Child
+    Child --> GLC : gifts
+    deactivate Child
 
-loop for each Child
-    GiftListCommand -> Child : getGifts()
+    alt gifts not empty
+        GLC -> GLC : append child info
 
-    alt has gifts
-        GiftListCommand -> GiftListCommand : append child info
-
-        loop for each Gift
-            GiftListCommand -> Gift : toString()
+        loop for each Gift in gifts
+            GLC -> Gift : toString()
+            activate Gift
+            Gift --> GLC : gift string
+            deactivate Gift
         end
     end
 end
 
-GiftListCommand --> ClausControl :
-deactivate GiftListCommand
+GLC --> CC : formatted gift list
+deactivate GLC
 
 @enduml

@@ -1,7 +1,8 @@
 @startuml
+
 allowmixing
 skinparam arrowThickness 1.1
-skinparam arrowColor #9D0012
+skinparam arrowColor #blue
 
 Package ClausControl <<Rectangle>>{
     Class UI
@@ -15,14 +16,14 @@ actor Santa
 
 Santa --> UI
 UI -right[#blue]-> Main
-Main -[#grey]-> Parser
-Parser -[#purple]-> Data
-Data .[#purple]> Parser
-Parser -.[#grey]> Main
+Main -[#blue]-> Parser
+Parser -[#blue]-> Data
+Data .[#blue]> Parser
+Parser -.[#blue]> Main
 Main .up.> Santa
 
-Data -[#orange]> Storage
-Storage -[#orange].> Data
+Data -[#blue]> Storage
+Storage -[#blue].> Data
 
 
 @enduml

@@ -49,7 +49,7 @@ public class DeliveryStatusCommand extends Command {
         if (delivered && gift.isDelivered()) {
             return "Gift is already delivered!";
         }
-        if (!delivered && !gift.isDelivered()) {
+        if (!delivered && gift.getState() == Gift.State.UNDELIVERED) {
             return "Gift is already undelivered!";
         }
         if (delivered) {

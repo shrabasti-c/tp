@@ -27,9 +27,9 @@ import seedu.clauscontrol.commands.DeleteCommand;
 import seedu.clauscontrol.commands.AddTodoCommand;
 import seedu.clauscontrol.commands.TodoListCommand;
 import seedu.clauscontrol.commands.EditTodoCommand;
+import seedu.clauscontrol.data.child.Child;
 import seedu.clauscontrol.data.todo.Todo;
 import seedu.clauscontrol.commands.RemoveTodoCommand;
-
 
 import seedu.clauscontrol.data.exception.IllegalValueException;
 
@@ -50,9 +50,13 @@ public class Parser {
     private static final String UNDELIVERED = "d/undelivered";
 
     private final ArrayList<Todo> todoList;
+    private ArrayList<Child> childList = new ArrayList<>();
 
     public Parser(ArrayList<Todo> todoList) {
         this.todoList = todoList;
+    }
+    public void setChildList(ArrayList<Child> childList) {
+        this.childList = childList;
     }
     //@@author
 
@@ -181,7 +185,18 @@ public class Parser {
         case "gift":
             return prepareGiftAction(arguments);
         case "degift":
-            pendingCommand = prepareDeGiftAction(arguments);
+            DeGiftCommand temp = prepareDeGiftAction(arguments);
+            int degiftChildIndex = temp.getChildIndex();
+            int degiftGiftIndex = temp.getGiftIndex();
+            if (degiftChildIndex >= 1 && degiftChildIndex <= childList.size()) {
+                Child dgChild = childList.get(degiftChildIndex - 1);
+                if (degiftGiftIndex >= 1 && degiftGiftIndex <= dgChild.getGifts().size()) {
+                    if (dgChild.getGifts().get(degiftGiftIndex - 1).isDelivered()) {
+                        throw new IllegalValueException("Cannot remove a delivered gift!");
+                    }
+                }
+            }
+            pendingCommand = temp;
             throw new IllegalValueException("WARNING: You are about to remove a gift. Type 'confirm' to proceed.");
         case "delivery_status":
             return prepareDeliverAction(arguments);
@@ -191,7 +206,7 @@ public class Parser {
             return preparePreparedAction(arguments);
         default:
             throw new IllegalValueException(
-                    "Unknown command. Did you mean 'child' or 'childlist'?");
+                    "Unknown command:( Please enter valid command");
         }
         //@@author
     }

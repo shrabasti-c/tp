@@ -1,58 +1,60 @@
 @startuml
-
-participant "ClausControl" as App
-participant Storage
-participant File
-participant Child
-participant Gift
-participant Elf
-participant ElfTask as Task
+participant ":ClausControl" as App
+participant ":Storage" as Storage
+participant ":Child" as Child
+participant ":Gift" as Gift
+participant ":Elf" as Elf
 
 App -> Storage : load()
-activate storage
-Storage -> File : readLine()
+activate Storage
 
-loop for each line
+loop while (readLine != null)
+    Storage -> Storage : readLine()
 
-    alt line starts with CHILD
-        Storage -> Child : new Child(name, age, location)
+    alt parts[0] == "CHILD"
+        Storage -> Child : new Child(Name(name), age, location)
+        activate Child
+        Storage -> Storage : children.add(currentChild)
         note right
-        currentChild = Child
-        currentElf = null
+            currentChild = Child
+            currentElf = null
         end note
-    end
+        deactivate Child
 
-    alt line starts with GIFT
-        Storage -> Gift : new Gift(name)
+    else parts[0] == "FINALIZED"
+        Storage -> Storage : isFinalized = Boolean.parseBoolean(parts[1])
 
+    else parts[0] == "GIFT"
+        Storage -> Gift : new Gift(giftName)
+        activate Gift
         alt state == PREPARED
             Storage -> Gift : markPrepared()
         else state == DELIVERED
             Storage -> Gift : markDelivered()
         end
-
         Storage -> Child : addGift(gift)
-    end
+        deactivate Gift
 
-    alt line starts with ACTION
-        Storage -> Child : addAction(description, severity)
-    end
+    else parts[0] == "ACTION"
+        Storage -> Child : addAction(action, severity)
 
-    alt line starts with ELF
-        Storage -> Elf : new Elf(name)
+    else parts[0] == "ELF"
+        Storage -> Elf : new Elf(Name(parts[1]))
+        activate Elf
+        Storage -> Storage : elves.add(currentElf)
         note right
-        currentElf = Elf
-        currentChild = null
+            currentElf = Elf
+            currentChild = null
         end note
-    end
+        deactivate Elf
 
-    alt line starts with TASK
-        Storage -> Task : new Task(description)
-        Storage -> Elf : addTask(task)
-    end
+    else parts[0] == "TASK"
+        Storage -> Elf : addTask(new ElfTask(parts[1]))
 
+    end
 end
 
-Storage --> App : StorageData(children, elves)
+Storage --> App : StorageData(children, elves, isFinalized)
 deactivate Storage
+
 @enduml

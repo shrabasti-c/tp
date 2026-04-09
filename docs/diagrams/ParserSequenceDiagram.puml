@@ -2,9 +2,9 @@
 title Parser Sequence (ClausControl)
 
 actor Santa
-participant "ClausControl" as App
-participant Parser
-participant Command
+participant ":ClausControl" as App
+participant ":Parser" as Parser
+participant ":Command" as Command
 
 Santa -> App : input command
 App -> Parser : parseCommand(input)

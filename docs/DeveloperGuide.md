@@ -38,6 +38,10 @@ It handles saving and loading of  data such as:
 - Todo items
 Data is stored in a file and loaded back into the system when the application starts.
 
+The class diagram is-
+
+![StorageClassDiagram.png](diagrams/StorageClassDiagram.png)
+
 #### Implementation
 **Saving data**
 The save() method writes the lists into a .txt file in a structured format.
@@ -63,6 +67,9 @@ The load() method reconstructs data from the .txt file.
    default → remains IN_PROGRESS
 5. Adds gift to the current child
 
+Below is the sequence diagram-
+
+![StorageSequenceDiagram.png](diagrams/StorageSequenceDiagram.png)
 
 #### Design
 The storage component provides a unified interface (`Storage.java`) that handles the storage related operations.
@@ -70,16 +77,6 @@ The storage component provides a unified interface (`Storage.java`) that handles
 #### Usage
 - When the application starts, data is loaded from storage.
 - When the user inputs commands,the resulting data changes are saved.
-
-#### UML diagrams to show control flow
-The class diagram and sequence diagrams are as follows-
-
-
-![StorageClassDiagram.png](diagrams/StorageClassDiagram.png)
-
-![StorageSequenceDiagram.png](diagrams/StorageSequenceDiagram.png)
-
-
 
 #### Notes
 - Storage is independent of the command execution logic
@@ -802,6 +799,7 @@ The following steps occur-
 
 #### UML Diagram- Sequence Diagram
 Given below is the sequence diagram
+
 ![GiftSequenceDiagram.png](diagrams/GiftSequenceDiagram.png)
 
 **Aspect:** How to implement the Gift feature
@@ -871,7 +869,7 @@ The following steps occur-
 Appropriate error messages are returned in case a check fails.
 
 #### UML Diagram- Sequence Diagram
-Given below is the sequence diagram
+Given below is the sequence diagram which describes the happy path.
 ![DeliveryStatusSequenceDiagram.png](diagrams/DeliveryStatusSequenceDiagram.png)
 
 **Aspect:** How to implement the Delivery Status feature
@@ -934,6 +932,7 @@ When Santa enters "giftlist " the Parser creates a GiftListCommand object.
 
 #### UML Diagram- Sequence Diagram
 Given below is the sequence diagram.
+
 ![GiftListSequenceDiagram.png](diagrams/GiftListSequenceDiagram.png)
 
 **Aspect:** How to implement the GiftList feature

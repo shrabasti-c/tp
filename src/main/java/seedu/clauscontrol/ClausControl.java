@@ -77,6 +77,7 @@ public class ClausControl {
             this.todoList = new ArrayList<>();
         }
         this.parser = new Parser(todoList);  // initialize AFTER loading todos
+        this.parser.setChildList(childList);
         //@@author
     }
     //@@author

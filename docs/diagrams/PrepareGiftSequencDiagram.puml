@@ -1,43 +1,38 @@
 @startuml
-
 actor Santa
-participant Parser
-participant PrepareGiftCommand
-participant childList
-participant Child
-participant giftList
-participant Gift
+participant ":ClausControl" as CC
+participant ":Parser" as Parser
+participant ":PrepareGiftCommand" as PGC
+participant ":Child" as Child
+participant ":Gift" as Gift
 
-Santa -> Parser : prepared 1 2
+Santa -> CC : prepared CHILD_INDEX GIFT_INDEX
+activate CC
+
+CC -> Parser : parseCommand(userInput)
 activate Parser
-
-Parser -> Parser : parseCommand("prepared 1 2)
 Parser -> Parser : preparePreparedAction(args)
-Parser -> PrepareGiftCommand : new PrepareGiftCommand(childIndex, giftIndex)
+Parser --> CC : PrepareGiftCommand
+deactivate Parser
 
-activate PrepareGiftCommand
+CC -> PGC : execute()
+activate PGC
 
-PrepareGiftCommand -> PrepareGiftCommand : execute()
-
-PrepareGiftCommand -> childList : get(childIndex-1)
-activate childList
-childList --> PrepareGiftCommand : Child
-deactivate childList
-
-PrepareGiftCommand -> Child : getGifts()
+PGC -> PGC : isValidChildIndex()
+PGC -> PGC : isValidGiftIndex(child)
+PGC -> Child : getGifts().get(giftIndex-1)
 activate Child
-Child --> PrepareGiftCommand : giftList
+Child --> PGC : gift
 deactivate Child
 
-PrepareGiftCommand -> giftList : get(giftIndex-1)
-giftList --> PrepareGiftCommand : Gift
+PGC -> Gift : markPrepared()
+activate Gift
+deactivate Gift
 
-PrepareGiftCommand -> Gift : markPrepared()
+PGC --> CC : "Gift marked as prepared!!!"
+deactivate PGC
 
-PrepareGiftCommand --> Parser : result
-deactivate PrepareGiftCommand
-
-Parser --> Santa : "Gift marked as prepared!!!" + gift;
-deactivate Parser
+CC --> Santa : result
+deactivate CC
 
 @enduml
