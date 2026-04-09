@@ -3,7 +3,7 @@ skinparam ArrowFontStyle plain
 skinparam arrowThickness 1.1
 skinparam arrowColor #blue
 
-Actor User as user
+Actor Santa as user
 Participant ":Main" as main
 Participant ":Ui" as ui
 Participant ":Parser" as parser
