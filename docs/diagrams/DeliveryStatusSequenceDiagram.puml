@@ -35,10 +35,10 @@ else delivered == false
     deactivate Gift
 end
 
-DSC --> CC : "Gift status updated! ..."
+DSC --> CC : "Gift status updated! " + gift;
 deactivate DSC
 
-CC --> Santa : result
+CC --> Santa : "Gift status updated! " + gift;
 deactivate CC
 
 @enduml

@@ -31,10 +31,10 @@ loop for each gift name
     deactivate Gift
 end
 
-GC --> CC : "Added gifts to child X: [giftNames]"
+GC --> CC : "Added gifts to child " + (childIndex + 1) + ": " + giftNames"
 deactivate GC
 
-CC --> Santa : result
+CC --> Santa :"Added gifts to child " + (childIndex + 1) + ": " + giftNames
 deactivate CC
 
 @enduml

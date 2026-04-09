@@ -25,7 +25,7 @@ loop for each Child in childList
     end
 end
 
-GLC --> CC : formatted gift list
+GLC --> CC : gift list
 deactivate GLC
 
 @enduml

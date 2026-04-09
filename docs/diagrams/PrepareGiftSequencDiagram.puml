@@ -29,10 +29,10 @@ PGC -> Gift : markPrepared()
 activate Gift
 deactivate Gift
 
-PGC --> CC : "Gift marked as prepared!!!"
+PGC --> CC : "Gift marked as prepared!!!" + gift;
 deactivate PGC
 
-CC --> Santa : result
+CC --> Santa : "Gift marked as prepared!!!" + gift;
 deactivate CC
 
 @enduml

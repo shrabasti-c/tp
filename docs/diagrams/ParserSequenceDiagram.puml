@@ -2,18 +2,37 @@
 title Parser Sequence (ClausControl)
 
 actor Santa
+participant ":TextUi" as UI
 participant ":ClausControl" as App
 participant ":Parser" as Parser
 participant ":Command" as Command
 
-Santa -> App : input command
-App -> Parser : parseCommand(input)
+Santa -> UI : input command
+activate UI
+UI --> App : userInput
+deactivate UI
+
+activate App
+App -> Parser : parseCommand(userInput)
+activate Parser
 
 Parser -> Parser : identify command type
-Parser -> Parser : extract parameters
+Parser -> Parser : prepare command (extract parameters)
 
-Parser --> App : Command object
+Parser --> App : command
+deactivate Parser
+
+App -> Command : setData(childList, elfList, isFinalized)
+activate Command
+Command --> App
+deactivate Command
 
 App -> Command : execute()
+activate Command
+Command --> App : result
+deactivate Command
+
+App --> Santa : result
+deactivate App
 
 @enduml

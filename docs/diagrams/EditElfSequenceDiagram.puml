@@ -8,10 +8,10 @@ participant "command :EditElfCommand" as EditElfCommand
 participant ":elfList" as elfList
 participant "targetElf :Elf" as Elf
 
-Santa -> Parser : "editef 1 Buddy"
+Santa -> Parser : "editelf 1 Buddy"
 activate Parser
 
-Parser -> Parser : parseCommand("editef 1 Buddy")
+Parser -> Parser : parseCommand("editelf 1 Buddy")
 create EditElfCommand
 Parser -> EditElfCommand : new EditElfCommand(1, "Buddy")
 

@@ -218,6 +218,7 @@ Examples:
 
 #### Remove gift: `degift`
 Removes gift/s assigned to a child.
+** Only undelivered gifts can be degifted. Gifts marked as prepared/delivered cannot be degifted. **
 * Format: `degift CHILD_INDEX GIFT_INDEX...`
 * The user inputs the child index and gift index. 
 * Removes the gift from the gift list using the input child index and gift index. 
@@ -228,6 +229,7 @@ Example:
 
 #### Update delivery status: `delivery_status`
 Assigns delivery status of gifts as delivered/undelivered.
+If a gift is not delivered, it is assumed as undelivered.
 * Format: `delivery_status CHILD_INDEX GIFT_INDEX d/[status] `
 * The user inputs the child index, gift index and delivery status. 
 * Assigns delivery status (delivered/undelivered) to a gift in the gift list based on the input child index and gift index. 
@@ -247,6 +249,7 @@ book
 
 #### Mark gift as prepared: `prepared`
 Marks a gift which is prepared but not delivered yet.
+If a gift is neither marked as prepared or delivered, it is assumed as undelivered.
 * Format: `prepared CHILD_INDEX GIFT_INDEX `
 * The user inputs the child index, gift index. The index must be a positive integer 1, 2, 3
 Example:
