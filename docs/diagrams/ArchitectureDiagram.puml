@@ -5,7 +5,7 @@ skinparam arrowThickness 1.1
 skinparam arrowColor #blue
 
 Package ClausControl <<Rectangle>>{
-    Class UI
+    Class Ui
     Class Parser
     Class Storage
     Class Data
@@ -14,16 +14,17 @@ Package ClausControl <<Rectangle>>{
 
 actor Santa
 
-Santa --> UI
-UI -right-> Main
+Santa --> Main
+Main --> Ui
+Ui .right-> Main
 Main --> Parser
 Parser --> Data
 Data .> Parser
 Parser -.> Main
-Main .up.> Santa
+Main .right.> Santa
 
-Data -> Storage
-Storage .> Data
+Main -> Storage
+Storage .> Main
 
 
 @enduml

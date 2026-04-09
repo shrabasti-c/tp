@@ -1,9 +1,9 @@
 @startuml
 Actor Santa
-participant "<u>:Parser" as Parser #E9F6EF
-participant "<u>:ChildCommand" as ChildCommand #E9F6EF
-participant "<u>:Name" as Name #E9F6EF
-participant "<u>:Child" as Child #E9F6EF
+participant ":Parser" as Parser #E9F6EF
+participant ":ChildCommand" as ChildCommand #E9F6EF
+participant ":Name" as Name #E9F6EF
+participant ":Child" as Child #E9F6EF
 
 Santa->Parser: "child n/Bruce Wayne"
 activate Parser

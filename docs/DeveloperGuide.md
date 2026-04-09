@@ -21,8 +21,17 @@ The bulk of the app’s work is done by the following five components:
 * Data: Responsible for storing relevant entities in ClausControl.
 * Parser: Takes in user input and executes commands.
 * (trivial implementation) Ui: The Ui of the App.
+
+The Architecture Diagram given below explains the high-level design of the App.
   ![ArchitectureDiagram.png](diagrams/ArchitectureDiagram.png)
-  
+
+The Sequence Diagram below shows how the components interact with each other for the scenario where the user issues the command delete 1.
+
+![ArchitectureSequenceDiagram.png](diagrams/ArchitectureSequenceDiagram.png)
+
+It should be noted that the components Main and Data are representative in nature.
+The Main component refers to the ClausControl.java class and the Data component refers to packages in our project representing different entities.
+They have been grouped under Main and Data to reflect the architecture of the project.
 The sections below give more details of the major components.
 
 ## Storage Component
@@ -118,7 +127,7 @@ It implements encapsulation, immutability, and separation of concerns in terms o
 
 #### Usage
 - When the application starts, data is loaded from storage.
-- Other components interact with the Data entities.
+- Other components interact with the Data entities after command execution is initiated.
 
 ## Parser Component
 
@@ -246,7 +255,7 @@ Given below is a sequence diagram describing the child operation.
 #### Implementation of `view`, `edit`, and `delete` 
 The aforementioned commands follow a near identical sequence diagram to the Child Command differing only in their execute() methods.
 
-### Finalize Feature (Shubhan Gabra)
+### Finalize Feature
 
 #### Overview
 The `finalize` command freezes the nice and naughty lists, preventing further
@@ -298,7 +307,7 @@ Given below is a sequence diagram showing how the finalize command works.
     - **Pros:** Single source of truth
     - **Cons:** Less readable, harder to reason about state changes
 
-### Action Tracking Feature (Shubhan Gabra)
+### Action Tracking Feature
 
 #### Overview
 The `action` command allows Santa to record a good or bad action for a child
@@ -352,7 +361,7 @@ Given below is a sequence diagram showing how the action command works.
     - **Pros:** Keeps parser simpler
     - **Cons:** Invalid command objects can be created and partially executed
 
-### Nice and Naughty List Feature (Shubhan Gabra)
+### Nice and Naughty List Feature
 
 #### Overview
 The `nice` and `naughty` commands list all children whose total action score
@@ -391,7 +400,7 @@ Given below is a sequence diagram showing how the nice/naughty commands work.
     - **Pros:** Single code path
     - **Cons:** Loses the semantic distinction between manual override and score-based classification
 
-### Reassign Feature (Shubhan Gabra)
+### Reassign Feature
 
 #### Overview
 The `reassign` command allows Santa to manually override a child's list
@@ -781,7 +790,7 @@ Given below is a sequence diagram showing how the reset command works.
     - **Cons:** Less robust in edge cases such as testing or partial initialisation scenarios
 
 
-### Add gift feature(Prerana Ravi Shankar)
+### Add gift feature
 
 #### Overview
 The gift feature allows Santa to assign one or a list of gifts to a child. The gifts are assigned "in progress" status on assignment.
@@ -815,7 +824,7 @@ Given below is the sequence diagram
     - **Cons:** Not as user-friendly since multiple assignment is not supported.
 
 
-### Degift feature(Prerana Ravi Shankar)
+### Degift feature
 
 #### Overview
 This feature allows Santa to remove a gift for a particular child. This is useful since it helps Santa update the giftlist.
@@ -849,7 +858,7 @@ Given below is the sequence diagram
     - **Cons:** Increases complexity of the code.
 
 
-### Gift delivery status (Prerana Ravi Shankar)
+### Gift delivery status
 
 #### Overview
 This feature allows Santa to set the gift status as delivered or undelivered. This is useful as it allows Santa to plan the gift deliveries by
@@ -884,7 +893,7 @@ Given below is the sequence diagram which describes the happy path.
     - **Pros:** User friendly.
     - **Cons:** Breaks encapsulation.
 
-### Prepare Gift Feature (Prerana Ravi Shankar)
+### Prepare Gift Feature
 
 #### Overview
 This feature allows Santa to set a gift status as prepared. This is to indicate that the gift is prepared and not delivered yet.
@@ -917,7 +926,7 @@ Given below is the sequence diagram
     - **Cons:** Increases complexity of conditional logic.
 
 
-### GiftList Feature  (Prerana Ravi Shankar)
+### GiftList Feature 
 
 #### Overview
 The giftlist feature displays all the gifts assigned to a child along with the child name. This allows Santa to view all the gifts in a structured format.
@@ -1129,11 +1138,19 @@ Given below are instructions to test the app manually.
 3. Expected: Shows the ClausControl logo and welcome message.
 4. Type `bye` to exit.
 
+### Initial list checks
+1. Enter the command: `childlist`
+   Expected: The child list is empty!
+2. Enter the command: `elflist`
+   Expected: The elf list is empty!
+3. Enter the command: `giftlist`
+   Expected: No children added
+
 ### Testing child commands
 1. Add a child: `child n/Tom`
    Expected: "Ho ho ho! New child added: Tom"
 2. Add with all details: `child n/Lucy l/Singapore a/10`
-   Expected: Child added with all details.
+   Expected: Child added: "Ho ho ho! New child added: Lucy"
 3. View child: `view 1`
    Expected: Tom's full profile shown.
 4. Edit child: `edit 1 n/Tommy`

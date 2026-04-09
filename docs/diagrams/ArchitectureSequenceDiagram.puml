@@ -1,0 +1,43 @@
+@startuml
+skinparam ArrowFontStyle plain
+skinparam arrowThickness 1.1
+skinparam arrowColor #blue
+
+Actor User as user
+Participant ":Main" as main
+Participant ":Ui" as ui
+Participant ":Parser" as parser
+Participant ":Data" as data
+Participant ":Storage" as storage
+
+user -> main : "delete 1"
+activate main
+
+main->storage: load()
+activate storage
+storage --> main
+deactivate storage
+
+main -> ui : getUserCommand()
+activate ui
+ui --> main
+deactivate ui
+
+main -> parser : parseCommand()
+activate parser
+parser->data : execute()
+activate data
+data --> parser
+deactivate data
+parser --> main
+deactivate parser
+
+main->storage: save()
+activate storage
+storage --> main
+deactivate storage
+
+main --> user: "Child removed .. :("
+deactivate main
+
+@enduml

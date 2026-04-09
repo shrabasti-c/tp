@@ -1,12 +1,4 @@
 FINALIZED|true
-CHILD|mo||10
-ACTION|a|2
-ACTION|help|2
-CHILD|aaa||-1
-CHILD|Tom|NYC|12
-ACTION|smile|0
-ACTION|smile|1
-ACTION|smile|-1
 ELF|Bobby
 ELF|Dobby
 TASK|Buy Ccandy
