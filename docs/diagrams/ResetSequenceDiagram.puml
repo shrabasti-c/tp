@@ -2,35 +2,39 @@
 skinparam Style strictuml
 skinparam SequenceMessageAlignment center
 
-actor User
-participant "Parser" as Parser
-participant "ResetCommand" as ResetCommand
-participant "childList" as childList
-participant "elfList" as elfList
+actor "Santa" as Santa
+participant ":Parser" as Parser
+participant "command:ResetCommand" as ResetCommand
+participant "childList:ChildList" as childList
+participant "elfList:ElfList" as elfList
 
-User -> Parser : reset
+Santa -> Parser : "reset"
 activate Parser
 
 Parser -> Parser : parseCommand("reset")
-create ResetCommand
-Parser -> ResetCommand : new ResetCommand()
 
-Parser -> ResetCommand : execute()
+create ResetCommand
+Parser -> ResetCommand : <<create>>\nnew ResetCommand()
 activate ResetCommand
 
-ResetCommand -> ResetCommand : execute()
+Parser -> ResetCommand : execute()
+
 note over ResetCommand : isFinalized = false
 
 ResetCommand -> childList : clear()
+activate childList
 childList --> ResetCommand
+deactivate childList
 
 ResetCommand -> elfList : clear()
+activate elfList
 elfList --> ResetCommand
+deactivate elfList
 
-ResetCommand --> Parser : ResetCommand
+ResetCommand --> Parser : MESSAGE_SUCCESS
 deactivate ResetCommand
 
-Parser --> User : "ho ho! The system has been fully reset."
+Parser --> Santa : "Ho ho ho! The system has been fully reset."
 deactivate Parser
 
 @enduml

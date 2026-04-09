@@ -2,34 +2,42 @@
 skinparam Style strictuml
 skinparam SequenceMessageAlignment center
 
-actor Santa
-participant "Parser" as Parser
-participant "command :TaskCommand" as TaskCommand
-participant "elfList" as elfList
-participant "targetElf :Elf" as Elf
-participant "newTask :ElfTask" as ElfTask
+actor "Santa" as Santa
+participant ":Parser" as Parser
+participant "command:TaskCommand" as TaskCommand
+participant "elfList:ElfList" as elfList
+participant "targetElf:Elf" as Elf
+participant "newTask:ElfTask" as ElfTask
 
-User -> Parser : "task 1 t/Make toys"
+Santa -> Parser : "task 1 t/Make toys"
 activate Parser
 
 Parser -> Parser : parseCommand("task 1 t/Make toys")
+
 create TaskCommand
 Parser -> TaskCommand : new TaskCommand(1, "Make toys")
-
-Parser -> TaskCommand : execute()
 activate TaskCommand
 
-TaskCommand -> elfList : size()
-elfList --> TaskCommand : listSize
+Parser -> TaskCommand : execute()
 
-opt targetIndex is invalid (index < 1 or > size)
+TaskCommand -> elfList : size()
+activate elfList
+elfList --> TaskCommand : listSize
+deactivate elfList
+
+opt targetIndex is invalid
     TaskCommand --> Parser : MESSAGE_INVALID_INDEX
 else targetIndex is valid
     TaskCommand -> elfList : get(0)
+    activate elfList
     elfList --> TaskCommand : targetElf
+    deactivate elfList
 
     create ElfTask
     TaskCommand -> ElfTask : new ElfTask("Make toys")
+    activate ElfTask
+    ElfTask --> TaskCommand : newTask
+    deactivate ElfTask
 
     TaskCommand -> Elf : addTask(newTask)
     activate Elf
@@ -40,7 +48,7 @@ else targetIndex is valid
 end
 
 deactivate TaskCommand
-Parser --> User : "Ho ho ho! Task [Make toys] assigned..."
+Parser --> Santa : "Ho ho ho! Task [Make toys] assigned..."
 deactivate Parser
 
 @enduml

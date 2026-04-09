@@ -1,19 +1,19 @@
-```
 @startuml
 skinparam Style strictuml
 skinparam SequenceMessageAlignment center
 
-actor Santa
-participant "Parser" as Parser
-participant "command :ElfCommand" as ElfCommand
-participant "name :Name" as Name
-participant "toAdd :Elf" as Elf
+actor "Santa" as Santa
+participant ":Parser" as Parser
+participant "command:ElfCommand" as ElfCommand
+participant "name:Name" as Name
+participant "toAdd:Elf" as Elf
 participant "elfList" as elfList
 
 Santa -> Parser : "elf Buddy"
 activate Parser
 
 Parser -> Parser : parseCommand("elf Buddy")
+
 create ElfCommand
 Parser -> ElfCommand : new ElfCommand("Buddy")
 activate ElfCommand
@@ -22,23 +22,22 @@ create Name
 ElfCommand -> Name : new Name("Buddy")
 activate Name
 Name -> Name : isValidName()
-opt #f1ca9f invalid name
+
+opt invalid name
     Name --> ElfCommand : throwIllegalValueException
+    deactivate Name
 else valid name
     Name --> ElfCommand : Name object
+    deactivate Name
 end
-deactivate Name
 
 create Elf
-ElfCommand -> Elf : new Elf(name)
+ElfCommand -> Elf :new Elf(name)
 activate Elf
 Elf --> ElfCommand : Elf object (toAdd)
 deactivate Elf
-deactivate ElfCommand
 
 Parser -> ElfCommand : execute()
-activate ElfCommand
-
 ElfCommand -> elfList : add(toAdd)
 activate elfList
 elfList --> ElfCommand
@@ -51,4 +50,3 @@ Parser --> Santa : "Ho ho ho! New elf added: Buddy"
 deactivate Parser
 
 @enduml
-```

@@ -2,40 +2,55 @@
 skinparam Style strictuml
 skinparam SequenceMessageAlignment center
 
-actor Santa
-participant Parser
-participant ElfListCommand
-participant elfList
-participant Elf
-participant ElfTask
+actor "Santa" as Santa
+participant ":Parser" as Parser
+participant "command:ElfListCommand" as ElfListCommand
+participant "elfList" as elfList
+participant "currentElf:Elf" as Elf
+participant "task:ElfTask" as ElfTask
 
-Santa -> Parser : elflist
+Santa -> Parser : "elflist"
 activate Parser
+
 Parser -> Parser : parseCommand("elflist")
+
 create ElfListCommand
-Parser -> ElfListCommand : new ElfListCommand()
-Parser -> ElfListCommand : execute()
+Parser -> ElfListCommand : <<create>>\nnew ElfListCommand()
 activate ElfListCommand
 
-ResetCommand -> ResetCommand : execute()
+Parser -> ElfListCommand : execute()
 
 opt elfList is empty
     ElfListCommand --> Parser : "The elf list is empty."
-else not empty - iterate each Elf
+else elfList is not empty
     loop for each Elf in elfList
         ElfListCommand -> elfList : get(i)
-        elfList --> ElfListCommand : Elf object
-        ElfListCommand -> Elf : getName() / getTasks()
-        Elf --> ElfListCommand : name / task list
-        loop for each ElfTask - calls toString()
+        activate elfList
+        elfList --> ElfListCommand : currentElf
+        deactivate elfList
+
+        ElfListCommand -> Elf : getName()
+        activate Elf
+        Elf --> ElfListCommand : name
+        deactivate Elf
+
+        ElfListCommand -> Elf : getTasks()
+        activate Elf
+        Elf --> ElfListCommand : taskList
+        deactivate Elf
+
+        loop for each ElfTask in taskList
             ElfListCommand -> ElfTask : toString()
+            activate ElfTask
+            ElfTask --> ElfListCommand : taskString
+            deactivate ElfTask
         end
     end
+    ElfListCommand --> Parser : resultString
 end
 
-ElfListCommand --> Parser : ElfListCommand
 deactivate ElfListCommand
-Parser --> Santa : "here are all elves and their tasks: ..."
+Parser --> Santa : "Here are all elves and their tasks: ..."
 deactivate Parser
 
 @enduml

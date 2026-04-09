@@ -2,38 +2,49 @@
 skinparam Style strictuml
 skinparam SequenceMessageAlignment center
 
-actor Santa
-participant "Parser" as Parser
-participant "command :FindCommand" as FindCommand
-participant "childList" as childList
-participant "child :Child" as Child
+actor "Santa" as Santa
+participant ":Parser" as Parser
+participant "command:FindCommand" as FindCommand
+participant "childList:ChildList" as childList
+participant "child:Child" as Child
 
-Santa -> Parser : find n/Alice
+Santa -> Parser : "find n/Alice"
 activate Parser
 
 Parser -> Parser : parseCommand("find n/Alice")
-create FindCommand
-Parser -> FindCommand : new FindCommand("Alice", NAME)
 
-Parser -> FindCommand : execute()
+create FindCommand
+Parser -> FindCommand : <<create>>\nnew FindCommand("Alice", NAME)
 activate FindCommand
 
+Parser -> FindCommand : execute()
+
 FindCommand -> childList : isEmpty()
+activate childList
 childList --> FindCommand : false
+deactivate childList
 
 loop for each Child in childList
     FindCommand -> childList : get(i)
+    activate childList
     childList --> FindCommand : child
+    deactivate childList
 
     opt type == NAME
         FindCommand -> Child : getName()
+        activate Child
         Child --> FindCommand : nameString
+        deactivate Child
     else type == AGE
-        FindCommand -> Child : hasAge()
         FindCommand -> Child : getAge()
+        activate Child
+        Child --> FindCommand : age
+        deactivate Child
     else type == LOCATION
-        FindCommand -> Child : hasLocation()
         FindCommand -> Child : getLocation()
+        activate Child
+        Child --> FindCommand : location
+        deactivate Child
     end
 
     note over FindCommand : check if isMatch
@@ -42,10 +53,11 @@ end
 opt count == 0
     FindCommand --> Parser : "No match found..."
 else count > 0
-    FindCommand --> Parser : "Found X matches:\n..."
+    FindCommand --> Parser : "Found X matches..."
 end
 
 deactivate FindCommand
+
 Parser --> Santa : Display search results
 deactivate Parser
 

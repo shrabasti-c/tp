@@ -2,30 +2,34 @@
 skinparam Style strictuml
 skinparam SequenceMessageAlignment center
 
-actor Santa
-participant "Parser" as Parser
-participant "command :RmElfCommand" as RmElfCommand
-participant "elfList" as elfList
+actor "Santa" as Santa
+participant ":Parser" as Parser
+participant "command:RmElfCommand" as RmElfCommand
+participant "elfList:ElfList" as elfList
 
 Santa -> Parser : "rmelf 1"
 activate Parser
 
 Parser -> Parser : parseCommand("rmelf 1")
-create RmElfCommand
-Parser -> RmElfCommand : new RmElfCommand(1)
 
-Parser -> RmElfCommand : execute()
+create RmElfCommand
+Parser -> RmElfCommand : <<create>>\nnew RmElfCommand(1)
 activate RmElfCommand
 
+Parser -> RmElfCommand : execute()
+
 RmElfCommand -> elfList : size()
+activate elfList
 elfList --> RmElfCommand : listSize
+deactivate elfList
 
 opt elfIndex is invalid
-    RmElfCommand --> Parser : "Error: Invalid Elf index."
+    RmElfCommand --> Parser : throw CommandException
 else elfIndex is valid
     RmElfCommand -> elfList : get(0)
+    activate elfList
     elfList --> RmElfCommand : removedElf
-
+    deactivate elfList
     RmElfCommand -> elfList : remove(0)
     activate elfList
     elfList --> RmElfCommand
@@ -35,7 +39,8 @@ else elfIndex is valid
 end
 
 deactivate RmElfCommand
-Parser --> Santa : "Elf removed: Buddy"
+
+Parser --> Santa : "Ho ho ho! Elf removed: Buddy"
 deactivate Parser
 
 @enduml
