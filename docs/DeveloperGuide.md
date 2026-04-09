@@ -40,13 +40,11 @@ The sections below give more details of the major components.
 
 #### Overview
 The Storage component is responsible for managing persistent data in ClausControl.
-
 It handles saving and loading of  data such as:
 - Children and their associated gifts and actions
 - Elves and their assigned tasks
 - Todo items
 Data is stored in a file and loaded back into the system when the application starts.
-
 The class diagram is-
 
 ![StorageClassDiagram.png](diagrams/StorageClassDiagram.png)
@@ -75,7 +73,6 @@ The load() method reconstructs data from the .txt file.
    DELIVERED → markDelivered()
    default → remains IN_PROGRESS
 5. Adds gift to the current child
-
 Below is the sequence diagram-
 
 ![StorageSequenceDiagram.png](diagrams/StorageSequenceDiagram.png)
