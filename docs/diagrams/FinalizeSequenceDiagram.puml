@@ -1,11 +1,11 @@
 @startuml
 skinparam dpi 600
 
-participant User
-participant ClausControl
-participant Parser
-participant FinalizeCommand
-participant ActionCommand
+participant ":User" as User
+participant ":ClausControl" as ClausControl
+participant ":Parser" as Parser
+participant ":FinalizeCommand" as FinalizeCommand
+participant ":ActionCommand" as ActionCommand
 
 User -> ClausControl: "finalize"
 activate ClausControl

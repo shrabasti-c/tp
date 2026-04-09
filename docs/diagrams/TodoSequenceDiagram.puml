@@ -1,6 +1,12 @@
 @startuml
 skinparam dpi 600
-Actor Santa
+
+actor ":Santa" as Santa
+participant ":Parser" as Parser
+participant ":AddTodoCommand" as AddTodoCommand
+participant ":Todo" as Todo
+participant ":todoList" as todoList
+
 Santa -> Parser : todo d/Buy gifts by/2026-12-20
 activate Parser
 

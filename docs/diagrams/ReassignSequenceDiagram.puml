@@ -1,6 +1,12 @@
 @startuml
 skinparam dpi 600
-Actor Santa
+
+actor ":Santa" as Santa
+participant ":Parser" as Parser
+participant ":ReassignCommand" as ReassignCommand
+participant ":Command" as Command
+participant ":Child" as Child
+
 Santa -> Parser : reassign 1 l/nice
 activate Parser
 

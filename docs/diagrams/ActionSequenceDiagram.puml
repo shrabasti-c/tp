@@ -1,10 +1,10 @@
 @startuml
 
-participant User
-participant ClausControl
-participant Parser
-participant ActionCommand
-participant Child
+participant ":User" as User
+participant ":ClausControl" as ClausControl
+participant ":Parser" as Parser
+participant ":ActionCommand" as ActionCommand
+participant ":Child" as Child
 
 User -> ClausControl: "action 1 a/helped grandma s/2"
 activate ClausControl
