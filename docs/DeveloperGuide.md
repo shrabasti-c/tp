@@ -163,6 +163,10 @@ The Parser throws `IllegalValueException` when:
 The following diagram shows how user input is processed by the Parser.
 ![ParserSequenceDiagram.png](diagrams/ParserSequenceDiagram.png)
 
+#### Class Diagram
+
+![ParserClassDiagram.png](diagrams/ParserClassDiagram.png)
+
 
 ## Design & implementation
 ### Child Feature (Chakraborty Shrabasti)

@@ -14,12 +14,13 @@ loop while (readLine != null)
     alt parts[0] == "CHILD"
         Storage -> Child : new Child(Name(name), age, location)
         activate Child
+        Child --> Storage
+        deactivate Child
         Storage -> Storage : children.add(currentChild)
         note right
             currentChild = Child
             currentElf = null
         end note
-        deactivate Child
 
     else parts[0] == "FINALIZED"
         Storage -> Storage : isFinalized = Boolean.parseBoolean(parts[1])
@@ -27,29 +28,42 @@ loop while (readLine != null)
     else parts[0] == "GIFT"
         Storage -> Gift : new Gift(giftName)
         activate Gift
+        Gift --> Storage
         alt state == PREPARED
             Storage -> Gift : markPrepared()
+            Gift --> Storage
         else state == DELIVERED
             Storage -> Gift : markDelivered()
+            Gift --> Storage
         end
-        Storage -> Child : addGift(gift)
         deactivate Gift
+        Storage -> Child : addGift(gift)
+        activate Child
+        Child --> Storage
+        deactivate Child
 
     else parts[0] == "ACTION"
         Storage -> Child : addAction(action, severity)
+        activate Child
+        Child --> Storage
+        deactivate Child
 
     else parts[0] == "ELF"
         Storage -> Elf : new Elf(Name(parts[1]))
         activate Elf
+        Elf --> Storage
+        deactivate Elf
         Storage -> Storage : elves.add(currentElf)
         note right
             currentElf = Elf
             currentChild = null
         end note
-        deactivate Elf
 
     else parts[0] == "TASK"
         Storage -> Elf : addTask(new ElfTask(parts[1]))
+        activate Elf
+        Elf --> Storage
+        deactivate Elf
 
     end
 end

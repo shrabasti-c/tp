@@ -1,0 +1,51 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+class Parser {
+    - pendingCommand : Command {static}
+    - GIFT_PREFIX : String {static, final}
+    - DELIVERED : String {static, final}
+    - UNDELIVERED : String {static, final}
+    - todoList : ArrayList<Todo>
+
+    + Parser(todoList : ArrayList<Todo>)
+    + parseCommand(userInput : String) : Command
+
+    - prepareAdd(args : String) : Command
+    - prepareEdit(args : String) : Command
+    - prepareView(args : String) : Command
+    - prepareDelete(args : String) : Command
+    - prepareEditTodo(args : String) : Command
+    - prepareAction(args : String) : Command
+    - prepareGiftAction(args : String) : GiftCommand
+    - prepareDeGiftAction(args : String) : DeGiftCommand
+    - prepareDeliverAction(args : String) : DeliveryStatusCommand
+    - preparePreparedAction(args : String) : Command
+    - prepareFind(args : String) : Command
+    - prepareElf(args : String) : Command
+    - prepareTaskAction(args : String) : Command
+    - prepareDetask(args : String) : Command
+    - prepareEditElf(args : String) : Command
+    - prepareRmElf(args : String) : Command
+    - assignAge(ageString : String, age : int) : int
+    - checkDuplicateParams(param : String) : void {static}
+    - checkValidity(token : String) : void {static}
+    - addGifts(parts : String[], giftNames : ArrayList<String>) : void {static}
+    - isDelivered(status : String) : boolean {static}
+}
+
+class Command <<abstract>> {
+}
+
+class IllegalValueException {
+}
+
+class Todo {
+}
+
+Parser ..> Command : <<creates>>
+Parser ..> IllegalValueException : <<throws>>
+Parser o-- "1" ArrayList : todoList
+Parser ..> Todo : uses
+
+@enduml
