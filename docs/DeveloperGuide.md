@@ -23,9 +23,13 @@ The bulk of the app’s work is done by the following five components:
 * (trivial implementation) Ui: The Ui of the App.
 
 The Architecture Diagram given below explains the high-level design of the App.
+
+
   ![ArchitectureDiagram.png](diagrams/ArchitectureDiagram.png)
 
 The Sequence Diagram below shows how the components interact with each other for the scenario where the user issues the command delete 1.
+
+
 
 ![ArchitectureSequenceDiagram.png](diagrams/ArchitectureSequenceDiagram.png)
 
@@ -1134,7 +1138,7 @@ Given below are instructions to test the app manually.
 
 ### Launch and shutdown
 1. Download the jar file and copy into an empty folder.
-2. Run `java -jar tp.jar`.
+2. Run `java -jar clauscontrol.jar`.
 3. Expected: Shows the ClausControl logo and welcome message.
 4. Type `bye` to exit.
 
@@ -1197,6 +1201,8 @@ Given below are instructions to test the app manually.
    Expected: Gift status updated to Delivered.
 7. View gift list: `giftlist`
    Expected: All gifts shown with their status.
+6. Mark gift as undelivered: `delivery_status 1 1 d/undelivered`
+   Expected: Gift status updated to Undelivered.
 8. Remove gift: `degift 1 1` then `confirm`
    Expected: Gift removed.
 
@@ -1223,6 +1229,8 @@ Given below are instructions to test the app manually.
    Expected: Error - invalid date format.
 4. View todos: `todolist`
    Expected: All todos listed.
+5. Edit todo: `edittodo 1 d/Buy gifts by/2026-12-21`
+   Expected: Todo details changed (deadline and description).
 5. Remove todo: `removetodo 1`
    Expected: Todo removed.
 6. Restart the app with a todo due within 7 days.
