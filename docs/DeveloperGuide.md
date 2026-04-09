@@ -9,7 +9,7 @@ We, team CS2113-T09-2, acknowledge the use of the following sources in our tP.
 | **[AddressBook-Level3 (AB3)](https://github.com/se-edu/addressbook-level3/)**                       | The docs of our tP (AboutUs, README, UG, DG & PPPs) were made with reference to the AB3 application's docs.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 | **[iP (author: shrabasti-c)](https://github.com/shrabasti-c/ip)**                       | The structure of class ChildCommand was adapted from the *Command classes of shrabasti-c's iP with some modifications.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 | **[GeeksforGeeks JUnit tests](https://www.geeksforgeeks.org/advance-java/unit-testing-of-system-out-println-with-junit/)**                      | The class ClausControlTest was inspired by the JUnit tests on the aforementioned website.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| **ChatGPT**                                                                                         | The load() function of Storage class and find commands was written with the aid of ChatGPT. <br/> The prepareAdd() and prepareEdit() functions of the Parser class (along with their refactored helpers) were reused from ChatGPT with significant modifications. ChatGPT was also used for trivial debugging.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| **ChatGPT**                                                                                         | The load() function of Storage class and find command were written with the aid of ChatGPT. <br/> The prepareAdd() and prepareEdit() functions of the Parser class (along with their refactored helpers) were reused from ChatGPT with significant modifications. ChatGPT was also used for trivial debugging.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
 | **Claude**                                                                                          | The tool was used for trivial debugging of ParserTest class and elf-related commands after a merge conflict, and to refine the DG language.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 
 ## Design
@@ -67,7 +67,7 @@ The save() method writes the lists into a .txt file in a structured format.
 **Loading data**
 The load() method reconstructs data from the .txt file.
 1. It reads the file line by line.
-2. Splits each line using "|".
+2. Splits each line using | delimiter.
 3. Processes:
    "CHILD" → creates new Child
    "GIFT" → creates new Gift and restores the status of the gift.
@@ -442,7 +442,7 @@ Given below is a sequence diagram showing how the reassign command works.
     - **Pros:** Type-safe; no invalid string values possible
     - **Cons:** Slightly more code; AUTO state effectively means the same as null
 
-### Todo and Reminder Feature (Shubhan Gabra)
+### Todo and Reminder Feature
 
 #### Overview
 The `todo` command allows Santa to add tasks with deadlines. On startup,
@@ -500,7 +500,7 @@ Given below is a sequence diagram showing how the todo command works.
     - **Pros:** Single file for all data
     - **Cons:** Couples todo storage to the existing format; increases risk of breaking existing storage logic
 
-### Elf Feature (XIAO Yanjing)
+### Elf Feature 
 
 #### Use Case
 Below is a system-wide use case to illustrate the elf profile and its associated actions.
@@ -589,7 +589,7 @@ The aforementioned commands follow a near identical sequence of operations to th
 * `detask` — validates both the elf index and the task index, retrieves the target `Elf` and its task list, calls `deleteTask()` with the zero-based task index, and returns a success message with the removed task description.
 * `elflist` — iterates over all elves in the elf list and builds a formatted string displaying each elf's name and their numbered task list (or a placeholder if no tasks are assigned).
 
-### ElfTask Feature (XIAO Yanjing)
+### ElfTask Feature 
 
 #### Use Case
 
@@ -645,7 +645,7 @@ Given below is a sequence diagram showing how the detask command works.
 ![](diagrams/DeTaskSequenceDiagram.png)
 ---
 
-### Find Feature (XIAO Yanjing)
+### Find Feature
 
 #### Use Case
 
@@ -691,8 +691,7 @@ Given below is a sequence diagram showing how the find command works.
     - **Pros:** Each class is self-contained with no branching logic
     - **Cons:** Code duplication; harder to maintain as search logic is identical except for the matching predicate
 
-### List Features (XIAO Yanjing)
-
+### List Features 
 #### Use Case
 
 Santa can view all children or all elves (with their tasks) at any time using the `childlist` and `elflist` commands.
@@ -750,7 +749,7 @@ Given below is a sequence diagram showing how the list(elflist and childlist) co
     - **Cons:** Santa cannot identify which elves are unassigned from the list view alone
 
 
-### Reset Feature (XIAO Yanijng)
+### Reset Feature 
 
 #### Use Case
 
@@ -800,6 +799,11 @@ Given below is a sequence diagram showing how the reset command works.
 The gift feature allows Santa to assign one or a list of gifts to a child. The gifts are assigned "in progress" status on assignment.
 This allows Santa to manage the gifts assigned to children.
 
+#### Use Case
+**Santa adds a gift or a list of gifts to a particular child index**
+1. gift 1 g/toy
+2. gift 3 g/toy g/book g/chocolate
+
 #### Implementation
 This feature is implemented with the GiftCommand class.
 When Santa enters "gift [child index] g/[gift name]" the Parser extracts the following-
@@ -832,6 +836,12 @@ Given below is the sequence diagram
 
 #### Overview
 This feature allows Santa to remove a gift for a particular child. This is useful since it helps Santa update the giftlist.
+
+#### Use Case
+**Santa removes a gift using the gift index for a particular child index.**
+**Only gifts assigned as prepared/undelivered can be degifted.**
+1. degift 1 1
+The command removes the first gift of the first child.
 
 #### Implementation
 This feature is implemented with the DeGiftCommand class.
@@ -869,6 +879,13 @@ Given below is the sequence diagram
 This feature allows Santa to set the gift status as delivered or undelivered. This is useful as it allows Santa to plan the gift deliveries by
 updating the delivery status.
 
+#### Use Case
+Santa assigns the delivery status of the gift with the child index and gift index.
+**Santa can assign a gift as delivered or undelivered.**
+**Gifts are assigned undelivered by default.**
+1. delivery_status 1 1 d/delivered
+2. delivery_status 1 3 d/undelivered
+
 #### Implementation
 This feature is implemented with the DeliveryStatusCommand class.
 When Santa enters "delivery_status [child index] [gift index] d/delivered/undelivered" the Parser extracts the following-
@@ -905,6 +922,12 @@ Given below is the sequence diagram which describes the happy path.
 This feature allows Santa to set a gift status as prepared. This is to indicate that the gift is prepared and not delivered yet.
 This allows Santa to track the progress of gifts.
 
+#### Use Case
+**Santa can assign a gift as prepared for a gift with the corresponding child index and gift index**
+1. prepared 1 1
+2. prepared 2 1
+
+
 #### Implementation
 This feature is implemented with the PrepareGiftCommand class.
 When Santa enters "prepared [child index] [gift index] " the Parser extracts the following-
@@ -938,10 +961,14 @@ Given below is the sequence diagram
 #### Overview
 The giftlist feature displays all the gifts assigned to a child along with the child name. This allows Santa to view all the gifts in a structured format.
 
+#### Use Case
+**Santa can view the gifts for each child. Only children with gifts assigned are displayed in the list along with their gifts.**
+1. giftlist
+
 #### Implementation
 This feature is implemented with the GiftListCommand class.
 When Santa enters "giftlist " the Parser creates a GiftListCommand object.
-*Only children with assigned gifts are displayed in the giftlist.*
+**Only children with assigned gifts are displayed in the giftlist.**
 
 1. The command checks if childList is empty.
 2. It iterates through each child in the childList.
