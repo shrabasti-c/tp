@@ -24,13 +24,9 @@ The bulk of the app’s work is done by the following five components:
 
 The Architecture Diagram given below explains the high-level design of the App.
 
-
-  ![ArchitectureDiagram.png](diagrams/ArchitectureDiagram.png)
+![ArchitectureDiagram.png](diagrams/ArchitectureDiagram.png)
 
 The Sequence Diagram below shows how the components interact with each other for the scenario where the user issues the command delete 1.
-
-
-
 ![ArchitectureSequenceDiagram.png](diagrams/ArchitectureSequenceDiagram.png)
 
 It should be noted that the components Main and Data are representative in nature.
@@ -39,7 +35,6 @@ They have been grouped under Main and Data to reflect the architecture of the pr
 The sections below give more details of the major components.
 
 ## Storage Component
-
 **API:** `Storage.java`
 
 #### Overview
@@ -52,7 +47,6 @@ It handles saving and loading of  data such as:
 Data is stored in a file and loaded back into the system when the application starts.
 
 The class diagram is-
-
 ![StorageClassDiagram.png](diagrams/StorageClassDiagram.png)
 
 #### Implementation
@@ -67,7 +61,7 @@ The save() method writes the lists into a .txt file in a structured format.
 **Loading data**
 The load() method reconstructs data from the .txt file.
 1. It reads the file line by line.
-2. Splits each line using | delimiter.
+2. Each line is split with a delimiter.
 3. Processes:
    "CHILD" → creates new Child
    "GIFT" → creates new Gift and restores the status of the gift.
@@ -81,7 +75,6 @@ The load() method reconstructs data from the .txt file.
 5. Adds gift to the current child
 
 Below is the sequence diagram-
-
 ![StorageSequenceDiagram.png](diagrams/StorageSequenceDiagram.png)
 
 #### Design
@@ -97,7 +90,6 @@ The storage component does not handle user inputs. The Logic layer interacts wit
 save() and load() only. The Storage component does not know how data is handled internally.
 
 ## Data Component
-
 **API:** `seedu/clauscontrol/data`
 
 #### Overview
@@ -134,7 +126,6 @@ It implements encapsulation, immutability, and separation of concerns in terms o
 - Other components interact with the Data entities after command execution is initiated.
 
 ## Parser Component
-
 **API:** `Parser.java`
 
 #### Overview
