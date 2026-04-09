@@ -11,7 +11,7 @@ public class Gift {
 
     public enum State {
         PREPARED,
-        IN_PROGRESS,
+        UNDELIVERED,
         DELIVERED
     }
 
@@ -24,7 +24,7 @@ public class Gift {
         }
 
         this.giftName = giftName;
-        this.state = State.IN_PROGRESS;
+        this.state = State.UNDELIVERED;
         logger.info("Created gift: " + giftName);
     }
 
@@ -46,7 +46,7 @@ public class Gift {
     }
 
     public void markUndelivered() {
-        this.state = State.IN_PROGRESS;
+        this.state = State.UNDELIVERED;
     }
 
     public void markDelivered() {
@@ -62,7 +62,7 @@ public class Gift {
         case DELIVERED:
             return "[Delivered] " + giftName;
         default:
-            return "[In progress] " + giftName;
+            return "[Undelivered] " + giftName;
 
         }
     }

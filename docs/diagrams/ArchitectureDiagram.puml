@@ -2,7 +2,7 @@
 skinparam style strictuml
 allowmixing
 skinparam arrowThickness 1.1
-skinparam arrowColor #9D0012
+skinparam arrowColor #blue
 
 Package ClausControl <<Rectangle>>{
     Class UI
