@@ -665,7 +665,7 @@ public class Parser {
             if (!query.isEmpty()) {
                 try {
                     int age = Integer.parseInt(query);
-                    if (age <= 0) {
+                    if (age < 0) {
                         throw new IllegalValueException("Age must be a non-negative integer!");
                     }
                 } catch (NumberFormatException e) {
