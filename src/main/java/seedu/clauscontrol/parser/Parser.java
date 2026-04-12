@@ -149,7 +149,7 @@ public class Parser {
 
         case "reset":
             checkNoPendingCommand("reset");
-            pendingCommand = new ResetCommand();
+            pendingCommand = new ResetCommand(todoList);
             throw new IllegalValueException("WARNING: This will wipe ALL data and reset to initial state. " +
                     "Type 'confirm' to proceed.");
         //@@author

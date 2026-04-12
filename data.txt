@@ -1,4 +1,1 @@
-FINALIZED|true
-ELF|Bobby
-ELF|Dobby
-TASK|Buy Ccandy
+FINALIZED|false
