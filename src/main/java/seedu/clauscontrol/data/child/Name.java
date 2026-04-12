@@ -7,7 +7,7 @@ import seedu.clauscontrol.data.exception.IllegalValueException;
  * with minor modifications
  */
 public class Name {
-    public static final String MESSAGE_NAME_CONSTRAINTS = "A child's name should contain spaces" +
+    public static final String MESSAGE_NAME_CONSTRAINTS = "A child/elf's name should contain spaces" +
             " or alphabetic characters only";
     public static final String NAME_VALIDATION_REGEX = "[\\p{Alpha} ]+";
     public final String fullName;
