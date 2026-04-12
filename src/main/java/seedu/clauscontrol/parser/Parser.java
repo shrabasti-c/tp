@@ -829,7 +829,8 @@ public class Parser {
         if (pendingCommand != null) {
             throw new IllegalValueException(
                     "Cannot execute '" + newCommandName + "' yet. \n" +
-                            "You have a pending '" + pendingCommand.getClass().getSimpleName().replace("Command", "").toLowerCase()
+                            "You have a pending '"
+                            + pendingCommand.getClass().getSimpleName().replace("Command", "").toLowerCase()
                             + "' waiting for confirmation.\n" +
                             "  - Type 'confirm' to execute the pending command first.\n" +
                             "  - Type 'cancel' to discard it, then retry '" + newCommandName + "'."
