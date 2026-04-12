@@ -72,7 +72,14 @@ public class Parser {
             pendingCommand = null;
             return toExecute;
         }
-        pendingCommand = null;
+        
+        if (trimmedInput.equalsIgnoreCase("cancel")) {
+            if (pendingCommand == null) {
+                throw new IllegalValueException("There is no pending command to cancel.");
+            }
+            pendingCommand = null;
+            throw new IllegalValueException("Pending command has been cancelled.");
+        }
         //@@author
 
         //@@author shrabasti-c-reused
@@ -100,6 +107,7 @@ public class Parser {
 
         //@@author Aurosky
         case "delete":
+            checkNoPendingCommand("delete");
             pendingCommand = prepareDelete(arguments);
             throw new IllegalValueException("WARNING: You are about to delete a child. Type 'confirm' to proceed.");
 
@@ -127,6 +135,7 @@ public class Parser {
             return prepareTaskAction(arguments);
 
         case "detask":
+            checkNoPendingCommand("detask");
             pendingCommand = prepareDetask(arguments);
             throw new IllegalValueException("WARNING: You are about to remove a task. Type 'confirm' to proceed.");
 
@@ -134,10 +143,12 @@ public class Parser {
             return prepareEditElf(arguments);
 
         case "rmelf":
+            checkNoPendingCommand("rmelf");
             pendingCommand = prepareRmElf(arguments);
             throw new IllegalValueException("WARNING: You are about to remove an Elf. Type 'confirm' to proceed.");
 
         case "reset":
+            checkNoPendingCommand("reset");
             pendingCommand = new ResetCommand();
             throw new IllegalValueException("WARNING: This will wipe ALL data and reset to initial state. " +
                     "Type 'confirm' to proceed.");
@@ -181,6 +192,7 @@ public class Parser {
         case "todolist":
             return new TodoListCommand(todoList);
         case "removetodo":
+            checkNoPendingCommand("removetodo");
             try {
                 return new RemoveTodoCommand(Integer.parseInt(arguments.trim()), todoList);
             } catch (NumberFormatException e) {
@@ -193,6 +205,7 @@ public class Parser {
         case "gift":
             return prepareGiftAction(arguments);
         case "degift":
+            checkNoPendingCommand("degift");
             DeGiftCommand temp = prepareDeGiftAction(arguments);
             int degiftChildIndex = temp.getChildIndex();
             int degiftGiftIndex = temp.getGiftIndex();
@@ -808,6 +821,17 @@ public class Parser {
 
         } catch (NumberFormatException e) {
             throw new IllegalValueException("The Elf index must be a valid integer.");
+        }
+    }
+    
+    private void checkNoPendingCommand(String newCommandName) throws IllegalValueException {
+        if (pendingCommand != null) {
+            throw new IllegalValueException(
+                    "Cannot execute '" + newCommandName + "' yet. \n" +
+                            "You have a pending '" + pendingCommand.getClass().getSimpleName().replace("Command", "").toLowerCase() + "' waiting for confirmation.\n" +
+                            "  - Type 'confirm' to execute the pending command first.\n" +
+                            "  - Type 'cancel' to discard it, then retry '" + newCommandName + "'."
+            );
         }
     }
     // @@author
