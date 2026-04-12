@@ -51,8 +51,11 @@ public class PrepareGiftCommand extends Command {
         if (gift.isDelivered()) {
             return "Cannot prepare a delivered gift, try another command!";
         }
+        if(gift.getState()== Gift.State.PREPARED){
+            return "Gift is already prepared !";
+        }
         gift.markPrepared();
-        return "Gift marked as prepared!!!" + gift;
+        return "Gift marked as prepared! " + gift;
     }
 
     private boolean isValidGiftIndex(Child child) {

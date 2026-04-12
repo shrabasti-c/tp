@@ -71,7 +71,7 @@ The load() method reconstructs data from the .txt file.
 4. Restores gift state:
    PREPARED → markPrepared()
    DELIVERED → markDelivered()
-   default → remains IN_PROGRESS
+   default → remains UNDELIVERED
 5. Adds gift to the current child
 Below is the sequence diagram-
 

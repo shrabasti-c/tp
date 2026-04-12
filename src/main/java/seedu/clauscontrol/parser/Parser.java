@@ -505,7 +505,7 @@ public class Parser {
             addGifts(parts, giftNames);
 
             if (giftNames.isEmpty()) {
-                throw new IllegalValueException("Please enter gift names:)");
+                throw new IllegalValueException("No gift/gifts provided,please enter gift/gifts:)");
             }
             return new GiftCommand(childIndex, giftNames);
         } catch (NumberFormatException e) {
@@ -516,13 +516,23 @@ public class Parser {
     }
 
     private static void addGifts(String[] parts, ArrayList<String> giftNames) {
+        StringBuilder gift = null;
         for (int i = 1; i < parts.length; i++) {
             if (parts[i].startsWith(GIFT_PREFIX)) {
-                giftNames.add(parts[i].substring(2));
+                if (gift != null) {
+                    giftNames.add(gift.toString().trim());
+                }
+                gift = new StringBuilder(parts[i].substring(2));
+            } else {
+                if (gift != null) {
+                    gift.append(" ").append(parts[i]);
+                }
             }
         }
+        if (gift != null) {
+            giftNames.add(gift.toString().trim());
+        }
     }
-
     /**
      * Parses input arguments to create a DeGiftCommand.
      * Expected format: degift CHILD_INDEX GIFT_INDEX
@@ -535,6 +545,12 @@ public class Parser {
     private DeGiftCommand prepareDeGiftAction(String args) throws IllegalValueException {
         try {
             String[] parts = args.trim().split(" ");
+            if (parts.length < 2) {
+                throw new IllegalValueException(
+                        "Please use valid command format:" +
+                                " degift CHILD_INDEX GIFT_INDEX"
+                );
+            }
             int childIndex = Integer.parseInt(parts[0]);
             int giftIndex = Integer.parseInt(parts[1]);
 
@@ -559,6 +575,12 @@ public class Parser {
     private DeliveryStatusCommand prepareDeliverAction(String args) throws IllegalValueException {
         try {
             String[] parts = args.trim().split(" ");
+
+            if(parts.length<3 || parts[2].trim().isEmpty()){
+                throw new IllegalValueException("Please use valid command format: " +
+                                "delivery_status CHILD_INDEX GIFT_INDEX d/delivered (or) d/undelivered"
+                );
+            }
             int childIndex = Integer.parseInt(parts[0]);
             int giftIndex = Integer.parseInt(parts[1]);
             String status = parts[2];
@@ -569,7 +591,7 @@ public class Parser {
             return new DeliveryStatusCommand(childIndex, giftIndex, delivered);
 
         } catch (NumberFormatException e) {
-            throw new IllegalValueException("input numbers for child index and gift index");
+            throw new IllegalValueException("Please input valid numbers for child index and gift index");
         }
     }
 
@@ -582,7 +604,7 @@ public class Parser {
         } else {
             throw new IllegalValueException("Please use valid command format:"
                     + "delivery_status CHILD_INDEX GIFT_INDEX" +
-                    " d/delivered|d/undelivered");
+                    " d/delivered (or) d/undelivered");
         }
         return delivered;
     }

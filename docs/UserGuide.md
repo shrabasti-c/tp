@@ -217,9 +217,9 @@ Examples:
 * `gift 3 g/book`
 
 #### Remove gift: `degift`
-Removes gift/s assigned to a child.
+Removes a gift assigned to a child.
 
-**Only undelivered/prepared gifts can be degifted. Gifts marked as delivered cannot be degifted.**
+**Only an undelivered/prepared gift can be degifted. Gift marked as delivered cannot be degifted.**
 * Format: `degift CHILD_INDEX GIFT_INDEX...`
 * The user inputs the child index and gift index. 
 * Removes the gift from the gift list using the input child index and gift index. 

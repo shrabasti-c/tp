@@ -58,7 +58,7 @@ public class Gift {
     public String toString() {
         switch (state) {
         case PREPARED:
-            return "[Prepared]" + giftName;
+            return "[Prepared] " + giftName;
         case DELIVERED:
             return "[Delivered] " + giftName;
         default:

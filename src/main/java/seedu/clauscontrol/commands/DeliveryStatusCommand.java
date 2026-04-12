@@ -52,6 +52,7 @@ public class DeliveryStatusCommand extends Command {
         if (!delivered && gift.getState() == Gift.State.UNDELIVERED) {
             return "Gift is already undelivered!";
         }
+
         if (delivered) {
             gift.markDelivered();
         } else {

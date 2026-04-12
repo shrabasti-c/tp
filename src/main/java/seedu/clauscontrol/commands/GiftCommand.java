@@ -49,14 +49,28 @@ public class GiftCommand extends Command {
         }
         Child child = childList.get(childIndex);
 
-        for (String name : giftNames) {
+        for(int i=0;i<giftNames.size();i++){
+            String name=giftNames.get(i).trim();
             if (isInvalidGiftName(name)) {
                 return "Gift names cannot be empty";
+            }
+
+            for(int j=i+1;j<giftNames.size();j++){
+                String name1=giftNames.get(j).trim();
+                if (name.equalsIgnoreCase(name1)) {
+                    return "Duplicate gift names are not allowed, please try again! ";
+                }
+            }
+            for(Gift gift:child.getGifts()){
+                if(gift.getGiftName().equalsIgnoreCase(name)){
+                    return "Child " + (childIndex + 1) + " already has gift: " + name +
+                            ". Please add another gift";
+                }
             }
         }
 
         for (String name : giftNames) {
-            child.addGift(new Gift(name));
+            child.addGift(new Gift(name.trim()));
         }
         return "Added gifts to child " + (childIndex + 1) + ": " + giftNames;
     }
