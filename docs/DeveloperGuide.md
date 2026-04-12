@@ -103,11 +103,13 @@ It comprises Class representations of:
 - Exceptions
 
 #### Responsibilities
-The Data component houses all possible interacting entities of the application and their accompanying functions that support:
+The Data component houses all possible interacting entities (domain objects) of the application.
+Some, or all, of the following operations:
 - creation
 - modification
 - viewing
 - deletion
+can be performed on the Data component's entities via command logic.
 
 #### Implementation
 ![DataComponentDiagram.png](diagrams/DataComponentDiagram.png) 
