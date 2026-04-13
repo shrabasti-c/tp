@@ -15,7 +15,7 @@ Allows Santa to create a child profile consisting of minimally name along with a
 * Implemented `child` command to handle child profile creation.
 * Added input validation and error handling in `Parser` and `Name`.
 * Created `Child`, `ReadOnlyChild` and `ChildCommand` classes to facilitate the command.
-* Added comprehensive JUnit testing for this feature
+* Added comprehensive JUnit testing for this feature.
 
 #### 2. Edit child feature (`edit` command)
 Allows Santa to edit a child profile's details (name, age, location).

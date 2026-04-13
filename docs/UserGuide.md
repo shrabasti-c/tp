@@ -12,7 +12,7 @@ ClausControl is a **desktop app for Santa Claus to manage children, gifts, elves
 1. Ensure that you have **Java 17** or above installed on your computer.<br>
    **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
 2. Download the latest version of `ClausControl` (`.jar` file) from [here](https://github.com/AY2526S2-CS2113-T09-2/tp).
-3. Open your terminal, navigate to the folder where the file is located, and run the command: `java -jar clauscontrol.jar`.
+3. Open your terminal, navigate to the folder where the file is located, and run the command: `java -jar [CS2113-T09-2][ClausControl].jar`.
 4. Refer to the Features below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------

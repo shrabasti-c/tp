@@ -1162,7 +1162,7 @@ Given below are instructions to test the app manually.
 
 ### Launch and shutdown
 1. Download the jar file and copy into an empty folder.
-2. Run `java -jar clauscontrol.jar`.
+2. Run `java -jar [CS2113-T09-2][ClausControl].jar`.
 3. Expected: Shows the ClausControl logo and welcome message.
 4. Type `bye` to exit.
 
