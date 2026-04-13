@@ -30,6 +30,8 @@ import seedu.clauscontrol.commands.EditTodoCommand;
 import seedu.clauscontrol.data.child.Child;
 import seedu.clauscontrol.data.todo.Todo;
 import seedu.clauscontrol.commands.RemoveTodoCommand;
+import seedu.clauscontrol.commands.HelpCommand;
+
 
 import seedu.clauscontrol.data.exception.IllegalValueException;
 
@@ -169,6 +171,8 @@ public class Parser {
             // fall through
         case "finalise":
             return new FinalizeCommand();
+        case "help":
+            return new HelpCommand();
         case "naughty":
             return new NaughtyCommand();
         case "reassign":
@@ -233,8 +237,7 @@ public class Parser {
         case "prepared":
             return preparePreparedAction(arguments);
         default:
-            throw new IllegalValueException(
-                    "Unknown command:( Please enter valid command");
+            throw new IllegalValueException("Unknown command:( Please enter valid command. Type 'help' for a list of commands.");
         }
         //@@author
     }
