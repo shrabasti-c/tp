@@ -553,6 +553,10 @@ public class Parser {
             int index = Integer.parseInt(args.trim().split(" ")[0]);
             String action = args.substring(aIndex + 2, sIndex).trim();
             hasNoPipe(action);
+            if (action.isEmpty()) {
+                throw new IllegalValueException("Action description cannot be empty!\n"
+                        + "Format: action CHILD_INDEX a/ACTION s/SEVERITY");
+            }
             int severity = Integer.parseInt(args.substring(sIndex + 2).trim());
 
             if (severity < -5 || severity > 5) {

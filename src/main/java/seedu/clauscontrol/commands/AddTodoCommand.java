@@ -55,19 +55,33 @@ public class AddTodoCommand extends Command {
                 return "Description contains invalid characters!";
             }
 
-            LocalDate deadline = LocalDate.parse(dateStr);
+            if (!dateStr.matches("\\d{4}-\\d{2}-\\d{2}")) {
+                return "Invalid date format! Please use YYYY-MM-DD e.g. 2026-04-05";
+            }
+
+            LocalDate deadline;
+            try {
+                deadline = LocalDate.parse(dateStr);
+            } catch (DateTimeParseException e) {
+                return "Invalid date value! \"" + dateStr + "\" is not a real date.";
+            }
 
             if (deadline.isBefore(LocalDate.now())) {
                 return "Deadline cannot be in the past!";
             }
 
+            for (Todo existing : todoList) {
+                if (existing.getDescription().equals(description)
+                        && existing.getDeadline().equals(deadline)) {
+                    return "Duplicate todo! A todo with the same description and deadline already exists.";
+                }
+            }
+
             todoList.add(new Todo(description, deadline));
+
             logger.log(Level.INFO, "Todo added: " + description);
             return "Todo added: " + description + " (due: " + deadline + ")";
 
-        } catch (DateTimeParseException e) {
-            logger.log(Level.INFO, "Invalid date format entered");
-            return "Invalid date format! Please use YYYY-MM-DD e.g. 2026-04-05";
         } catch (Exception e) {
             logger.log(Level.INFO, "Unexpected error in AddTodoCommand");
             return "Something went wrong! Format: todo d/DESCRIPTION by/YYYY-MM-DD";
