@@ -14,6 +14,7 @@ public class DeleteCommand extends Command {
     @Override
     public String execute() {
         childList.remove(childIndex);
+        return "Child removed .. :(";
     }
 }
 //@@author
