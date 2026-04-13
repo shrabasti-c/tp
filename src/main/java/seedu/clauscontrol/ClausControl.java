@@ -9,6 +9,8 @@ import seedu.clauscontrol.parser.Parser;
 import seedu.clauscontrol.storage.TodoStorage;
 import seedu.clauscontrol.ui.TextUi;
 import seedu.clauscontrol.storage.Storage;
+import seedu.clauscontrol.commands.UnfinalizeCommand;
+
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -103,6 +105,8 @@ public class ClausControl {
                 String result = command.execute();
                 if (command instanceof FinalizeCommand) {
                     isFinalized = true;
+                } else if (command instanceof UnfinalizeCommand && isFinalized) {
+                    isFinalized = false;
                 } else if (command instanceof ResetCommand) {
                     isFinalized = false;
                 }

@@ -19,6 +19,7 @@ import seedu.clauscontrol.commands.GiftListCommand;
 import seedu.clauscontrol.commands.NaughtyCommand;
 import seedu.clauscontrol.commands.NiceCommand;
 import seedu.clauscontrol.commands.ReassignCommand;
+import seedu.clauscontrol.commands.UnfinalizeCommand;
 import seedu.clauscontrol.commands.ResetCommand;
 import seedu.clauscontrol.commands.RmElfCommand;
 import seedu.clauscontrol.commands.TaskCommand;
@@ -171,6 +172,10 @@ public class Parser {
             // fall through
         case "finalise":
             return new FinalizeCommand();
+        case "unfinalize":
+            // fall through
+        case "unfinalise":
+            return new UnfinalizeCommand();
         case "help":
             return new HelpCommand();
         case "naughty":
