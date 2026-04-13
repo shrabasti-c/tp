@@ -57,7 +57,7 @@ public class DeGiftCommand extends Command {
             return e.getMessage();
         }
 
-        return " gift removed " + giftIndex + " for child " + child.getName();
+        return "Gift removed " + giftIndex + " for child " + child.getName();
 
     }
 }

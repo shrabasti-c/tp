@@ -61,6 +61,11 @@ public class Parser {
     }
     //@@author
 
+    private void hasNoPipe(String value) throws IllegalValueException {
+        if (value != null && value.contains("|")) {
+            throw new IllegalValueException("Input cannot contain '|', please try again!");
+        }
+    }
     public Command parseCommand(String userInput) throws IllegalValueException {
 
         //@@author Aurosky
@@ -188,6 +193,7 @@ public class Parser {
                 throw new IllegalValueException("Child index must be a number!");
             }
         case "todo":
+            hasNoPipe(arguments);
             return new AddTodoCommand(arguments, todoList);
 
         case "todolist":
@@ -279,6 +285,7 @@ public class Parser {
                 }
 
                 name = token.substring(2);
+                hasNoPipe(name);
                 String err = checkValidity(name, "Name");
                 if (err != null) {
                     errors.add(err);
@@ -294,6 +301,7 @@ public class Parser {
                 }
 
                 location = token.substring(2);
+                hasNoPipe(location);
                 String err = checkValidity(location, "Location");
 
                 if (err != null) {
@@ -310,6 +318,7 @@ public class Parser {
                 }
 
                 ageString = token.substring(2);
+                hasNoPipe(ageString);
                 String err = checkValidity(ageString, "Age");
 
                 if (err != null) {
@@ -410,6 +419,7 @@ public class Parser {
                             "edit INDEX [n/NAME] [l/LOCATION] [a/AGE]");
                 }
                 newName = token.substring(2).trim();
+                hasNoPipe(newName);
                 nameSet = true;
             } else if (token.startsWith("l/")) {
                 if (locationSet) {
@@ -417,6 +427,7 @@ public class Parser {
                             "edit INDEX [n/NAME] [l/LOCATION] [a/AGE]");
                 }
                 newLocation = token.substring(2).trim();
+                hasNoPipe(newLocation);
                 locationSet = true;
             } else if (token.startsWith("a/")) {
                 if (ageSet) {
@@ -424,6 +435,7 @@ public class Parser {
                             "edit INDEX [n/NAME] [l/LOCATION] [a/AGE]");
                 }
                 ageString = token.substring(2).trim();
+                hasNoPipe(ageString);
                 ageSet = true;
             }
         }
@@ -503,6 +515,7 @@ public class Parser {
         for (String token : tokens) {
             if (token.startsWith("d/")) {
                 newDescription = token.substring(2).trim();
+                hasNoPipe(newDescription);
             } else if (token.startsWith("by/")) {
                 String newDeadlineString = token.substring(3).trim();
                 try {
@@ -532,6 +545,7 @@ public class Parser {
 
             int index = Integer.parseInt(args.trim().split(" ")[0]);
             String action = args.substring(aIndex + 2, sIndex).trim();
+            hasNoPipe(action);
             int severity = Integer.parseInt(args.substring(sIndex + 2).trim());
 
             if (severity < -5 || severity > 5) {
@@ -577,12 +591,16 @@ public class Parser {
 
     }
 
-    private static void addGifts(String[] parts, ArrayList<String> giftNames) {
+    private static void addGifts(String[] parts, ArrayList<String> giftNames) throws IllegalValueException {
         StringBuilder gift = null;
         for (int i = 1; i < parts.length; i++) {
             if (parts[i].startsWith(GIFT_PREFIX)) {
                 if (gift != null) {
-                    giftNames.add(gift.toString().trim());
+                    String giftName = gift.toString().trim();
+                    if (giftName.contains("|")) {
+                        throw new IllegalValueException("Gift name cannot contain '|'");
+                    }
+                    giftNames.add(giftName);
                 }
                 gift = new StringBuilder(parts[i].substring(2));
             } else {
@@ -592,7 +610,11 @@ public class Parser {
             }
         }
         if (gift != null) {
-            giftNames.add(gift.toString().trim());
+            String giftName = gift.toString().trim();
+            if (giftName.contains("|")) {
+                throw new IllegalValueException("Gift name cannot contain '|'");
+            }
+            giftNames.add(giftName);
         }
     }
     /**
@@ -683,6 +705,10 @@ public class Parser {
     private Command preparePreparedAction(String args) throws IllegalValueException {
         try {
             String[] parts = args.trim().split(" ");
+            if (parts.length < 2) {
+                throw new IllegalValueException("Format: " +
+                        "prepared [childindex] [giftindex]");
+            }
             int childIndex = Integer.parseInt(parts[0]);
             int giftIndex = Integer.parseInt(parts[1]);
 
@@ -707,9 +733,11 @@ public class Parser {
         
         if (trimmedArgs.startsWith("n/")) {
             query = trimmedArgs.substring(2).trim();
+            hasNoPipe(query);
             searchType = FindCommand.SearchType.NAME;
         } else if (trimmedArgs.startsWith("a/")) {
             query = trimmedArgs.substring(2).trim();
+            hasNoPipe(query);
             searchType = FindCommand.SearchType.AGE;
             if (!query.isEmpty()) {
                 try {
@@ -723,6 +751,7 @@ public class Parser {
             }
         } else if (trimmedArgs.startsWith("l/")) {
             query = trimmedArgs.substring(2).trim();
+            hasNoPipe(query);
             searchType = FindCommand.SearchType.LOCATION;
         }
         
@@ -737,12 +766,12 @@ public class Parser {
     
     private Command prepareElf(String args) throws IllegalValueException {
         String name = null;
-
         String[] tokens = args.split(" ");
 
         for (String token : tokens) {
             if (token.startsWith("n/")) {
                 name = token.substring(2);
+                hasNoPipe(name);
             }
         }
 
@@ -772,6 +801,7 @@ public class Parser {
             int elfIndex = Integer.parseInt(indexPart);
 
             String taskDescription = trimmedArgs.substring(tIndex + 2).trim();
+            hasNoPipe(taskDescription);
             if (taskDescription.isEmpty()) {
                 throw new IllegalValueException("Task description cannot be empty!");
             }
@@ -836,6 +866,7 @@ public class Parser {
                 namePart = trimmedArgs.substring(nPos + 2, ePos).trim();
                 elfPart = trimmedArgs.substring(ePos + 2).trim();
             }
+            hasNoPipe(namePart);
 
             if (elfPart.isEmpty()) {
                 throw new IllegalValueException("Elf index cannot be empty! Format: e/INDEX");

@@ -41,7 +41,7 @@ public class Storage {
 
             for (Gift gift : child.getGifts()) {
                 writer.write("GIFT|"
-                        + gift.getGiftName() + "|"
+                        + gift.getGiftName().replace("|", "\\|") + "|"
                         + gift.getState());
                 writer.newLine();
             }
@@ -90,7 +90,7 @@ public class Storage {
             if (line.trim().isEmpty()) {
                 continue;
             }
-            String[] parts = line.trim().split("\\|");
+            String[] parts = line.trim().split("\\|", 3);
             if (parts.length == 0) {
                 continue;
             }
@@ -128,7 +128,7 @@ public class Storage {
                     throw new IllegalStateException("Gift before child in file");
                 }
 
-                String giftName = parts[1];
+                String giftName = parts[1].replace("\\|", "|");
                 Gift.State state;
                 try {
                     state = Gift.State.valueOf(parts[2]);

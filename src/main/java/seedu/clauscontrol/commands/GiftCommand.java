@@ -72,7 +72,8 @@ public class GiftCommand extends Command {
         for (String name : giftNames) {
             child.addGift(new Gift(name.trim()));
         }
-        return "Added gifts to child " + (childIndex + 1) + ": " + giftNames;
+        return "Added gifts to child " + (childIndex + 1) + ": " +
+                String.join(", ", giftNames);
     }
 
     private boolean isInvalidGiftName(String name) {
