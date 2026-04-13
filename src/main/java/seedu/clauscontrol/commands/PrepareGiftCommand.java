@@ -37,6 +37,9 @@ public class PrepareGiftCommand extends Command {
      */
     @Override
     public String execute() {
+        if (!isFinalized) {
+            return "Please finalise the lists before preparing gifts!";
+        }
         if (!isValidChildIndex()) {
             return "Invalid child index";
         }

@@ -36,6 +36,7 @@ import seedu.clauscontrol.data.exception.IllegalValueException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -233,7 +234,7 @@ public class Parser {
     }
 
     //@@author shrabasti-c-reused
-    // Reused from ChatGPT with significant modifications
+    // Reused from ChatGPT with modifications
 
     /**
      * Returns an Add command from user input arguments.
@@ -249,26 +250,86 @@ public class Parser {
         String ageString = null;
         int age = -1;
 
+        boolean duplicateNameErrorAdded = false;
+        boolean duplicateAgeErrorAdded = false;
+        boolean duplicateLocationErrorAdded = false;
+
         args = args.trim().replaceAll("\\s+", " ");
+
+        if (args.isEmpty()) {
+            throw new IllegalValueException("Oops! Please provide fields after command.");
+        }
+
         String[] tokens = args.split("\\s+(?=\\w/)");
+        List<String> errors = new ArrayList<>();
 
         for (String token : tokens) {
             if (!token.matches("[nla]/.*")) {
-                throw new IllegalValueException("Oops! Incorrect prefix");
+                throw new IllegalValueException("Oops! Invalid prefix entered.\n" +
+                        "Please follow the format: child n/NAME [l/LOCATION] [a/AGE]");
             }
+
             if (token.startsWith("n/")) {
-                checkDuplicateParams(name);
+                if (name != null) {
+                    if (!duplicateNameErrorAdded) {
+                        errors.add("Oops! Duplicate name fields entered. Please stick to one.");
+                        duplicateNameErrorAdded = true;
+                    }
+                    continue;
+                }
+
                 name = token.substring(2);
+                String err = checkValidity(name, "Name");
+                if (err != null) {
+                    errors.add(err);
+                }
+
             } else if (token.startsWith("l/")) {
-                checkDuplicateParams(location);
+                if (location != null) {
+                    if (!duplicateLocationErrorAdded) {
+                        errors.add("Oops! Duplicate location fields entered. Please stick to one.");
+                        duplicateLocationErrorAdded = true;
+                    }
+                    continue;
+                }
+
                 location = token.substring(2);
+                String err = checkValidity(location, "Location");
+
+                if (err != null) {
+                    errors.add(err);
+                }
+
             } else if (token.startsWith("a/")) {
-                checkDuplicateParams(ageString);
+                if (ageString != null) {
+                    if (!duplicateAgeErrorAdded) {
+                        errors.add("Oops! Duplicate age fields entered. Please stick to one.");
+                        duplicateAgeErrorAdded = true;
+                    }
+                    continue;
+                }
+
                 ageString = token.substring(2);
+                String err = checkValidity(ageString, "Age");
+
+                if (err != null) {
+                    errors.add(err);
+                }
             }
         }
 
-        checkValidity(name);
+        if (name == null) {
+            throw new IllegalValueException("Oops! Name must be provided." +
+                    "\nPlease follow the format: child n/NAME [l/LOCATION] [a/AGE]"
+            );
+        }
+
+        if (!errors.isEmpty()) {
+            throw new IllegalValueException(
+                    String.join("\n", errors) +
+                            "\nPlease follow the format: child n/NAME [l/LOCATION] [a/AGE]"
+            );
+        }
 
         age = assignAge(ageString, age);
 
@@ -298,28 +359,16 @@ public class Parser {
     }
 
     /**
-     * Checks whether a parameter has already been provided to prevent duplicates.
-     *
-     * @param param the parameter value to check
-     * @throws IllegalValueException if the parameter is already set
-     */
-    private static void checkDuplicateParams(String param) throws IllegalValueException {
-        if (param != null) {
-            throw new IllegalValueException("You have entered duplicate parameters! Please follow" +
-                    "child n/NAME [l/LOCATION] [a/AGE]");
-        }
-    }
-
-    /**
      * Checks whether a required token is valid.
      *
      * @param token the string to validate
-     * @throws IllegalValueException if the token is null or empty
+     * @return an error message if applicable
      */
-    private static void checkValidity(String token) throws IllegalValueException {
+    private static String checkValidity(String token, String paramType) throws IllegalValueException {
         if (token == null || token.isEmpty()) {
-            throw new IllegalValueException("Please follow the format: child n/NAME [l/LOCATION] [a/AGE]");
+            return(paramType + " must be provided.");
         }
+        return null;
     }
 
     /**

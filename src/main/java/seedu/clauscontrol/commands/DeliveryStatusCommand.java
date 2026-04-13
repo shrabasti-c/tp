@@ -36,6 +36,9 @@ public class DeliveryStatusCommand extends Command {
      */
     @Override
     public String execute() {
+        if (!isFinalized) {
+            return "Please finalise the lists before assigning delivery status!";
+        }
         if (!isValidChildIndex()) {
             return "Please enter valid index value";
         }

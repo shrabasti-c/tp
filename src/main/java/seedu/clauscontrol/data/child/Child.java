@@ -67,8 +67,8 @@ public class Child implements ReadOnlyChild{
         return location != null && !location.isEmpty();
     }
 
-    public void setName(String newName) throws IllegalValueException {
-        this.name = new Name(newName);
+    public void setName(Name name) throws IllegalValueException {
+        this.name = name;
     }
 
     public void setLocation(String newLocation) throws IllegalValueException {

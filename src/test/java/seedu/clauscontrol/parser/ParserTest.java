@@ -132,7 +132,10 @@ public class ParserTest {
         IllegalValueException thrown = assertThrows(IllegalValueException.class, () -> {
             parser.parseCommand(input);
         });
-        assertEquals("You have entered duplicate parameters! Please followchild n/NAME [l/LOCATION] [a/AGE]",
+        assertEquals("Oops! Duplicate name fields entered. Please stick to one.\n" +
+                        "Oops! Duplicate location fields entered. Please stick to one.\n" +
+                        "Oops! Duplicate age fields entered. Please stick to one.\n" +
+                        "Please follow the format: child n/NAME [l/LOCATION] [a/AGE]",
                 thrown.getMessage());
     }
 
@@ -142,7 +145,8 @@ public class ParserTest {
         IllegalValueException thrown = assertThrows(IllegalValueException.class, () -> {
             parser.parseCommand(input);
         });
-        assertEquals("Please follow the format: child n/NAME [l/LOCATION] [a/AGE]",
+        assertEquals("Oops! Name must be provided.\n" +
+                        "Please follow the format: child n/NAME [l/LOCATION] [a/AGE]",
                 thrown.getMessage());
     }
 
@@ -152,7 +156,8 @@ public class ParserTest {
         IllegalValueException thrown = assertThrows(IllegalValueException.class, () -> {
             parser.parseCommand(input);
         });
-        assertEquals("Please follow the format: child n/NAME [l/LOCATION] [a/AGE]",
+        assertEquals("Oops! Name must be provided.\n" +
+                        "Please follow the format: child n/NAME [l/LOCATION] [a/AGE]",
                 thrown.getMessage());
     }
 
@@ -182,7 +187,8 @@ public class ParserTest {
         IllegalValueException thrown = assertThrows(IllegalValueException.class, () -> {
             parser.parseCommand(input);
         });
-        assertEquals("Oops! Incorrect prefix",
+        assertEquals("Oops! Invalid prefix entered.\n" +
+                        "Please follow the format: child n/NAME [l/LOCATION] [a/AGE]",
                 thrown.getMessage());
     }
 
@@ -192,7 +198,8 @@ public class ParserTest {
         IllegalValueException thrown = assertThrows(IllegalValueException.class, () -> {
             parser.parseCommand(input);
         });
-        assertEquals("Oops! Incorrect prefix",
+        assertEquals("Oops! Invalid prefix entered.\n" +
+                        "Please follow the format: child n/NAME [l/LOCATION] [a/AGE]",
                 thrown.getMessage());
     }
 
@@ -202,7 +209,8 @@ public class ParserTest {
         IllegalValueException thrown = assertThrows(IllegalValueException.class, () -> {
             parser.parseCommand(input);
         });
-        assertEquals("Oops! Incorrect prefix",
+        assertEquals("Oops! Invalid prefix entered.\n" +
+                        "Please follow the format: child n/NAME [l/LOCATION] [a/AGE]",
                 thrown.getMessage());
     }
 

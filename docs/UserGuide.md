@@ -35,6 +35,9 @@ ClausControl is a **desktop app for Santa Claus to manage children, gifts, elves
 * Extraneous parameters for commands that do not take in parameters (such as `nice`, `naughty`, etc.) will be ignored.<br>
   e.g. if the command specifies `nice 123`, it will be interpreted as `nice`.
 
+* Inputs with prefix explicitly specified must have valid parameters following the prefix.<br>
+  e.g. even though the location field is optional in the `child` command , `child n/Eddie Brock l/` is not a valid command as location is not specified.
+
 </div>
 
 ### Child Profile
@@ -55,6 +58,7 @@ Edits an existing child in the system.
 * Edits the child at the specified CHILD_INDEX. The index refers to the index number shown in the displayed child list. The index **must be a positive integer** 1, 2, 3, …
 * At least one of the optional fields must be provided. 
 * Existing values will be updated to the input values.
+* Note: A child can be edited as long as the lists are not finalized.
 
 Examples:
 * `edit 1 n/Eddie Brock` Edits the name of the 1st child to be Eddie Brock.
@@ -274,7 +278,7 @@ Examples:
 Edits a task with a deadline to Santa's todo list.
 
 * Format: `edittodo TASK_INDEX [d/DESCRIPTION] [by/YYYY-MM-DD]`
-* Deletes the task at the specified TASK_INDEX. The index refers to the index number shown in the displayed todo list. The index **must be a positive integer** 1, 2, 3, …
+* Edits the task at the specified TASK_INDEX. The index refers to the index number shown in the displayed todo list. The index **must be a positive integer** 1, 2, 3, …
 * Either one of the parameters (description/deadline) must be provided.
 
 Examples:
@@ -341,7 +345,7 @@ Stores data in a txt file which allows retrieval of lists upon restarting the ap
 | **Add Gift**               | `gift CHILD_INDEX [g/GIFT]`                         | `gift 1 g/toy`                          |
 | **Remove gift**            | `degift CHILD_INDEX GIFT_INDEX`                     | `degift 1 2`                            |
 | **Update delivery status** | `delivery_status CHILD_INDEX GIFT_INDEX d/[status]` | `delivery_status 1 2 d/delivered`       |
-| **Mark prepared gift**     | `prepared CHILD INDEX GIFT INDEX`                   | `prepared 1 2`                          |
+| **Mark prepared gift**     | `prepared CHILD_INDEX GIFT_INDEX`                   | `prepared 1 2`                          |
 | **View giftlist**          | `giftlist`                                          | `giftlist`                              |
 | **Add todo**               | `todo d/DESCRIPTION by/YYYY-MM-DD`                  | `todo d/Buy gifts by/2026-12-20`        |
 | **Edit todo**              | `edittodo INDEX [d/DESCRIPTION] [by/YYYY-MM-DD]`    | `edittodo 1 d/Wrap gifts by/2026-12-22` |

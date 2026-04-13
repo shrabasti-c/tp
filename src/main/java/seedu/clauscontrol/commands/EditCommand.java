@@ -1,6 +1,7 @@
 package seedu.clauscontrol.commands;
 
 import seedu.clauscontrol.data.child.Child;
+import seedu.clauscontrol.data.child.Name;
 import seedu.clauscontrol.data.exception.IllegalValueException;
 
 //@@author shrabasti-c
@@ -22,6 +23,10 @@ public class EditCommand extends Command {
 
     @Override
     public String execute() {
+        if (isFinalized) {
+            return "Cannot edit child details after the lists have been finalised!";
+        }
+
         if (childIndex < 0 || childIndex >= childList.size()) {
             return "Invalid index position :(";
         }
@@ -35,7 +40,7 @@ public class EditCommand extends Command {
 
         try {
             if (newName != null) {
-                child.setName(newName);
+                child.setName(new Name(newName));
                 finalString.append(nameChanged).append(newName).append("\n");
             }
 
@@ -49,7 +54,7 @@ public class EditCommand extends Command {
                 finalString.append(ageChanged).append(newAge);
             }
         } catch (IllegalValueException e) {
-            throw new RuntimeException(e);
+            return e.getMessage();
         }
         return String.valueOf(finalString);
     }

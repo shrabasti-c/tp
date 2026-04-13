@@ -40,7 +40,7 @@ public class ClausControl {
             "    `---'\n";
 
     public static final String DIVIDER = "_.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._";
-    private static final Logger logger = Logger.getLogger("Foo");
+    private static final Logger logger = Logger.getLogger(ClausControl.class.getName());
     private final TextUi ui;
     private final Parser parser;
     private ArrayList<Child> childList;

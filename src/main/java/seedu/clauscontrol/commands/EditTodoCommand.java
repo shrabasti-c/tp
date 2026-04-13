@@ -12,7 +12,7 @@ import java.util.logging.Logger;
  * Edits a task in the todolist.
  */
 public class EditTodoCommand extends Command {
-    private static final Logger logger = Logger.getLogger("Foo");
+    private static final Logger logger = Logger.getLogger(EditTodoCommand.class.getName());
     private final ArrayList<Todo> todoList;
     private final int index;
     private final String newDescription;

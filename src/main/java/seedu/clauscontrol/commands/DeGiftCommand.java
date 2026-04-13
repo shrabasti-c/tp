@@ -36,6 +36,9 @@ public class DeGiftCommand extends Command {
      */
     @Override
     public String execute() {
+        if (!isFinalized) {
+            return "Please finalise the lists before removing gifts!";
+        }
         if (childIndex < 1 || childIndex > childList.size()) {
             return "Please enter valid child index";
         }
