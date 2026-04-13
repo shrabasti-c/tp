@@ -46,6 +46,7 @@ ClausControl is a **desktop app for Santa Claus to manage children, gifts, elves
 Adds a child to the system. 
 
 * Format: `child n/NAME [l/LOCATION] [a/AGE]`
+* If age is specified, it **must be a positive integer** in the range [0, 18] i.e. 0, 1, 2, 3, … 18.
 
 Examples:
 * `child n/Peter Parker`
@@ -58,6 +59,7 @@ Edits an existing child in the system.
 * Edits the child at the specified CHILD_INDEX. The index refers to the index number shown in the displayed child list. The index **must be a positive integer** 1, 2, 3, …
 * At least one of the optional fields must be provided. 
 * Existing values will be updated to the input values.
+* If age is specified, it **must be a positive integer** in the range [0, 18] i.e. 0, 1, 2, 3, … , 18.
 * Note: A child can be edited as long as the lists are not finalized.
 
 Examples:

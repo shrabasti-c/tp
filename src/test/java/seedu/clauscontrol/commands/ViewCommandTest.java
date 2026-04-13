@@ -30,7 +30,7 @@ public class ViewCommandTest {
     public void execute_noChildren_valid() {
         command.setData(new ArrayList<>(), null, true);
         String result = command.execute();
-        assertEquals("Invalid index position :(", result);
+        assertEquals("Invalid index position :(\nRefer to the child list for valid positions!", result);
     }
 
     @Test

@@ -38,29 +38,29 @@ public class ParserTest {
     //@@author shrabasti-c
     @Test
     public void childCommand_allParametersSingleWordNameFirst_valid() throws Exception {
-        String input = "child n/Bruce l/Gotham a/24 ";
+        String input = "child n/Bruce l/Gotham a/18 ";
         Child child = ((ChildCommand) parser.parseCommand(input)).getChild();
         assertEquals("Bruce", child.getName().toString());
         assertEquals("Gotham", child.getLocation());
-        assertEquals(24, child.getAge());
+        assertEquals(18, child.getAge());
     }
 
     @Test
     public void childCommand_allParametersSingleWordAgeFirst_valid() throws Exception {
-        String input = "child a/24 n/Bruce l/Gotham";
+        String input = "child a/17 n/Bruce l/Gotham";
         Child child = ((ChildCommand) parser.parseCommand(input)).getChild();
         assertEquals("Bruce", child.getName().toString());
         assertEquals("Gotham", child.getLocation());
-        assertEquals(24, child.getAge());
+        assertEquals(17, child.getAge());
     }
 
     @Test
     public void childCommand_allParametersSingleWordLocationFirst_valid() throws Exception {
-        String input = "child l/Gotham a/24 n/Bruce";
+        String input = "child l/Gotham a/4 n/Bruce";
         Child child = ((ChildCommand) parser.parseCommand(input)).getChild();
         assertEquals("Bruce", child.getName().toString());
         assertEquals("Gotham", child.getLocation());
-        assertEquals(24, child.getAge());
+        assertEquals(4, child.getAge());
     }
 
     @Test
@@ -119,16 +119,16 @@ public class ParserTest {
 
     @Test
     public void childCommand_multipleSpaces_valid() throws Exception {
-        String input = "child n/Steve Rogers     l/New     York   a/30    ";
+        String input = "child n/Steve Rogers     l/New     York   a/2    ";
         Child child = ((ChildCommand) parser.parseCommand(input)).getChild();
         assertEquals("Steve Rogers", child.getName().toString());
         assertEquals("New York", child.getLocation());
-        assertEquals(30, child.getAge());
+        assertEquals(2, child.getAge());
     }
 
     @Test
     public void childCommand_duplicateParameters_exceptionThrown() throws Exception {
-        String input = "child n/Steve Rogers n/Sam Wilson l/New York l/Washington a/30 a/35";
+        String input = "child n/Steve Rogers n/Sam Wilson l/New York l/Washington a/2 a/3";
         IllegalValueException thrown = assertThrows(IllegalValueException.class, () -> {
             parser.parseCommand(input);
         });
@@ -231,6 +231,16 @@ public class ParserTest {
             parser.parseCommand(input);
         });
         assertEquals("Oops! Age must be a valid number within range",
+                thrown.getMessage());
+    }
+
+    @Test
+    public void deleteCommand_invalidIndex_returnsError() throws Exception {
+        String input = "delete 5";
+        IllegalValueException thrown = assertThrows(IllegalValueException.class, () -> {
+            parser.parseCommand(input);
+        });
+        assertEquals("Invalid index position :(\nRefer to the child list for valid positions!",
                 thrown.getMessage());
     }
 

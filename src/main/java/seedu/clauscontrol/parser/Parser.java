@@ -349,7 +349,7 @@ public class Parser {
      * Converts the age string to an integer and validates it.
      *
      * @param ageString the string representation of age
-     * @param age       the default age value
+     * @param age the default age value
      * @return the validated age as an integer
      * @throws IllegalValueException if ageString is not a valid non-negative integer
      */
@@ -359,6 +359,9 @@ public class Parser {
                 age = Integer.parseInt(ageString);
                 if (age < 0) {
                     throw new IllegalValueException("Oops! Age must be non-negative");
+                }
+                if (age > 18) {
+                    throw new IllegalValueException("Oops! Age must be an integer between 0 to 18");
                 }
             } catch (NumberFormatException e) {
                 throw new IllegalValueException("Oops! Age must be a valid number within range");
@@ -478,6 +481,10 @@ public class Parser {
     private Command prepareDelete(String args) throws IllegalValueException {
         try {
             int childIndex = Integer.parseInt(args.trim()) - 1;
+            if (childIndex < 0 || childIndex >= childList.size()) {
+                throw new IllegalValueException("Invalid index position :(\nRefer to the " +
+                        "child list for valid positions!");
+            }
             return new DeleteCommand(childIndex);
         } catch (NumberFormatException e) {
             throw new IllegalValueException("Please use valid command format : delete [childindex]");

@@ -13,11 +13,9 @@ public class DeleteCommand extends Command {
 
     @Override
     public String execute() {
-        if (childIndex < 0 || childIndex >= childList.size()) {
-            return "Invalid position :(";
-        }
+        String name = childList.get(childIndex).getName().toString();
         childList.remove(childIndex);
-        return "Child removed .. :(";
+        return "Child" + name+ " removed .. :(";
     }
 }
 //@@author

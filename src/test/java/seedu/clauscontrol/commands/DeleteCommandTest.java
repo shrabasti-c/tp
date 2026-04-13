@@ -8,7 +8,6 @@ import seedu.clauscontrol.data.exception.IllegalValueException;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 //@@author shrabasti-c
@@ -28,14 +27,6 @@ public class DeleteCommandTest {
         command.setData(childList, null, false);
         command.execute();
         assertTrue(childList.isEmpty());
-    }
-
-    @Test
-    public void deleteCommand_invalidIndex_returnsError() throws Exception {
-        command = new DeleteCommand(5);
-        command.setData(childList, null, false);
-        String result = command.execute();
-        assertEquals("Invalid position :(", result);
     }
 }
 //@@author

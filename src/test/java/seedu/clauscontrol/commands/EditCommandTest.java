@@ -1,6 +1,6 @@
 package seedu.clauscontrol.commands;
 
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import seedu.clauscontrol.data.child.Child;
 import seedu.clauscontrol.data.child.Name;
@@ -23,8 +23,8 @@ public class EditCommandTest {
     private static Parser parser;
     private static ArrayList<Child> childList;
 
-    @BeforeAll
-    public static void setup() throws IllegalValueException {
+    @BeforeEach
+    public void setup() throws IllegalValueException {
         parser = new Parser(new ArrayList<>());
         childList = new ArrayList<>();
         childList.add(new Child(new Name("Bruce Banner")));
@@ -39,7 +39,7 @@ public class EditCommandTest {
         Child child = childList.get(0);
         assertEquals("Bruce Wayne", child.getName().toString());
         assertNull(child.getLocation());
-        assertEquals(20, child.getAge());
+        assertEquals(-1, child.getAge());
     }
 
     @Test
@@ -49,21 +49,21 @@ public class EditCommandTest {
         command.setData(childList, null, false);
         command.execute();
         Child child = childList.get(0);
-        assertEquals("Bruce Wayne", child.getName().toString());
+        assertEquals("Bruce Banner", child.getName().toString());
         assertNotNull(child.getLocation());
         assertEquals("Chicago", child.getLocation());
     }
 
     @Test
     public void editCommand_changeAge_valid() throws Exception {
-        String input = "edit 1 a/20";
+        String input = "edit 1 a/13";
         Command command = parser.parseCommand(input);
         command.setData(childList, null, false);
         command.execute();
         Child child = childList.get(0);
         assertEquals("Bruce Banner", child.getName().toString());
         assertNull(child.getLocation());
-        assertEquals(20, child.getAge());
+        assertEquals(13, child.getAge());
     }
 
     @Test

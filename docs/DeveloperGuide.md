@@ -184,7 +184,7 @@ These commands can be used in conjunction with the `childlist` command.
 Given below is an example usage scenario: 
 
 **A.** Santa, at the beginning of the year, adds children to his system.
-1. child n/Bruce a/25
+1. child n/Bruce a/12
 2. child n/Diana l/Washington DC
 3. child n/Clark 
 
@@ -213,7 +213,7 @@ As the implementation of `child` is the most complex of its related commands (`c
 
 The proposed child profile is facilitated by `Child` Class.
 It implements `ReadOnlyChild` which contains a name fetching mechanism, the name being stored internally via a `Name` class with a reference to a `name` String input by the user.
-The child operation must minimally have a name argument i.e. location, age are optional.
+The child operation must minimally have a name argument i.e. location, age are optional. If age is specified, it **must be a positive integer** in the range [0, 18] i.e. 0, 1, 2, 3, … 18.
 Additionally, it implements the following operations:
 * `toAdd()`—adds the child to the internal child list.
 * `execute()`—returns a successful operation message.

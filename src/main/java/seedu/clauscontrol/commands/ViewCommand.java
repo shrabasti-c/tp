@@ -32,7 +32,8 @@ public class ViewCommand extends Command{
     @Override
     public String execute() {
         if (childIndex < 0 || childIndex >= childList.size()) {
-            return "Invalid index position :(";
+            return "Invalid index position :(\nRefer to the " +
+                    "child list for valid positions!";
         }
 
         Child child = childList.get(childIndex);
