@@ -94,7 +94,11 @@ Records a good or bad action for a child with a severity score.
 
 * Format: `action CHILD_INDEX a/ACTION s/SEVERITY`
 * SEVERITY must be an integer between -5 and 5
-* Positive severity = good action, Negative severity = bad action
+* Positive severity = good action, increases the child's score
+* Negative severity = bad action, decreases the child's score
+* Severity 0 is allowed but has no effect on the child's score or list classification.
+  A warning will be shown as a reminder.
+* Action description cannot be empty
 * Cannot add actions after `finalize` has been called
 
 Examples:
@@ -270,7 +274,9 @@ Todos due within the next 7 days are shown as reminders on startup.
 
 * Format: `todo d/DESCRIPTION by/YYYY-MM-DD`
 * Deadline must not be in the past
+* Deadline must be a real date (e.g. `2026-02-30` is rejected as February 30 does not exist)
 * Description cannot be empty
+* Duplicate todos with the same description and deadline are not allowed
 
 Examples:
 * `todo d/Buy wrapping paper by/2026-12-20`
