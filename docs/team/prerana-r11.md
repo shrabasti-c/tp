@@ -11,8 +11,11 @@ Given below are my contributions to the project
 
 #### New Feature: Add gift feature (`gift` command)
 What it does: Allows Santa to Assign a single gift or multiple gifts at a time to a child.
+
 Justification: This feature allows Santa to manage gift assignment.
+
 Highlights:
+
 * Implemented `Giftcommand` to handle gift assignment.
 * Added input validation and error handling in `Parser`
 * Handled possible errors.
@@ -20,8 +23,11 @@ Highlights:
 
 #### New Feature: Remove gift feature (`degift` command)
 What it does: Allows Santa to remove a gift from the giftlist of a child.
+
 Justification: Allows Santa to update gift assignments.
+
 Highlights:
+
 * Implemented `DegiftCommand`.
 * Gifts that are delivered cannot be removed.
 * Both child and gift index are validated before removal.
@@ -29,8 +35,11 @@ Highlights:
 
 #### New Feature: Delivery Status Feature (`delivery_status` command)
 What it does: Allows Santa to set a gift as delivered or undelivered.
+
 Justification: Allows Santa to track delivery progress of gifts.
+
 Highlights:
+
 * Implemented `DeliveryStatusCommand`.
 * Supports both d/delivered and d/undelivered status.
 * Prevents redundant assignment for gifts already in desired status.
@@ -38,8 +47,11 @@ Highlights:
 
 #### New Feature: Prepare gift Feature (`prepared` command)
 What it does: Allows Santa to mark a gift which is not delivered yet as prepared.
+
 Justification: Adds an intermediate state for gifts which are not delivered yet.
+
 Highlights:
+
 * Implemented `PrepareGiftCommand`.
 * Gifts that are already delivered cannot be prepared.
 * Both child and gift index are validated.
@@ -47,8 +59,11 @@ Highlights:
 
 #### New Feature: View gifts feature (`giftlist` command)
 What it does: Allows Santa to view all the gifts assigned to children.
+
 Justification: Provides a list of all assigned gifts.
+
 Highlights:
+
 * Implemented `GiftListCommand`.
 * Returns error messages when child or gift index does not exist.
 * Handled possible errors.
@@ -69,7 +84,7 @@ Allows Santa to access saved data(childlist,giftlist and elflist) across all ses
 
 ### Documentation
 #### UG:
-* Added sections for: `gift`, `delivery_status`, `giftlist`, `prepared`, `degift` #81,
+* Added sections for: `gift`, `delivery_status`, `giftlist`, `prepared`, `degift` #81
 * Added all commands to the Command Summary table
 
 #### DG:
