@@ -330,9 +330,10 @@ if the child is on the nice (score >= 0) or naughty (score < 0) list.
 
 The following steps occur when adding an action:
 1. Parser extracts the child index, action description and severity.
-2. `ActionCommand` checks if the lists are finalised. If so, the action is blocked.
-3. The child index is validated against the child list bounds.
-4. The action and severity are added to the child via `addAction()`.
+2. `Parser` validates that the action description is not empty.
+3. `ActionCommand` checks if the lists are finalised. If so, the action is blocked.
+4. The child index is validated against the child list bounds.
+5. The action and severity are added to the child via `addAction()`.
 
 Format: `action CHILD_INDEX a/ACTION s/SEVERITY`
 
@@ -357,6 +358,15 @@ Given below is a sequence diagram showing how the action command works.
 - **Alternative 2:** Validate inside `ActionCommand.execute()`
     - **Pros:** Keeps parser simpler
     - **Cons:** Invalid command objects can be created and partially executed
+
+**Aspect:** How to handle severity 0
+- **Alternative 1 (current choice):** Allow severity 0 but display a warning in the success message
+    - **Pros:** Does not block valid (if unusual) input; informs the user without rejecting their command
+    - **Cons:** Adds a code branch in execute() for a minor edge case
+
+- **Alternative 2:** Reject severity 0 as invalid input
+    - **Pros:** Prevents meaningless data entry
+    - **Cons:** Overly strict; 0 is within the documented range and blocking it would surprise users
 
 ### Nice and Naughty List Feature
 
@@ -464,8 +474,11 @@ and loads todos from `todos.txt` using a pipe-separated format.
 The following steps occur when adding a todo:
 1. Parser extracts the description and deadline from the input.
 2. `AddTodoCommand` validates that the description is not empty.
-3. `AddTodoCommand` validates that the deadline is not in the past.
-4. The todo is added to `todoList` and saved via `TodoStorage`.
+3. `AddTodoCommand` validates that the deadline format matches `YYYY-MM-DD`.
+4. `AddTodoCommand` validates that the date value actually exists.
+5. `AddTodoCommand` validates that the deadline is not in the past.
+6. `AddTodoCommand` checks for an exact duplicate (same description and deadline).
+7. The todo is added to `todoList` and saved via `TodoStorage`.
 
 On startup, `ClausControl` calls `showUpcomingTodos()` which filters todos
 using `isUpcoming()`, showing only those due within 7 days.
@@ -493,6 +506,8 @@ Given below is a sequence diagram showing how the todo command works.
 - **Alternative 2:** Store todos in the same `data.txt` file
     - **Pros:** Single file for all data
     - **Cons:** Couples todo storage to the existing format; increases risk of breaking existing storage logic
+
+
 
 ### Elf Feature 
 
@@ -1228,6 +1243,9 @@ Given below are instructions to test the app manually.
 6. Reassign: `reassign 1 l/nice`
 
    Expected: Child moved to nice list regardless of score.
+7. Empty action description: `action 1 a/ s/2`
+
+    Expected: Error - action description cannot be empty.
 
 ### Testing finalize and gift commands
 1. Try adding a gift before finalize: `gift 1 g/toy`
@@ -1300,6 +1318,13 @@ Given below are instructions to test the app manually.
 6. Restart the app with a todo due within 7 days.
 
    Expected: Reminder shown on startup automatically.
+7. Non-existent date: `todo d/Test by/2026-02-30`
+
+    Expected: Error: date value does not exist.
+
+8. Duplicate todo: run `todo d/Buy wrapping paper by/2026-12-20` twice.
+
+   Expected: Second entry rejected with duplicate message.
 
 ### Testing reset command
 1. Add some children and elves.
