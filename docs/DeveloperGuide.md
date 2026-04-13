@@ -1257,7 +1257,7 @@ Given below are instructions to test the app manually.
 6. Mark gift as undelivered: `delivery_status 1 1 d/undelivered`
 
    Expected: Gift status updated to Undelivered.
-8. Remove gift: `degift 1 1` then `confirm`
+8. Remove gift: `degift 1 1` then `confirm` (Only a gift assigned as undelivered/prepared can be degifted)
 
    Expected: Gift removed.
 
