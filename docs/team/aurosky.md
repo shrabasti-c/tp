@@ -28,12 +28,10 @@ Enables the removal of a specific elf from the system based on their current lis
 #### 4. Assign task to elf (`task` command)
 Allows Santa to assign a specific work description to an individual elf.
 * Implemented `TaskCommand` which encapsulates the input into an `ElfTask` object and adds it to the target elf’s task list.
-* Features strict assertions and checks to ensure that both the task content is non-empty and the elf index is valid.
 
 #### 5. Delete an elf's task (`detask` command)
 Provides the functionality to delete a specific task from a chosen elf's assignment list.
 * Implemented `DeTaskCommand` which requires both an elf index and a specific task index for precise removal.
-* Ensures that the task description is captured before deletion so the user receives a confirmation of exactly what was removed
 
 #### 6. Find a child by his/her name/location/age (`find` command)
 Allows Santa to search for specific children in the list using name, age, or location.
@@ -47,7 +45,6 @@ Allows Santa to view a list of all elves currently in the system with their assi
 #### 8. View child feature (`childlist` command)
 Allows Santa to view a complete, numbered list of all children currently stored in the system.
 * Implemented `GiftListCommand` class to iterate through the `childList` and generate a formatted string summary.
-* Serves as a quick reference for Santa to see the overall status of all registered children.
 
 #### 9. System Reset feature (`reset` command)
 Allows Santa to completely wipe all data, clearing all children, elves, todos and tasks.
