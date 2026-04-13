@@ -8,6 +8,7 @@ import seedu.clauscontrol.data.child.Name;
 import seedu.clauscontrol.data.elf.Elf;
 import seedu.clauscontrol.data.elf.ElfTask;
 import seedu.clauscontrol.data.exception.IllegalValueException;
+import seedu.clauscontrol.data.todo.Todo;
 
 import java.util.ArrayList;
 
@@ -18,15 +19,17 @@ public class ResetCommandTest {
     
     private ArrayList<Child> childList;
     private ArrayList<Elf> elfList;
+    private ArrayList<Todo> todoList;
     
     @BeforeEach
     public void setUp() {
         childList = new ArrayList<>();
         elfList = new ArrayList<>();
+        todoList = new ArrayList<>();
     }
     
     private ResetCommand buildCmd(boolean isFinalized) {
-        ResetCommand cmd = new ResetCommand();
+        ResetCommand cmd = new ResetCommand(todoList);
         cmd.setData(childList, elfList, isFinalized);
         return cmd;
     }
@@ -35,7 +38,7 @@ public class ResetCommandTest {
     public void execute_returnsCorrectMessage() {
         ResetCommand cmd = buildCmd(false);
         assertEquals("Ho ho ho! The system has been fully reset. " +
-                "All children (with gifts) and elves (with tasks) have been cleared.", cmd.execute());
+                "All children (with gifts), elves (with tasks) and todos have been cleared.", cmd.execute());
     }
     
     @Test
@@ -45,6 +48,7 @@ public class ResetCommandTest {
         assertTrue(result.contains("reset"));
         assertTrue(childList.isEmpty());
         assertTrue(elfList.isEmpty());
+        assertTrue(todoList.isEmpty());
     }
     
     @Test
@@ -79,6 +83,14 @@ public class ResetCommandTest {
         buildCmd(false).execute();
         assertTrue(childList.isEmpty());
         assertTrue(elfList.isEmpty());
+    }
+    
+    @Test
+    public void execute_todoListCleared() {
+        todoList.add(new Todo("Buy wrapping paper", java.time.LocalDate.now().plusDays(1)));
+        todoList.add(new Todo("Check naughty list", java.time.LocalDate.now().plusDays(2)));
+        buildCmd(false).execute();
+        assertTrue(todoList.isEmpty());
     }
     
     @Test

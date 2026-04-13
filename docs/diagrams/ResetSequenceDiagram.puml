@@ -7,6 +7,7 @@ participant ":Parser" as Parser
 participant "command:ResetCommand" as ResetCommand
 participant "childList:ChildList" as childList
 participant "elfList:ElfList" as elfList
+participant "todoList:TodoList" as todoList
 
 Santa -> Parser : "reset"
 activate Parser
@@ -14,7 +15,13 @@ activate Parser
 Parser -> Parser : parseCommand("reset")
 
 create ResetCommand
-Parser -> ResetCommand : new ResetCommand()
+Parser -> ResetCommand : new ResetCommand(todoList)
+Parser -> Parser : pendingCommand = ResetCommand
+Parser --> Santa : "WARNING: This will wipe ALL data..."
+deactivate Parser
+
+Santa -> Parser : "confirm"
+activate Parser
 Parser -> ResetCommand : execute()
 activate ResetCommand
 note over ResetCommand : isFinalized = false
@@ -28,6 +35,11 @@ ResetCommand -> elfList : clear()
 activate elfList
 elfList --> ResetCommand
 deactivate elfList
+
+ResetCommand -> todoList : clear()
+activate todoList
+todoList --> ResetCommand
+deactivate todoList
 
 ResetCommand --> Parser : MESSAGE_SUCCESS
 deactivate ResetCommand

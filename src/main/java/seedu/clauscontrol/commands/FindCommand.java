@@ -54,17 +54,25 @@ public class FindCommand extends Command {
                 break;
             
             case AGE:
-                if (child.hasAge()) {
-                    isMatch = String.valueOf(child.getAge()).equals(query);
+                if (query.isEmpty()) {
+                    isMatch = !child.hasAge();
+                } else {
+                    if (child.hasAge()) {
+                        isMatch = String.valueOf(child.getAge()).equals(query);
+                    }
                 }
                 break;
             
             case LOCATION:
-                if (child.hasLocation()) {
-                    assert child.getLocation() != null : "Child location should not be null if hasLocation is true";
-                    isMatch = child.getLocation().toLowerCase().contains(query);
+                if (query.isEmpty()) {
+                    isMatch = !child.hasLocation();
+                } else {
+                    if (child.hasLocation()) {
+                        isMatch = child.getLocation().toLowerCase().contains(query);
+                    }
                 }
                 break;
+                
             default:
                 assert false : "Unhandled SearchType: " + type;
                 break;

@@ -86,7 +86,7 @@ The storage component provides a unified interface (`Storage.java`) that handles
 
 #### Notes
 - Storage is independent of the command execution logic
-The storage component does not handle user inputs. The Logic layer interacts with Storage through its public methods- 
+The storage component does not handle user inputs. The Logic layer interacts with Storage through its public methods, 
 save() and load() only. The Storage component does not know how data is handled internally.
 
 ## Data Component
@@ -381,7 +381,7 @@ Given below is an example usage scenario:
 #### Implementation
 Both `NiceCommand` and `NaughtyCommand` loop through the `childList` and call
 `isNice()` or `isNaughty()` on each child. These methods check the `listAssignment`
-field first. If it is not null, the manual override is used. Otherwise the
+field first. If it is not null, the manual override is used. Otherwise, the
 total score determines the classification.
 
 Given below is a sequence diagram showing how the nice/naughty commands work.
@@ -905,7 +905,7 @@ Given below is the sequence diagram which describes the happy path.
 **Aspect:** How to implement the Delivery Status feature
   - **Alternative 1 (current choice):** Use a boolean variable to determine action
     - **Pros:** Simple to implement.
-    - **Cons:** Less intuitive as the parameter is not clearly understandable without looking at it's implementation.
+    - **Cons:** Less intuitive as the parameter is not clearly understandable without looking at it is implementation.
   - **Alternative 2:** Using two command objects for delivered and undelivered actions.
     - **Pros:** User friendly.
     - **Cons:** Breaks encapsulation.
@@ -999,7 +999,7 @@ To set up and maintain the project website, refer to:
 
 ### Project specific notes
 When adapting documentation for ClausControl:
-- Update all references to match Children, Gifts, Elves, Todos, Commanss
+- Update all references to match Children, Gifts, Elves, Todos, Commands
 - Ensure command formats match logic in the parser.
 - Update configuration files if required.
 
@@ -1152,7 +1152,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **Finalize**: The act of locking the nice/naughty lists to enable gift allocation.
 * **Index**: A unique numerical identifier assigned to an item in the displayed list.
 * **Todo**: A task with a deadline added to Santa's reminder system.
-* **Mainstream OS**: Windows, Linux, Unix, MacOS.
+* **Mainstream OS**: Windows, Linux, Unix, macOS.
 * **Gift state**: The current status of a gift - In Progress, Prepared or Delivered.
 * **Task**: A piece of work assigned to an elf.
 
@@ -1247,7 +1247,7 @@ Given below are instructions to test the app manually.
    Expected: Gift status updated to Prepared.
 6. Mark gift as delivered: `delivery_status 1 1 d/delivered`
 
-   Expected: Gift status updated to Delivered.
+   Expected: Gift status updated to `Delivered`.
 7. View gift list: `giftlist`
 
    Expected: All gifts shown with their status.

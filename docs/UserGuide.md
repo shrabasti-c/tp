@@ -25,7 +25,7 @@ ClausControl is a **desktop app for Santa Claus to manage children, gifts, elves
   e.g. in `child n/NAME`, `NAME` is a parameter which can be used as `add n/Peter Parker`.
 
 * Items in square brackets are optional.<br>
-  e.g `n/NAME [l/LOCATION]` can be used as `n/Peter Parker l/New York` or as `n/Peter Parker`.
+  e.g. `n/NAME [l/LOCATION]` can be used as `n/Peter Parker l/New York` or as `n/Peter Parker`.
 
 * Items with … after them can be used multiple times but minimally one time. e.g. `degift CHILD_INDEX GIFT_INDEX...`… can be used as `degift 1 1` (i.e. 1 time), `degift 1 1 2 3` etc. 
 
@@ -137,33 +137,32 @@ Freezes the nice and naughty lists. Once finalized:
 
 ### Elf Management
 
-#### Adding an Elf: `elf`
-Adds a new Elf to the system records.
+#### Adding an elf: `elf`
+Adds a new elf to the system records.
 * Format: `elf n/NAME`
 * Example: `elf n/Buddy`
 
-#### Removing an Elf: `rmelf`
-Removes an existing Elf based on their index in the list.
-The elf_index must be valid (ie, integer larger than 0, mapped to existing elf).
-you can use 'elflist' command if you are not sure about the accurate index.
+#### Removing an elf: `rmelf`
+Removes an existing elf based on their index in the list.
+You can use 'elflist' command to see the elf index.
 * Format: `rmelf e/ELF_INDEX`
 * Example: `rmelf e/1`
 
-#### Editing an Elf: `editelf`
-Updates the name of an existing Elf identified by their index.
+#### Editing an elf: `editelf`
+Updates the name of an existing elf identified by their index.
 The elf_index must be valid (ie, integer larger than 0, mapped to existing elf).
-you can use 'elflist' command if you are not sure about the accurate index.
+You can use 'elflist' command to see the elf index.
 * Format: `editelf e/ELF_INDEX n/ELF_NEW_NAME`
 * Example: `editelf e/1 n/Legolas`
 
-#### Assigning a task to an Elf: `task`
-Assigns a task to an existing Elf.
+#### Assigning a task to an elf: `task`
+Assigns a task to an existing elf.
 
 Format: `task ELF_INDEX t/TASK_DESCRIPTION`  
 Example: `task 1 t/wrap gifts`
 
-#### Removing a task from an Elf: `detask`
-Removes a task from an existing Elf. Due to the sensitive nature of the command, a warning
+#### Removing a task from an elf: `detask`
+Removes a task from an existing elf. Due to the sensitive nature of the command, a warning
 is issued wherein the user has to confirm the removal by typing `confirm`.
 
 Format: `detask e/ELF_INDEX t/TASK_INDEX`  
@@ -171,7 +170,7 @@ Example: `detask e/1 t/1`
 
 ### Listing Entities
 
-#### Listing Children: `childlist`
+#### Listing children: `childlist`
 Displays a complete list of all children currently in the database.
 * Format: `childlist`
 * Example: `childlist`
@@ -181,7 +180,7 @@ Here are all children:
 1. Alice
 2. Bob
 
-#### Listing Elves: `elflist`
+#### Listing elves: `elflist`
 Displays a complete list of all elves and their task currently in the database.
 * Format: `elflist`
 * Example: `elflist`
@@ -196,17 +195,17 @@ Here are all elves and their tasks:
 
 ### Finding Children
 
-#### Finding by Name: `find n/`
+#### Finding by name: `find n/`
 Searches for children matching the specified name.
 * Format: `find n/NAME`
 * Example: `find n/James Jake`
 
-#### Finding by Age: `find a/`
+#### Finding by age: `find a/`
 Searches for children who match a specific age.
 * Format: `find a/AGE`
 * Example: `find a/11`
 
-#### Finding by Location: `find l/`
+#### Finding by location: `find l/`
 Searches for children based on their registered location.
 * Format: `find l/LOCATION`
 * Example: `find l/Singapore`
@@ -229,7 +228,7 @@ Removes a gift assigned to a child.
 * Format: `degift CHILD_INDEX GIFT_INDEX...`
 * The user inputs the child index and gift index. 
 * Removes the gift from the gift list using the input child index and gift index. 
-* The index must be a positive integer 1, 2, 3.. 
+* The index must be a positive integer 1, 2, 3... 
 Example:
 * `degift 1 2`
 

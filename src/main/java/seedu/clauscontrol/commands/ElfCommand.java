@@ -28,10 +28,13 @@ public class ElfCommand extends Command {
         assert elfList != null : "elfList must be initialized before executing ElfCommand";
         assert toAdd != null : "toAdd should not be null when executing add operation";
         
-        logger.log(Level.INFO, "Adding a new elf to the list: " + toAdd.getName());
+        for (Elf elf : elfList) {
+            if (elf.getName().toString().equalsIgnoreCase(toAdd.getName().toString())) {
+                return "An elf with the name '" + toAdd.getName() + "' already exists!";
+            }
+        }
         
         elfList.add(toAdd);
-        
         logger.log(Level.INFO, "Elf added successfully.");
         return String.format(MESSAGE_SUCCESS, toAdd.getName());
     }

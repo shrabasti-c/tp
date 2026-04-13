@@ -27,7 +27,6 @@ public class TaskCommand extends Command {
     
     @Override
     public String execute() {
-        
         assert elfList != null : "elfList must be initialized before execution";
         logger.log(Level.INFO, "Attempting to assign task to Elf at index " + targetIndex);
         
@@ -35,8 +34,16 @@ public class TaskCommand extends Command {
             logger.log(Level.WARNING, "Task assignment failed: Invalid index " + targetIndex);
             return String.format(MESSAGE_INVALID_INDEX, elfList.size());
         }
+        
         Elf targetElf = elfList.get(targetIndex - 1);
         assert targetElf != null : "Target Elf at index " + (targetIndex - 1) + " should not be null";
+        
+        for (ElfTask task : targetElf.getTasks()) {
+            if (task.toString().equalsIgnoreCase(taskContent)) {
+                return "Elf " + targetElf.getName() + " already has task [" + taskContent + "]!";
+            }
+        }
+        
         ElfTask newTask = new ElfTask(taskContent);
         targetElf.addTask(newTask);
         logger.log(Level.INFO, "Successfully assigned task [" + taskContent + "] to Elf: " + targetElf.getName());

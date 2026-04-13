@@ -15,18 +15,21 @@ gifts and elves, optimized for use via a Command Line Interface (CLI).
 Allows Santa to Assign a single gift or multiple gifts at a time to a child.
 * Implemented `Giftcommand` to handle gift assignment.
 * Added input validation and error handling in `Parser`
+* Added error handling.
 
 #### 2. Remove gift feature (`degift` command)
 Allows Santa to remove a gift from the giftlist of a child.
 * Implemented `DegiftCommand`.
 * Gifts that are delivered cannot be removed.
-* Both child and gift index are validated before removal.
+* Both child and gift index are validated before removal. 
+* Possible errors are handled.
 
 #### 3. Delivery Status Feature (`delivery_status` command)
 Allows Santa to set a gift as delivered or undelivered.
 * Implemented `DeliveryStatusCommand`.
 * Supports both d/delivered and d/undelivered status.
 * Prevents redundant assignment for gifts already in desired status.
+* Possible errors are handled.
 * * Both child and gift index are validated.
 
 #### 4. Prepare gift Feature (`prepared` command)
@@ -34,11 +37,13 @@ Allows Santa to mark a gift which is not delivered yet as prepared.
 * Implemented `PrepareGiftCommand`.
 * Gifts that are already delivered cannot be prepared.
 * Both child and gift index are validated.
+* Possible errors are handled.
 
 #### 5. View gifts feature (`giftlist` command)
 Allows Santa to view all the gifts assigned to children.
 * Implemented `GiftListCommand`.
 * Returns error messages when child or gift index does not exist.
+* Possible errors are handled.
 
 #### 6. Storage Feature (childlist,giftlist and elf)
 Allows Santa to access saved data(childlist,giftlist and elflist) across all sessions.

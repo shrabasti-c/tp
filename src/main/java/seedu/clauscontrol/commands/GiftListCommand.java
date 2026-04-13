@@ -23,6 +23,9 @@ public class GiftListCommand extends Command{
      */
     @Override
     public String execute(){
+        if (!isFinalized) {
+            return "Please finalise the lists before viewing giftlist!";
+        }
         if(childList==null || childList.isEmpty()){
             return "No children added";
         }
