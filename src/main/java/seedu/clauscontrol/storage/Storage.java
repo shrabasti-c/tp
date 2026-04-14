@@ -32,6 +32,11 @@ public class Storage {
         writer.write("FINALIZED|" + isFinalized);
         writer.newLine();
 
+        for(Child child:children){
+            writer.write("CHILDLIST|"+child.getName());
+            writer.newLine();
+        }
+
         for (Child child : children) {
             //@@author shrabasti-c
             writer.write("CHILD|" + child.getName() + "|" +
@@ -77,6 +82,7 @@ public class Storage {
     public StorageData load() throws IOException {
         List<Child> children = new ArrayList<>();
         List<Elf> elves = new ArrayList<>();
+        List<String> childnames=new ArrayList<>();
 
         Child currentChild = null;
         Elf currentElf = null;
@@ -200,9 +206,14 @@ public class Storage {
                 currentElf.addTask(new ElfTask(parts[1]));
                 break;
             }
+            case "CHILDLIST":{
+                childnames.add(parts[1]);
+                break;
+            }
             default:
                 break;
             }
+
         }
 
         reader.close();
