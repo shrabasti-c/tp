@@ -12,7 +12,7 @@ loop while (readLine != null)
     Storage -> Storage : readLine()
 
     alt parts[0] == "CHILD"
-        Storage -> Child : new Child(Name(name), age, location)
+        Storage -> Child : new Child(Name(name), age, location,naughty/nice)
         activate Child
         Child --> Storage
         deactivate Child

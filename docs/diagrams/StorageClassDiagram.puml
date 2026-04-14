@@ -22,6 +22,7 @@ class Child {
   - location : String
   - actions : ArrayList<String>
   - severities : ArrayList<Integer>
+  - listAssignment : String
 }
 
 class Gift {
@@ -37,6 +38,8 @@ class Elf {
 class ElfTask {
   - task : String
 }
+
+
 
 enum State {
   PREPARED

@@ -32,10 +32,16 @@ public class Storage {
         writer.write("FINALIZED|" + isFinalized);
         writer.newLine();
 
+        for(Child child:children){
+            writer.write("CHILDLIST|"+child.getName());
+            writer.newLine();
+        }
+
         for (Child child : children) {
             //@@author shrabasti-c
             writer.write("CHILD|" + child.getName() + "|" +
-                    ((child.getLocation() == null) ? "" : child.getLocation()) + "|" + child.getAge());
+                    ((child.getLocation() == null) ? "" : child.getLocation()) +
+                    "|" + child.getAge() + "|" + child.getListAssignment());
             //@@author
             writer.newLine();
 
@@ -76,6 +82,7 @@ public class Storage {
     public StorageData load() throws IOException {
         List<Child> children = new ArrayList<>();
         List<Elf> elves = new ArrayList<>();
+        List<String> childnames=new ArrayList<>();
 
         Child currentChild = null;
         Elf currentElf = null;
@@ -90,7 +97,7 @@ public class Storage {
             if (line.trim().isEmpty()) {
                 continue;
             }
-            String[] parts = line.trim().split("\\|", 3);
+            String[] parts = line.trim().split("\\|");
             if (parts.length == 0) {
                 continue;
             }
@@ -114,6 +121,17 @@ public class Storage {
                     currentChild = new Child(new Name(name), age, location);
 
                     children.add(currentChild);
+                    String status = "NICE";
+
+                    if (parts.length > 4 && !parts[4].isEmpty()) {
+                        status = parts[4];
+                    }
+
+                    if (status.equalsIgnoreCase("NAUGHTY")) {
+                        currentChild.setListAssignment("naughty");
+                    } else if (status.equalsIgnoreCase("NICE")) {
+                        currentChild.setListAssignment("nice");
+                    }
                 } catch (IllegalValueException e) {
                     logger.warning("Invalid child name in file: " + parts[1]);
                 }
@@ -188,9 +206,14 @@ public class Storage {
                 currentElf.addTask(new ElfTask(parts[1]));
                 break;
             }
+            case "CHILDLIST":{
+                childnames.add(parts[1]);
+                break;
+            }
             default:
                 break;
             }
+
         }
 
         reader.close();

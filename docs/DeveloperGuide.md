@@ -52,11 +52,11 @@ The class diagram is-
 #### Implementation
 **Saving data**
 The save() method writes the lists into a .txt file in a structured format.
-1. Each child's name is written with the CHILD tag.
-2. The corresponding gifts of the child are written just below it with the GIFT tag.
-3. The child's actions and severities are stores with the ACTION tag.
-4. Each elf is written with the ELF tag.
-5. The corresponding elf tasks are written under it with the TASK tag.
+1. Each child's name,location,age and naught/nice assignment is stored with the CHILD tag.
+2. The corresponding gifts of the child are stored with the GIFT tag.
+3. The child's actions and severities are stored with the ACTION tag.
+4. Each elf is stored with the ELF tag.
+5. The corresponding elf tasks are stored with the TASK tag.
 
 **Loading data**
 The load() method reconstructs data from the .txt file.
@@ -879,7 +879,7 @@ This feature allows Santa to remove a gift for a particular child. This is usefu
 
 #### Use Case
 **Santa removes a gift using the gift index for a particular child index.**
-**Only gifts assigned as prepared/undelivered can be degifted.**
+**Only a gift assigned as prepared/undelivered can be degifted.**
 1. degift 1 1
 The command removes the first gift of the first child.
 
@@ -922,7 +922,7 @@ updating the delivery status.
 #### Use Case
 Santa assigns the delivery status of the gift with the child index and gift index.
 **Santa can assign a gift as delivered or undelivered.**
-**Gifts are assigned undelivered by default.**
+**A gift is assigned undelivered by default.**
 1. delivery_status 1 1 d/delivered
 2. delivery_status 1 3 d/undelivered
 
@@ -959,8 +959,9 @@ Given below is the sequence diagram which describes the happy path.
 ### Prepare Gift Feature
 
 #### Overview
-This feature allows Santa to set a gift status as prepared. This is to indicate that the gift is prepared and not delivered yet.
-This allows Santa to track the progress of gifts.
+This feature allows Santa to set a gift status as prepared.
+This is to indicate that the gift is prepared and not delivered yet.
+This feature allows Santa to track the progress of gifts.
 
 #### Use Case
 **Santa can assign a gift as prepared for a gift with the corresponding child index and gift index**
@@ -1002,7 +1003,9 @@ Given below is the sequence diagram
 The giftlist feature displays all the gifts assigned to a child along with the child name. This allows Santa to view all the gifts in a structured format.
 
 #### Use Case
-**Santa can view the gifts for each child. Only children with gifts assigned are displayed in the list along with their gifts.**
+Santa can view the gifts for each child.
+
+**Only children with gifts assigned are displayed in the list along with their gifts.**
 1. giftlist
 
 #### Implementation
@@ -1325,7 +1328,7 @@ Given below are instructions to test the app manually.
 6. Mark gift as undelivered: `delivery_status 1 1 d/undelivered`
 
    Expected: Gift status updated to Undelivered.
-8. Remove gift: `degift 1 1` then `confirm`
+8. Remove gift: `degift 1 1` then `confirm` (Only a gift assigned as undelivered/prepared can be degifted)
 
    Expected: Gift removed.
 

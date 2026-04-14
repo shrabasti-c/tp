@@ -9,7 +9,7 @@ Given below are my contributions to the project
 
 ### Enhancements Implemented
 
-#### New Feature: Add gift feature (`gift` command)
+#### Feature: Add gift feature (`gift` command)
 What it does: Allows Santa to Assign a single gift or multiple gifts at a time to a child.
 
 Justification: This feature allows Santa to manage gift assignment.
@@ -19,7 +19,7 @@ Highlights:
 * Implemented `Giftcommand` to handle gift assignment.
 * Added input validation and error handling in `Parser`
 
-#### New Feature: Remove gift feature (`degift` command)
+#### Feature: Remove gift feature (`degift` command)
 What it does: Allows Santa to remove a gift from the giftlist of a child.
 
 Justification: Allows Santa to update gift assignments.
@@ -31,7 +31,7 @@ Highlights:
 * Both child and gift index are validated before removal.
 * Handled possible errors.
 
-#### New Feature: Delivery Status Feature (`delivery_status` command)
+#### Feature: Delivery Status Feature (`delivery_status` command)
 What it does: Allows Santa to set a gift as delivered or undelivered.
 
 Justification: Allows Santa to track delivery progress of gifts.
@@ -43,7 +43,7 @@ Highlights:
 * Prevents redundant assignment for gifts already in desired status.
 * Both child and gift index are validated.
 
-#### New Feature: Prepare gift Feature (`prepared` command)
+#### Feature: Prepare gift Feature (`prepared` command)
 What it does: Allows Santa to mark a gift which is not delivered yet as prepared.
 
 Justification: Adds an intermediate state for gifts which are not delivered yet.
@@ -55,7 +55,7 @@ Highlights:
 * Both child and gift index are validated.
 * Handled possible errors.
 
-#### New Feature: View gifts feature (`giftlist` command)
+#### Feature: View gifts feature (`giftlist` command)
 What it does: Allows Santa to view all the gifts assigned to children.
 
 Justification: Provides a list of all assigned gifts.
@@ -66,7 +66,7 @@ Highlights:
 * Returns error messages when child or gift index does not exist.
 * Handled possible errors.
 
-#### 6. Storage Feature (childlist,giftlist and elf)
+#### Feature: Storage Feature (childlist,giftlist and elf)
 Allows Santa to access saved data(childlist,giftlist and elflist) across all sessions.
 * Implemented `Storage` class to handle saving and loading of data.
 * Stored data in format(CHILD,GIFT,ELF,TASK).
@@ -82,12 +82,11 @@ Allows Santa to access saved data(childlist,giftlist and elflist) across all ses
 
 ### Documentation
 #### UG:
-* Added sections for: `gift`, `delivery_status`, `giftlist`, `prepared`, `degift` #81
+* Added sections for: `gift`, `delivery_status`, `giftlist`, `prepared`, `degift`.
 * Added all commands to the Command Summary table
 
 #### DG:
 * Added implementation details for: add gift, remove gift, delivery_status, giftlist,storage and prepare gift features.
-#76, #95, #104, #114
 * Added sequence diagram for gift related features.
 * Added documentation and UML diagrams for Storage and Parser components in Design section.
 
